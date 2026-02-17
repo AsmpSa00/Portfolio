@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="Anhad Chawla, AI Engineer, Automation Architect, and Full-Stack Developer building autonomous systems and real-world agentic workflows.">
+    <meta name="keywords"
+        content="Anhad Chawla, AI Engineer, Automation Architect, Full-Stack Developer, LangGraph, n8n, Python, Node.js, agentic workflows">
+    <meta name="author" content="Anhad Chawla">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Anhad Chawla | AI Engineer | Automation Architect">
+    <meta property="og:description"
+        content="Do not be an endpoint, software should decide, orchestrate, and execute outcomes.">
+    <meta property="og:image" content="Assets/images/img.jpg">
+    <meta name="theme-color" content="#111111">
+
+    <title>Anhad Chawla | AI Engineer | Automation Architect | Full-Stack Developer</title>
+
+    <link rel="icon" href="Assets/images/title_icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neoBlack: '#111111',
+                        neoWhite: '#FFFDF4',
+                        neoYellow: '#F7FF47',
+                        neoBlue: '#3B82F6',
+                        neoPink: '#FF6CAB',
+                        neoGreen: '#38FF74',
+                        neoOrange: '#FF9F1C',
+                        neoRed: '#FF3A3A',
+                        neoPurple: '#965CFF'
+                    },
+                    boxShadow: {
+                        hard: '4px 4px 0 #000',
+                        hardlg: '8px 8px 0 #000',
+                        hardxl: '12px 12px 0 #000'
+                    },
+                    fontFamily: {
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            cursor: none;
+            background-color: #FFFDF4;
+            background-image:
+                radial-gradient(#00000022 1px, transparent 1px),
+                linear-gradient(to right, #e6e6e6 1px, transparent 1px),
+                linear-gradient(to bottom, #e6e6e6 1px, transparent 1px);
+            background-size: 34px 34px, 100px 100px, 100px 100px;
+        }
+
+        #cursor {
+            pointer-events: none;
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #000;
+            background: #fff;
+            border-radius: 999px;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width .15s ease, height .15s ease, transform .1s ease, background-color .2s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-hover {
+            cursor: none;
+        }
+
+        .cursor-grow {
+            width: 38px !important;
+            height: 38px !important;
+            background: #F7FF47 !important;
+        }
+
+        .text-stroke {
+            -webkit-text-stroke: 2.5px #000;
+            color: #fff;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: all .6s cubic-bezier(.2, 1, .3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-track {
+            display: inline-flex;
+            min-width: 200%;
+            animation: marquee 26s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .glitch-hover:hover {
+            animation: glitch .22s steps(2, end) infinite;
+            color: #FF3A3A;
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translate(0, 0)
+            }
+
+            25% {
+                transform: translate(1px, -1px)
+            }
+
+            50% {
+                transform: translate(-1px, 1px)
+            }
+
+            75% {
+                transform: translate(1px, 1px)
+            }
+
+            100% {
+                transform: translate(0, 0)
+            }
+        }
+
+        .skill-chip {
+            transition: transform .15s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease;
+        }
+
+        .skill-chip:hover,
+        .skill-chip:focus-visible,
+        .skill-chip.active {
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 #000;
+            background: #111;
+            color: #F7FF47;
+            outline: none;
+        }
+
+        .status {
+            font-family: 'JetBrains Mono', monospace;
+            border: 2px solid #000;
+            font-size: .72rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+        }
+
+        .status-active {
+            background: #38FF74;
+            color: #000;
+        }
+
+        .status-prod {
+            background: #3B82F6;
+            color: #fff;
+        }
+
+        .status-complete {
+            background: #F7FF47;
+            color: #000;
+        }
+
+        .header-marquee {
+            background: #3B82F6;
+            border: 2px solid #000;
+            box-shadow: 4px 4px 0 #000;
+        }
+
+        .project-img {
+            min-height: 100%;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+
+        .card-img-wrap {
+            background: #111;
+        }
+
+        @media (max-width: 1024px) {
+            body {
+                cursor: auto;
+            }
+
+            #cursor {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="font-display text-neoBlack antialiased selection:bg-neoBlack selection:text-neoYellow">
+    <div id="cursor"></div>
+
+    <div class="fixed top-0 left-0 h-2 bg-neoGreen border-b-2 border-black z-[80]" id="progressBar" style="width:0%"></div>
+
+    <header class="fixed top-0 left-0 right-0 z-50 px-4 pt-4">
+        <div class="max-w-7xl mx-auto space-y-3">
+            <nav class="bg-white border-2 border-black shadow-hard p-2 pointer-events-auto">
+                <div class="flex items-center justify-between gap-4">
+                    <a href="#home"
+                        class="cursor-hover bg-neoWhite border-2 border-black px-3 py-1 text-xl md:text-2xl font-black shadow-hard hover:bg-neoYellow transition-all hover:translate-x-1 hover:translate-y-1 hover:shadow-none">
+                        ANHAD.exe
+                    </a>
+                    <div class="hidden lg:flex gap-2">
+                        <a class="cursor-hover font-mono text-xs font-bold px-3 py-1 hover:bg-black hover:text-white" href="#about">/ABOUT</a>
+                        <a class="cursor-hover font-mono text-xs font-bold px-3 py-1 hover:bg-black hover:text-white" href="#skills">/SKILLS</a>
+                        <a class="cursor-hover font-mono text-xs font-bold px-3 py-1 hover:bg-black hover:text-white" href="#experience">/LOGS</a>
+                        <a class="cursor-hover font-mono text-xs font-bold px-3 py-1 hover:bg-black hover:text-white" href="#projects">/PROJECTS</a>
+                        <a class="cursor-hover font-mono text-xs font-bold px-3 py-1 hover:bg-black hover:text-white" href="#certs">/CERTS</a>
+                        <a class="cursor-hover font-mono text-xs font-bold px-3 py-1 bg-neoYellow border border-black hover:bg-neoPink" href="#contact">/CONTACT</a>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="header-marquee py-2 px-1">
+                <div class="marquee font-mono font-bold text-white text-xs md:text-sm">
+                    <div class="marquee-track">
+                        <span class="px-4">/// DO NOT BE AN ENDPOINT /// AGENTIC WORKFLOWS /// STATE + CONTEXT /// BUILD SYSTEMS THAT DECIDE /// AIM: SOLUTIONS ARCHITECT ///</span>
+                        <span class="px-4">/// DO NOT BE AN ENDPOINT /// AGENTIC WORKFLOWS /// STATE + CONTEXT /// BUILD SYSTEMS THAT DECIDE /// AIM: SOLUTIONS ARCHITECT ///</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="min-h-screen pt-56 md:pt-52 pb-16 px-4 flex items-center border-b-4 border-black relative overflow-hidden">
+        <div class="absolute left-[8%] top-1/3 w-16 h-16 bg-neoBlue border-4 border-black shadow-hardlg rotate-12 animate-bounce hidden lg:block"></div>
+        <div class="absolute right-[9%] bottom-1/4 w-24 h-24 bg-neoPink rounded-full border-4 border-black shadow-hardlg hidden lg:block animate-pulse"></div>
+        <div class="absolute top-24 right-8 text-[14vw] font-black opacity-5 select-none">AGENT</div>
+
+        <div class="max-w-7xl mx-auto w-full relative z-10">
+            <div class="grid lg:grid-cols-12 gap-8 items-stretch">
+                <article class="lg:col-span-8 reveal">
+                    <div class="inline-flex items-center gap-2 bg-neoWhite border-2 border-black px-3 py-1 shadow-hard mb-5 -rotate-1">
+                        <span class="w-2.5 h-2.5 bg-neoGreen border border-black rounded-full animate-pulse"></span>
+                        <span class="font-mono text-xs font-bold">SYSTEM STATUS: HIGH AGENCY / ONLINE</span>
+                    </div>
+
+                    <h1 class="text-[13vw] md:text-[8vw] leading-[0.82] font-black uppercase tracking-tighter">
+                        ANHAD<br>
+                        <span class="text-stroke">CHAWLA</span>
+                    </h1>
+
+                    <p class="mt-5 max-w-4xl bg-neoYellow border-2 border-black p-4 shadow-hard font-mono text-sm md:text-base rotate-[1deg]">
+                        <span class="font-black">AI Engineer | Automation Architect | Full-Stack Developer</span><br>
+                        A developer and Computer Science student at McMaster University passionate about building
+                        real-world AI solutions. Currently specializing in Python, Node.js, and n8n to connect Large
+                        Language Models (LLMs) with automation logic. Focused on agent design, decision flows, and
+                        shifting web interaction from imperative clicking to declarative goals. I am actively building
+                        toward becoming a Solutions Architect who designs systems end to end, from requirements to
+                        resilient production behavior.
+                    </p>
+
+                    <div class="mt-5 space-y-3 max-w-4xl">
+                        <p class="border-l-4 border-neoRed pl-4 font-mono text-sm md:text-base bg-white border-2 border-black p-4 shadow-hard">
+                            "Do not be an endpoint," software should not just pass data, it should make decisions. I build
+                            systems that understand context, manage state, and execute complex tasks autonomously.
+                        </p>
+                        <p class="border-l-4 border-neoBlue pl-4 font-mono text-sm md:text-base bg-white border-2 border-black p-4 shadow-hard">
+                            "The difference between us and AI is our power to imagine, and theirs to create."
+                        </p>
+                    </div>
+
+                    <div class="mt-7 flex flex-wrap gap-4">
+                        <a href="#projects"
+                            class="cursor-hover bg-black text-white border-2 border-black px-6 py-3 font-bold shadow-hard hover:bg-neoGreen hover:text-black hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all">
+                            VIEW SYSTEM BUILDS
+                        </a>
+                        <a href="Assets/Resume/Anhad_Chawla_Resume.pdf" download
+                            class="cursor-hover bg-neoWhite border-2 border-black px-6 py-3 font-bold shadow-hard hover:bg-neoPink hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all inline-flex items-center gap-2">
+                            <i class="ri-download-2-line"></i> DOWNLOAD RESUME
+                        </a>
+                    </div>
+                </article>
+
+                <aside class="lg:col-span-4 reveal">
+                    <div class="bg-neoWhite border-4 border-black shadow-hardlg p-5 h-full">
+                        <h2 class="font-black text-2xl uppercase mb-4">Operating Focus</h2>
+                        <div class="space-y-3 font-mono text-xs">
+                            <div class="border-2 border-black p-3 bg-neoBlue text-white">
+                                Agent design + decision orchestration
+                            </div>
+                            <div class="border-2 border-black p-3 bg-neoGreen">
+                                LLMs + automation as executable systems
+                            </div>
+                            <div class="border-2 border-black p-3 bg-neoOrange">
+                                Context memory + stateful workflows
+                            </div>
+                            <div class="border-2 border-black p-3 bg-neoPink">
+                                Imperative clicks to declarative goals
+                            </div>
+                            <div class="border-2 border-black p-3 bg-neoYellow">
+                                Career target, Solutions Architect
+                            </div>
+                        </div>
+                        <div class="mt-4 border-2 border-black p-3 bg-black text-neoYellow font-mono text-xs">
+                            STACK: Python, Node.js, n8n, LangGraph, GCP, Twilio, FastAPI
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto bg-white border-4 border-black shadow-hardlg p-6 md:p-10 reveal">
+            <div class="grid md:grid-cols-12 gap-8 items-center">
+                <div class="md:col-span-4">
+                    <div class="aspect-square border-4 border-black shadow-hard overflow-hidden relative">
+                        <img src="Assets/images/img.jpg" alt="Anhad Chawla" class="w-full h-full object-cover">
+                        <span
+                            class="absolute top-2 left-2 bg-neoRed text-white border-2 border-black px-2 py-1 font-mono text-xs font-bold">PROFILE.PNG</span>
+                    </div>
+                </div>
+                <div class="md:col-span-8">
+                    <h2 class="text-5xl md:text-6xl font-black uppercase tracking-tight">Core Build Thesis</h2>
+                    <p class="mt-4 font-mono text-sm md:text-base">
+                        I design systems that take messy human intent, map it into executable state machines, and ship
+                        outcomes without babysitting. The game is not UI clicks, the game is context, memory, and
+                        reliable decision logic.
+                    </p>
+                    <div class="mt-6 grid sm:grid-cols-2 gap-3 font-mono text-xs">
+                        <div class="border-2 border-black p-3 bg-neoYellow">School: McMaster University (Computer Science)</div>
+                        <div class="border-2 border-black p-3 bg-neoGreen">Location: Hamilton, ON / Brampton, ON</div>
+                        <div class="border-2 border-black p-3 bg-neoBlue text-white">Mode: Hybrid + Remote collaboration</div>
+                        <div class="border-2 border-black p-3 bg-neoPink">Approach: Fast iterations + technical rigor</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-20 bg-neoBlack text-neoWhite border-y-4 border-black relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20"
+            style="background-image: linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px); background-size: 36px 36px;">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="flex flex-col lg:flex-row justify-between gap-4 mb-8 border-b-4 border-white pb-4 reveal">
+                <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter">Technical Skills <span
+                        class="text-neoGreen">Inventory</span></h2>
+                <p class="font-mono text-xs text-gray-300 max-w-xl">Hover or focus any technology in the grid to inspect capability context in real time.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-5 reveal">
+                <div class="lg:col-span-8 grid md:grid-cols-2 gap-4">
+                    <article class="border-2 border-white/30 p-4 bg-black/40">
+                        <h3 class="font-black text-xl mb-3 text-neoGreen">AI & ML</h3>
+                        <div class="flex flex-wrap gap-2 font-mono text-xs">
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="LangGraph"
+                                data-info="Advanced Agent Orchestration">LangGraph</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="RAG"
+                                data-info="Retrieval-Augmented Generation">RAG</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2"
+                                data-skill="Prompt Engineering" data-info="System prompts and tool-routing behavior">Prompt
+                                Engineering</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="LLM Deployment"
+                                data-info="OpenAI, Gemini">LLM Deployment (OpenAI, Gemini)</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="NLP"
+                                data-info="spaCy, TensorFlow">NLP (spaCy, TensorFlow)</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="Computer Vision"
+                                data-info="Vision-enabled workflow integration">Computer Vision</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2"
+                                data-skill="Agentic Workflows" data-info="State-aware autonomous chains">Agentic
+                                Workflows</button>
+                        </div>
+                    </article>
+
+                    <article class="border-2 border-white/30 p-4 bg-black/40">
+                        <h3 class="font-black text-xl mb-3 text-neoBlue">Programming Languages</h3>
+                        <div class="flex flex-wrap gap-2 font-mono text-xs">
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="Python"
+                                data-info="Pandas, NumPy, Backend">Python (Pandas, NumPy, Backend)</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="JavaScript"
+                                data-info="ES6+ modern scripting">JavaScript (ES6+)</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="TypeScript"
+                                data-info="Typed application architecture">TypeScript</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="C++"
+                                data-info="Performance-oriented systems coding">C++</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="SQL"
+                                data-info="PostgreSQL, MongoDB">SQL (PostgreSQL, MongoDB)</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="Solidity"
+                                data-info="Smart Contracts">Solidity (Smart Contracts)</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="HTML5"
+                                data-info="Semantic web interfaces">HTML5</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="CSS3"
+                                data-info="Responsive visual systems">CSS3</button>
+                        </div>
+                    </article>
+
+                    <article class="border-2 border-white/30 p-4 bg-black/40">
+                        <h3 class="font-black text-xl mb-3 text-neoPink">Frameworks & Back-end</h3>
+                        <div class="flex flex-wrap gap-2 font-mono text-xs">
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="Node.js"
+                                data-info="Runtime for scalable server logic">Node.js</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="Express.js"
+                                data-info="REST API composition">Express.js</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="React.js"
+                                data-info="Hooks, Context API, PWAs">React.js (Hooks, Context API, PWAs)</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="FastAPI"
+                                data-info="Python APIs with high throughput">FastAPI</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="REST APIs"
+                                data-info="Service contracts and integrations">REST APIs</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="n8n"
+                                data-info="Advanced Automation">n8n (Advanced Automation)</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="Twilio"
+                                data-info="SIP Trunking, Voice API">Twilio (SIP Trunking, Voice API)</button>
+                        </div>
+                    </article>
+
+                    <article class="border-2 border-white/30 p-4 bg-black/40">
+                        <h3 class="font-black text-xl mb-3 text-neoOrange">Infrastructure & Tools</h3>
+                        <div class="flex flex-wrap gap-2 font-mono text-xs">
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2"
+                                data-skill="Google Cloud Platform" data-info="GCP - BigTable, Cloud SQL">Google Cloud
+                                Platform (GCP - BigTable, Cloud SQL)</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2"
+                                data-skill="Microsoft Azure" data-info="Cloud architecture and deployment">Microsoft
+                                Azure</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="Docker"
+                                data-info="Containerization">Docker (Containerization)</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="Git/GitHub"
+                                data-info="Source control and team workflows">Git/GitHub</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="CI/CD"
+                                data-info="Automated pipelines">CI/CD</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="Playwright"
+                                data-info="Browser Automation">Playwright (Browser Automation)</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="Figma"
+                                data-info="UI/UX systems">Figma (UI/UX)</button>
+                            <button class="skill-chip border-2 border-white/20 px-3 py-2" data-skill="InfluxDB"
+                                data-info="Time-series telemetry">InfluxDB</button>
+                        </div>
+                    </article>
+                </div>
+
+                <aside class="lg:col-span-4 border-4 border-white p-5 bg-black text-neoGreen shadow-hardlg">
+                    <p class="font-mono text-xs mb-2">LIVE SKILL TELEMETRY</p>
+                    <h4 id="skillName" class="text-3xl font-black uppercase mb-2">Hover a skill</h4>
+                    <p id="skillInfo" class="font-mono text-sm text-gray-300">The panel updates with context for each technology.</p>
+                    <div class="mt-6 border-2 border-neoGreen p-3 font-mono text-xs text-neoGreen">
+                        /INTENT: Convert tool knowledge into autonomous execution logic.
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto reveal">
+            <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter text-center mb-10">Professional <span
+                    class="text-neoRed">Experience</span></h2>
+
+            <div class="relative border-l-4 border-black ml-3 md:ml-10 space-y-8">
+                <article class="relative pl-7 md:pl-14">
+                    <div class="absolute -left-[14px] top-3 w-6 h-6 bg-neoYellow border-4 border-black"></div>
+                    <div class="bg-white border-4 border-black p-5 shadow-hard hover:shadow-hardxl transition-all">
+                        <div
+                            class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 border-b-2 border-dashed border-gray-300 pb-3 mb-3">
+                            <h3 class="text-2xl md:text-3xl font-black">Google Developer Student Clubs (GDSC) McMaster University | Open Source AI Developer</h3>
+                            <span class="font-mono font-bold text-xs bg-black text-white px-2 py-1">Sept 2025 - Present | Hamilton, ON (Hybrid)</span>
+                        </div>
+                        <p class="font-mono text-sm mb-2"><strong>Role:</strong> Selected as an AI Specialist/Solution Architect for the "InterfaceAI" project.</p>
+                        <ul class="list-disc list-inside font-mono text-sm space-y-1">
+                            <li><strong>Core Project:</strong> Building a next-generation agent that revolutionizes web browsing. Shifting from "manual steps" to "final goals" using an AI Chrome extension.</li>
+                            <li><strong>Step Creator Component:</strong> Engineered an agent using LangGraph to autonomously decompose vague user intent (e.g., "book a flight") into a precise, step-by-step execution plan.</li>
+                            <li><strong>Memory AI Agent:</strong> Developed a system using Python and GCP BigTable to securely store user context and preferences (location, common tasks), enabling the agent to make intelligent assumptions and operate without repetitive prompting.</li>
+                            <li><strong>Agile Delivery:</strong> Contributing to a high-velocity team using weekly sprints, GitHub task management, and CI/CD pipelines.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="relative pl-7 md:pl-14">
+                    <div class="absolute -left-[14px] top-3 w-6 h-6 bg-neoBlue border-4 border-black"></div>
+                    <div class="bg-white border-4 border-black p-5 shadow-hard hover:shadow-hardxl transition-all">
+                        <div
+                            class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 border-b-2 border-dashed border-gray-300 pb-3 mb-3">
+                            <h3 class="text-2xl md:text-3xl font-black">NEEDPEDIA | Full-Stack Software Developer</h3>
+                            <span class="font-mono font-bold text-xs bg-black text-white px-2 py-1">May 2023 - Feb 2024 | Remote</span>
+                        </div>
+                        <ul class="list-disc list-inside font-mono text-sm space-y-1">
+                            <li>Built dynamic, full-stack applications using a Python backend and React.js frontend.</li>
+                            <li>Implemented server-side scripting with Node.js for high-efficiency data processing.</li>
+                            <li>Integrated AI-driven features to automate internal team workflows, significantly reducing manual task overhead.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="relative pl-7 md:pl-14">
+                    <div class="absolute -left-[14px] top-3 w-6 h-6 bg-neoGreen border-4 border-black"></div>
+                    <div class="bg-white border-4 border-black p-5 shadow-hard hover:shadow-hardxl transition-all">
+                        <div
+                            class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 border-b-2 border-dashed border-gray-300 pb-3 mb-3">
+                            <h3 class="text-2xl md:text-3xl font-black">IGEO Consultants | Data Analyst & UI/UX Designer</h3>
+                            <span class="font-mono font-bold text-xs bg-black text-white px-2 py-1">Sep 2022 - May 2023 | Mississauga, ON</span>
+                        </div>
+                        <ul class="list-disc list-inside font-mono text-sm space-y-1">
+                            <li><strong>Data Engineering:</strong> Utilized Python (Pandas/NumPy) for complex dataset manipulation and statistical analysis.</li>
+                            <li><strong>Visualization:</strong> Leveraged Power BI and Tableau to build interactive dashboards for strategic stakeholder decision-making.</li>
+                            <li><strong>UX/UI:</strong> Applied statistical insights to inform design choices, directly improving user engagement metrics through data-backed UI decisions.</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="py-20 bg-neoYellow border-y-4 border-black px-4">
+        <div class="max-w-7xl mx-auto reveal">
+            <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-8">Education & Academic Excellence</h2>
+            <div class="grid md:grid-cols-2 gap-5">
+                <article class="bg-white border-4 border-black p-5 shadow-hard">
+                    <h3 class="text-2xl font-black mb-2">McMaster University</h3>
+                    <p class="font-mono text-sm"><strong>Bachelor of Applied Science (B.A.Sc.) in Computer Science (Co-op).</strong> GPA: 3.92/4.0.</p>
+                    <p class="font-mono text-sm mt-2">Focused on Software Testing, Mathematical Models, Algorithms & Data Structures, Computational Theory, and Software Security.</p>
+                </article>
+                <article class="bg-white border-4 border-black p-5 shadow-hard">
+                    <h3 class="text-2xl font-black mb-2">St. Marguerite d'Youville Secondary School</h3>
+                    <p class="font-mono text-sm"><strong>Ontario Secondary School Diploma (OSSD).</strong></p>
+                    <p class="font-mono text-sm mt-2">Honor Roll student with a 90%+ average.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-20 px-4 bg-neoBlack text-white border-y-4 border-black">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-5xl md:text-8xl font-black uppercase tracking-tighter mb-10 reveal">Major Technical <span
+                    class="text-neoGreen">Projects</span></h2>
+
+            <div class="grid gap-8">
+                <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden">
+                    <div class="grid lg:grid-cols-12">
+                        <div class="lg:col-span-4 border-b-4 lg:border-b-0 lg:border-r-4 border-black card-img-wrap">
+                            <img src="Assets/images/projects/AI-MER.png" alt="AI-MER autonomous matchmaking ecosystem" class="project-img">
+                        </div>
+                        <div class="lg:col-span-8 p-5 md:p-6">
+                            <div class="flex flex-wrap items-start justify-between gap-3">
+                                <h3 class="text-3xl font-black glitch-hover">AI-MER: Autonomous Matchmaking Ecosystem</h3>
+                                <span class="status status-active">Status: Active</span>
+                            </div>
+                            <p class="mt-3 font-mono text-sm"><strong>The Problem:</strong> Solving dating fatigue by eliminating manual swiping and ghosting.</p>
+                            <p class="font-mono text-sm"><strong>The Architecture:</strong> Built a "Digital Twin" system where AI agents represent users.</p>
+                            <ul class="mt-3 list-disc list-inside font-mono text-sm space-y-1">
+                                <li><strong>Voice-First Onboarding:</strong> Users engage with an Interaction Engine powered by ElevenLabs and Gemini to capture authentic personality, tonal nuances, and core values.</li>
+                                <li><strong>Data Persistence:</strong> Transcription and metadata are stored in MongoDB Atlas as the primary source of truth for agent initialization.</li>
+                                <li><strong>The Agent Lounge:</strong> Developed a simulation environment where two Gemini instances engage in goal-conditioned, rapid-fire dialogue to test compatibility in seconds.</li>
+                                <li><strong>Real-Time Telemetry Engine:</strong> Engineered a custom scoring engine using Exponential Moving Average (EMA) smoothing (alpha=0.3) to stabilize the compatibility trend throughout the 180s simulation.</li>
+                                <li><strong>Compatibility Model:</strong> A weighted system evaluating four pillars: Profile Embeddings (30%), Personality/Big-Five traits (25%), Emotional Flow/Sentiment (25%), and Topic Alignment (20%).</li>
+                            </ul>
+                            <div class="mt-4 flex flex-wrap gap-2 font-mono text-xs font-bold">
+                                <span class="border-2 border-black px-2 py-1 bg-neoYellow">Python</span>
+                                <span class="border-2 border-black px-2 py-1 bg-neoYellow">Gemini API</span>
+                                <span class="border-2 border-black px-2 py-1 bg-neoYellow">ElevenLabs</span>
+                                <span class="border-2 border-black px-2 py-1 bg-neoYellow">MongoDB Atlas</span>
+                                <span class="border-2 border-black px-2 py-1 bg-neoYellow">Node.js</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden">
+                    <div class="grid lg:grid-cols-12">
+                        <div class="lg:col-span-4 lg:order-2 border-b-4 lg:border-b-0 lg:border-l-4 border-black card-img-wrap">
+                            <img src="Assets/images/projects/ai_voice.png" alt="Production AI voice agent dashboard" class="project-img object-center">
+                        </div>
+                        <div class="lg:col-span-8 lg:order-1 p-5 md:p-6">
+                            <div>
+                                <h3 class="text-3xl font-black glitch-hover">Production AI Voice Agent for Restaurants</h3>
+                                <div class="mt-2">
+                                    <span class="status status-prod">Status: In Production</span>
+                                </div>
+                            </div>
+                            <p class="mt-3 font-mono text-sm"><strong>Functionality:</strong> An end-to-end autonomous agent that handles live phone orders, summarizes them, and sends real-time confirmations via SMS/WhatsApp.</p>
+                            <ul class="mt-3 list-disc list-inside font-mono text-sm space-y-1">
+                                <li><strong>Infrastructure:</strong> Configured Twilio SIP Trunking with termination/origination URIs for voice line stability.</li>
+                                <li><strong>Agent Logic:</strong> Built a multi-state agent in Retell AI, trained on specific restaurant menus (proteins, toppings, sizes) and programmed to ask clarifying questions rather than just reciting information.</li>
+                                <li><strong>Workflow Automation:</strong> Orchestrated a pipeline in n8n where a post-call webhook triggers an OpenAI summary, validates the order details, and fires an automated text via Twilio.</li>
+                            </ul>
+                            <div class="mt-4 flex flex-wrap gap-2 font-mono text-xs font-bold">
+                                <span class="border-2 border-black px-2 py-1 bg-neoBlue text-white">Python</span>
+                                <span class="border-2 border-black px-2 py-1 bg-neoBlue text-white">Retell AI</span>
+                                <span class="border-2 border-black px-2 py-1 bg-neoBlue text-white">n8n</span>
+                                <span class="border-2 border-black px-2 py-1 bg-neoBlue text-white">Twilio</span>
+                                <span class="border-2 border-black px-2 py-1 bg-neoBlue text-white">OpenAI GPT-4</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden">
+                    <div class="grid lg:grid-cols-12">
+                        <div class="lg:col-span-4 border-b-4 lg:border-b-0 lg:border-r-4 border-black card-img-wrap">
+                            <img src="Assets/images/projects/geo_track.png" alt="Geospatial imaging and satellite tracking software" class="project-img">
+                        </div>
+                        <div class="lg:col-span-8 p-5 md:p-6">
+                            <div class="flex flex-wrap items-start justify-between gap-3">
+                                <h3 class="text-3xl font-black glitch-hover">Geospatial Imaging & Satellite Tracking Software</h3>
+                                <span class="status status-complete">Status: Completed</span>
+                            </div>
+                            <p class="mt-3 font-mono text-sm"><strong>Functionality:</strong> A high-throughput web application for real-time satellite positioning and environmental data retrieval.</p>
+                            <ul class="mt-3 list-disc list-inside font-mono text-sm space-y-1">
+                                <li><strong>Backend:</strong> Developed with Node.js and Express, handling complex API routes for live telemetry and positional data.</li>
+                                <li><strong>Frontend:</strong> Built a custom satellite map interface using Mapping APIs and HTML/CSS, allowing users to draw Areas of Interest (AOI) to fetch synchronized weather data and track orbital paths in real time.</li>
+                            </ul>
+                            <div class="mt-4 flex flex-wrap gap-2 font-mono text-xs font-bold">
+                                <span class="border-2 border-black px-2 py-1 bg-neoGreen">Node.js</span>
+                                <span class="border-2 border-black px-2 py-1 bg-neoGreen">Express</span>
+                                <span class="border-2 border-black px-2 py-1 bg-neoGreen">JavaScript</span>
+                                <span class="border-2 border-black px-2 py-1 bg-neoGreen">Weather APIs</span>
+                                <span class="border-2 border-black px-2 py-1 bg-neoGreen">Satellite Telemetry APIs</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden">
+                    <div class="grid lg:grid-cols-12">
+                        <div class="lg:col-span-4 border-b-4 lg:border-b-0 lg:border-r-4 border-black card-img-wrap">
+                            <img src="Assets/images/projects/ai_chat.png" alt="AI-powered restaurant chatbot system" class="project-img">
+                        </div>
+                        <div class="lg:col-span-8 p-5 md:p-6">
+                            <div class="flex flex-wrap items-start justify-between gap-3">
+                                <h3 class="text-3xl font-black glitch-hover">AI-Powered Restaurant Chatbot System</h3>
+                                <span class="status status-complete">Status: Completed</span>
+                            </div>
+                            <p class="mt-3 font-mono text-sm"><strong>Functionality:</strong> An intelligent NLP-driven chatbot that manages complex food preferences and dietary restrictions to provide personalized recommendations.</p>
+                            <ul class="mt-3 list-disc list-inside font-mono text-sm space-y-1">
+                                <li><strong>NLP Engine:</strong> Built custom models using TensorFlow and spaCy for high-accuracy intent recognition.</li>
+                                <li><strong>Architecture:</strong> Developed a Node.js backend for API management and used MongoDB for scalable conversation logging and user preference tracking.</li>
+                            </ul>
+                            <div class="mt-4 flex flex-wrap gap-2 font-mono text-xs font-bold">
+                                <span class="border-2 border-black px-2 py-1 bg-neoPink">React.js</span>
+                                <span class="border-2 border-black px-2 py-1 bg-neoPink">Node.js</span>
+                                <span class="border-2 border-black px-2 py-1 bg-neoPink">TensorFlow</span>
+                                <span class="border-2 border-black px-2 py-1 bg-neoPink">spaCy</span>
+                                <span class="border-2 border-black px-2 py-1 bg-neoPink">MongoDB</span>
+                                <span class="border-2 border-black px-2 py-1 bg-neoPink">REST APIs</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden">
+                    <div class="grid lg:grid-cols-12">
+                        <div class="lg:col-span-4 border-b-4 lg:border-b-0 lg:border-r-4 border-black card-img-wrap">
+                            <img src="Assets/images/projects/furious_formula.gif" alt="Furious Formula NFT automation" class="project-img">
+                        </div>
+                        <div class="lg:col-span-8 p-5 md:p-6">
+                            <div class="flex flex-wrap items-start justify-between gap-3">
+                                <h3 class="text-3xl font-black glitch-hover">Furious Formula NFT Automation</h3>
+                                <span class="status status-complete">Status: Completed</span>
+                            </div>
+                            <ul class="mt-3 list-disc list-inside font-mono text-sm space-y-1">
+                                <li><strong>Automation:</strong> Authored Python scripts for the dynamic, algorithmic generation of thousands of unique digital assets based on complex trait layers and rarity weights.</li>
+                                <li><strong>Blockchain Integration:</strong> Engineered the end-to-end minting pipeline by integrating digital assets with Solana smart contracts (written in Solidity), ensuring secure and efficient distribution.</li>
+                            </ul>
+                            <div class="mt-4 flex flex-wrap gap-2 font-mono text-xs font-bold">
+                                <span class="border-2 border-black px-2 py-1 bg-neoOrange">Python</span>
+                                <span class="border-2 border-black px-2 py-1 bg-neoOrange">Solidity</span>
+                                <span class="border-2 border-black px-2 py-1 bg-neoOrange">Solana CLI</span>
+                                <span class="border-2 border-black px-2 py-1 bg-neoOrange">Digital Asset Management</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="certs" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto reveal">
+            <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-8">Licenses & Certifications</h2>
+            <div class="grid md:grid-cols-2 gap-5">
+                <article class="bg-white border-4 border-black p-5 shadow-hard">
+                    <div class="flex items-start gap-4">
+                        <img src="Assets/images/certificates/Azure%20Fundamentals.png" alt="Azure Fundamentals certificate" class="w-20 h-20 border-2 border-black object-cover">
+                        <div>
+                            <h3 class="text-xl font-black">Microsoft Certified: Azure Fundamentals (AZ-900)</h3>
+                            <p class="font-mono text-sm mt-2">Gained mastery in cloud computing concepts, Azure architectural components, and core services. Prepared to design and deploy scalable cloud-native applications with an emphasis on security and governance.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="bg-white border-4 border-black p-5 shadow-hard">
+                    <div class="flex items-start gap-4">
+                        <img src="Assets/images/certificates/React%20Certficate.jpg" alt="React Developer certificate" class="w-20 h-20 border-2 border-black object-cover">
+                        <div>
+                            <h3 class="text-xl font-black">React Developer (Udemy Masterclass)</h3>
+                            <p class="font-mono text-sm mt-2">Built enterprise-level React applications. Expertise includes Hooks, Context API, Suspense, Lazy-loading, and deploying high-performance Progressive Web Apps (PWAs) integrated with Firebase.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="bg-white border-4 border-black p-5 shadow-hard">
+                    <div class="flex items-start gap-4">
+                        <img src="Assets/images/certificates/SQL%20certficate.jpg" alt="SQL certificate" class="w-20 h-20 border-2 border-black object-cover">
+                        <div>
+                            <h3 class="text-xl font-black">SQL Masterclass (Independent)</h3>
+                            <p class="font-mono text-sm mt-2">Advanced proficiency in relational database management. Expertise includes complex sorting/filtering, building efficient views, and implementing indexes to optimize database performance for high-traffic applications.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="bg-white border-4 border-black p-5 shadow-hard">
+                    <div class="flex items-start gap-4">
+                        <img src="Assets/images/certificates/Tableau%20Certificate.jpg" alt="Tableau certificate" class="w-20 h-20 border-2 border-black object-cover">
+                        <div>
+                            <h3 class="text-xl font-black">Tableau A-Z Masterclass (Independent)</h3>
+                            <p class="font-mono text-sm mt-2">Advanced data visualization and business intelligence. Developed ability to identify deep patterns in customer behavior and sales trends using complex datasets to drive stakeholder decisions.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="bg-white border-4 border-black p-5 shadow-hard">
+                    <div class="flex items-start gap-4">
+                        <img src="Assets/images/certificates/Power%20Bi%20Certficate.jpg" alt="Power BI certificate" class="w-20 h-20 border-2 border-black object-cover">
+                        <div>
+                            <h3 class="text-xl font-black">Power BI Masterclass (Independent)</h3>
+                            <p class="font-mono text-sm mt-2">Strategic data analysis and dashboard engineering. Produced actionable insights that provide competitive advantages through real-time data monitoring.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="bg-white border-4 border-black p-5 shadow-hard">
+                    <div class="flex items-start gap-4">
+                        <img src="Assets/images/certificates/Python%20Certficate_page-0001%20%281%29.jpg" alt="Python certificate" class="w-20 h-20 border-2 border-black object-cover">
+                        <div>
+                            <h3 class="text-xl font-black">Python - Programming (University of Michigan)</h3>
+                            <p class="font-mono text-sm mt-2">Solidified fundamentals in data structures, functions, and code reuse, focusing on clean, scalable, and modular software design.</p>
+                            <a href="Assets/images/certificates/Python%20Certficate.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 mt-3 text-xs font-mono font-bold border-2 border-black px-2 py-1 bg-neoYellow hover:bg-neoPink">
+                                <i class="ri-file-pdf-2-line"></i> View full Python certificate PDF
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="creative" class="py-20 px-4 bg-neoBlue border-y-4 border-black">
+        <div class="max-w-7xl mx-auto reveal">
+            <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter text-white mb-8">Additional Projects & Creative Work</h2>
+            <div class="grid md:grid-cols-2 gap-5">
+                <article class="bg-white border-4 border-black p-5 shadow-hard overflow-hidden">
+                    <div class="h-44 border-2 border-black bg-black mb-4 overflow-hidden">
+                        <img src="Assets/images/projects/build_pc.png" alt="Custom PC Architecture and Assembly" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-2xl font-black">Custom PC Architecture & Assembly</h3>
+                    <p class="font-mono text-sm mt-2"><strong>The Build:</strong> Budgeted, sourced, and assembled high-performance PC builds optimized for ML workloads and development.</p>
+                    <p class="font-mono text-sm mt-2"><strong>Technical Focus:</strong> Deep-dived into hardware component selection, thermal management, and system configuration to ensure maximum throughput for local model testing and processing.</p>
+                </article>
+
+                <article class="bg-white border-4 border-black p-5 shadow-hard overflow-hidden">
+                    <div class="h-44 border-2 border-black bg-black mb-4 overflow-hidden">
+                        <img src="Assets/images/projects/web_dev.png" alt="Web development suite projects" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-2xl font-black">Web Development Suite: IGEO Consultants & Personal Brand</h3>
+                    <p class="font-mono text-sm mt-2"><strong>Outcome:</strong> Planned, designed, and launched a series of high-performance websites, including igeoconsultants.com and igeoconstructions.com.</p>
+                    <p class="font-mono text-sm mt-2"><strong>Technical Focus:</strong> Focused on clean UI/UX, fast loading speeds, and SEO optimization. These sites serve as the professional digital footprint for a multi-million dollar consultancy.</p>
+                    <p class="font-mono text-sm mt-2"><strong>Stack:</strong> HTML5, CSS3, JavaScript, Responsive Design frameworks.</p>
+                </article>
+
+                <article class="bg-white border-4 border-black p-5 shadow-hard overflow-hidden">
+                    <div class="h-44 border-2 border-black bg-black mb-4 overflow-hidden">
+                        <img src="Assets/images/projects/vid_edit.png" alt="Content creation and video engineering" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-2xl font-black">Content Creation & Video Engineering</h3>
+                    <p class="font-mono text-sm mt-2"><strong>Experience:</strong> 4+ years of freelance and personal content production.</p>
+                    <p class="font-mono text-sm mt-2"><strong>Focus:</strong> Mastering the art of storytelling and visual communication. I use these skills to explain complex technical concepts (like AI agents and automation) to a broad audience, ensuring technical ideas are accessible and engaging.</p>
+                </article>
+
+                <article class="bg-white border-4 border-black p-5 shadow-hard overflow-hidden">
+                    <div class="h-44 border-2 border-black bg-black mb-4 overflow-hidden">
+                        <img src="Assets/images/projects/ui_design.png" alt="UI and graphic systems design" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-2xl font-black">UI/Graphic Systems Design</h3>
+                    <p class="font-mono text-sm mt-2"><strong>Scope:</strong> Developed a comprehensive library of logos, templates, thumbnails, and banners.</p>
+                    <p class="font-mono text-sm mt-2"><strong>Focus:</strong> Creating clean, consistent visual identities that support intuitive user experiences. My design philosophy is rooted in usability and brand cohesion.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="writing" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto reveal">
+            <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-8">Insights & Field Notes</h2>
+            <p class="font-mono text-sm mb-6">Technical writing, product philosophy, and long-form breakdowns.</p>
+            <div class="grid md:grid-cols-3 gap-5">
+                <article class="bg-white border-4 border-black p-5 shadow-hard">
+                    <h3 class="text-2xl font-black">Level Up Your Development Game with AI Agent Tools</h3>
+                    <p class="font-mono text-sm mt-2">Your published Medium article on how Bolt, LangGraph, and Cursor are shifting engineering velocity and workflow design.</p>
+                    <a target="_blank" rel="noopener noreferrer" href="https://medium.com/@asmpsa00/level-up-your-development-game-with-ai-agent-tools-a27981577ec6" class="inline-flex items-center gap-2 mt-3 font-mono text-xs font-bold border-2 border-black bg-neoYellow px-2 py-1 hover:bg-neoPink">
+                        <i class="ri-external-link-line"></i> Read on Medium
+                    </a>
+                </article>
+
+                <article class="bg-white border-4 border-black p-5 shadow-hard">
+                    <h3 class="text-2xl font-black">Do Not Be an Endpoint</h3>
+                    <p class="font-mono text-sm mt-2">Long-form draft ready for publishing, focused on decision ownership, context handling, and engineer leverage in the age of AI.</p>
+                    <a target="_blank" rel="noopener noreferrer" href="https://medium.com/@asmpsa00/dont-be-an-endpoint-ea200ae133fe" class="inline-flex items-center gap-2 mt-3 font-mono text-xs font-bold border-2 border-black bg-neoYellow px-2 py-1 hover:bg-neoPink">
+                        <i class="ri-external-link-line"></i> Read on Medium
+                    </a>
+                </article>
+
+                <article class="bg-white border-4 border-black p-5 shadow-hard">
+                    <h3 class="text-2xl font-black">The Junior Developer Extinction</h3>
+                    <p class="font-mono text-sm mt-2">Long-form draft ready for publishing, focused on why logic depth, systems thinking, and reliability skills now matter more than syntax volume.</p>
+                    <a target="_blank" rel="noopener noreferrer" href="https://medium.com/@asmpsa00/the-junior-developer-extinction-06792998059f" class="inline-flex items-center gap-2 mt-3 font-mono text-xs font-bold border-2 border-black bg-neoYellow px-2 py-1 hover:bg-neoPink">
+                        <i class="ri-external-link-line"></i> Read on Medium
+                    </a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 px-4 bg-neoBlack text-white border-t-4 border-black">
+        <div class="max-w-7xl mx-auto reveal">
+            <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tight">Ready to collaborate on high-agency projects? Let us build something that makes sense.</h2>
+            <div class="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4 font-mono text-sm">
+                <a href="mailto:anhad11107@gmail.com" class="cursor-hover border-2 border-white p-4 bg-white/5 hover:bg-neoGreen hover:text-black transition-colors">Email: anhad11107@gmail.com</a>
+                <a href="tel:+14378822552" class="cursor-hover border-2 border-white p-4 bg-white/5 hover:bg-neoGreen hover:text-black transition-colors">Phone: +1 437-882-2552</a>
+                <div class="border-2 border-white p-4 bg-white/5">Location: Hamilton, ON / Brampton, ON</div>
+                <a target="_blank" rel="noopener noreferrer" href="https://github.com/AsmpSa00" class="cursor-hover border-2 border-white p-4 bg-white/5 hover:bg-neoBlue transition-colors">GitHub: github.com/AsmpSa00</a>
+                <a target="_blank" rel="noopener noreferrer" href="https://linkedin.com/in/anhad-chawla" class="cursor-hover border-2 border-white p-4 bg-white/5 hover:bg-neoBlue transition-colors">LinkedIn: linkedin.com/in/anhad-chawla</a>
+                <a target="_blank" rel="noopener noreferrer" href="https://www.anhadchawla.com" class="cursor-hover border-2 border-white p-4 bg-white/5 hover:bg-neoBlue transition-colors">Website: www.anhadchawla.com</a>
+            </div>
+            <div class="mt-8">
+                <a href="Assets/Resume/Anhad_Chawla_Resume.pdf" download class="cursor-hover inline-flex items-center gap-2 bg-neoYellow text-black border-2 border-black px-6 py-3 font-bold shadow-hard hover:bg-neoPink hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all">
+                    <i class="ri-download-2-line"></i> DOWNLOAD RESUME PDF
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 text-center font-mono text-xs bg-neoWhite border-t-4 border-black">
+        Built for autonomous systems, decision logic, and real-world execution.
+    </footer>
+
+    <script>
+        const cursor = document.getElementById('cursor');
+        window.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        document.querySelectorAll('.cursor-hover, a, button').forEach((el) => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('cursor-grow'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-grow'));
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach((item) => observer.observe(item));
+
+        const skillName = document.getElementById('skillName');
+        const skillInfo = document.getElementById('skillInfo');
+        const skillChips = document.querySelectorAll('.skill-chip');
+
+        const setSkillReadout = (chip) => {
+            skillChips.forEach((node) => node.classList.remove('active'));
+            chip.classList.add('active');
+            skillName.textContent = chip.dataset.skill;
+            skillInfo.textContent = chip.dataset.info;
+        };
+
+        skillChips.forEach((chip) => {
+            chip.addEventListener('mouseenter', () => setSkillReadout(chip));
+            chip.addEventListener('focus', () => setSkillReadout(chip));
+            chip.addEventListener('click', () => setSkillReadout(chip));
+        });
+
+        const progressBar = document.getElementById('progressBar');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = pct + '%';
+        });
+    </script>
+</body>
+
+</html>

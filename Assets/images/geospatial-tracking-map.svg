@@ -1,0 +1,14 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="720" fill="#071026"/>
+<rect x="48" y="42" width="1104" height="636" rx="20" fill="#0D1D41" stroke="#66D1FF" stroke-opacity="0.4"/>
+<text x="120" y="118" fill="#D9F4FF" font-size="38" font-family="Arial, sans-serif">Geospatial Imaging & Satellite Tracking</text>
+<rect x="112" y="158" width="976" height="462" rx="16" fill="#0B1734" stroke="#7EFDC9" stroke-opacity="0.42"/>
+<path d="M160 238C280 176 372 322 468 264C560 210 664 326 748 286C842 240 918 300 1040 234" stroke="#66D1FF" stroke-width="6"/>
+<path d="M160 426C252 358 360 434 460 390C582 336 678 434 766 398C860 362 966 432 1040 380" stroke="#56E8BC" stroke-width="6"/>
+<rect x="208" y="282" width="156" height="108" rx="10" fill="#FFC96A" fill-opacity="0.2" stroke="#FFC96A"/>
+<text x="222" y="336" fill="#FFE7BA" font-size="21" font-family="Arial, sans-serif">AOI</text>
+<circle cx="744" cy="242" r="14" fill="#FFC96A"/>
+<circle cx="936" cy="364" r="14" fill="#FFC96A"/>
+<circle cx="514" cy="442" r="14" fill="#FFC96A"/>
+<text x="120" y="660" fill="#93C6FF" font-size="24" font-family="Arial, sans-serif">Live Telemetry + Weather Sync + Orbital Path Tracking</text>
+</svg>

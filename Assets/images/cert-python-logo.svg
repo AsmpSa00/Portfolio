@@ -1,0 +1,6 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="120" height="120" rx="18" fill="#0F1A37"/>
+<path d="M60 24C46 24 40 31 40 43V53H60V57H30C24 57 20 63 20 71C20 79 24 89 30 89H42V71C42 60 51 52 62 52H80C88 52 94 46 94 38V34C94 26 87 24 80 24H60Z" fill="#3E7EC3"/>
+<path d="M60 96C74 96 80 89 80 77V67H60V63H90C96 63 100 57 100 49C100 41 96 31 90 31H78V49C78 60 69 68 58 68H40C32 68 26 74 26 82V86C26 94 33 96 40 96H60Z" fill="#FFCB53"/>
+<text x="60" y="108" text-anchor="middle" fill="#D7EEFF" font-size="14" font-family="Arial, sans-serif">Python</text>
+</svg>

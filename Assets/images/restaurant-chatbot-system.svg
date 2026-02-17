@@ -1,0 +1,17 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="720" fill="#071026"/>
+<rect x="48" y="42" width="1104" height="636" rx="20" fill="#0D1D41" stroke="#66D1FF" stroke-opacity="0.4"/>
+<text x="130" y="120" fill="#D9F4FF" font-size="38" font-family="Arial, sans-serif">AI-Powered Restaurant Chatbot</text>
+<text x="130" y="158" fill="#93C6FF" font-size="24" font-family="Arial, sans-serif">TensorFlow + spaCy + Node.js + MongoDB</text>
+<rect x="130" y="210" width="940" height="124" rx="16" fill="#0B1734" stroke="#56E8BC" stroke-opacity="0.45"/>
+<text x="164" y="272" fill="#D9F4FF" font-size="24" font-family="Arial, sans-serif">Intent: "Need gluten-free high-protein dinner under 700 calories"</text>
+<rect x="130" y="360" width="300" height="220" rx="16" fill="#0B1734" stroke="#66D1FF" stroke-opacity="0.5"/>
+<rect x="450" y="360" width="300" height="220" rx="16" fill="#0B1734" stroke="#66D1FF" stroke-opacity="0.5"/>
+<rect x="770" y="360" width="300" height="220" rx="16" fill="#0B1734" stroke="#66D1FF" stroke-opacity="0.5"/>
+<text x="162" y="408" fill="#93C6FF" font-size="20" font-family="Arial, sans-serif">Entity Extraction</text>
+<text x="482" y="408" fill="#93C6FF" font-size="20" font-family="Arial, sans-serif">Preference Logic</text>
+<text x="802" y="408" fill="#93C6FF" font-size="20" font-family="Arial, sans-serif">Recommendation</text>
+<text x="162" y="456" fill="#D9F4FF" font-size="18" font-family="Arial, sans-serif">dietary, macros, allergens</text>
+<text x="482" y="456" fill="#D9F4FF" font-size="18" font-family="Arial, sans-serif">scoring + hard constraints</text>
+<text x="802" y="456" fill="#D9F4FF" font-size="18" font-family="Arial, sans-serif">menu-ranked response set</text>
+</svg>

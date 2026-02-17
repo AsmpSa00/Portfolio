@@ -1,0 +1,7 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="120" height="120" rx="18" fill="#0F1A37"/>
+<ellipse cx="60" cy="36" rx="28" ry="12" fill="#6BD2FF"/>
+<rect x="32" y="36" width="56" height="38" fill="#3F8EC9"/>
+<ellipse cx="60" cy="74" rx="28" ry="12" fill="#5ABAEF"/>
+<text x="60" y="108" text-anchor="middle" fill="#D7EEFF" font-size="14" font-family="Arial, sans-serif">SQL</text>
+</svg>

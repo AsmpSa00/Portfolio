@@ -1,0 +1,15 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="720" fill="#071026"/>
+<rect x="48" y="40" width="1104" height="640" rx="20" fill="#0C1A3B" stroke="#59D1FF" stroke-opacity="0.45"/>
+<circle cx="268" cy="238" r="118" fill="#1D3E73"/>
+<circle cx="268" cy="238" r="73" fill="#6FE7FF" fill-opacity="0.32"/>
+<circle cx="932" cy="238" r="118" fill="#1D3E73"/>
+<circle cx="932" cy="238" r="73" fill="#6FE7FF" fill-opacity="0.32"/>
+<rect x="426" y="200" width="348" height="76" rx="14" fill="#102451" stroke="#7EFDC9" stroke-opacity="0.4"/>
+<text x="600" y="247" text-anchor="middle" fill="#D9F4FF" font-size="28" font-family="Arial, sans-serif">Agent Lounge Simulation</text>
+<rect x="160" y="416" width="880" height="172" rx="18" fill="#0B1B3D" stroke="#FFC96A" stroke-opacity="0.45"/>
+<polyline points="208,532 318,486 440,502 548,456 664,468 770,420 894,442 994,396" stroke="#7EFDC9" stroke-width="8" fill="none"/>
+<text x="190" y="456" fill="#96C8FF" font-size="22" font-family="Arial, sans-serif">EMA(alpha=0.3) Compatibility Trend</text>
+<text x="178" y="120" fill="#96C8FF" font-size="22" font-family="Arial, sans-serif">AI-MER</text>
+<text x="178" y="152" fill="#D9F4FF" font-size="36" font-family="Arial, sans-serif">Autonomous Matchmaking Ecosystem</text>
+</svg>

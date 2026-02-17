@@ -1,0 +1,16 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="720" fill="#071026"/>
+<rect x="48" y="42" width="1104" height="636" rx="20" fill="#0D1D41" stroke="#66D1FF" stroke-opacity="0.4"/>
+<text x="126" y="118" fill="#D9F4FF" font-size="38" font-family="Arial, sans-serif">Furious Formula NFT Automation</text>
+<text x="126" y="154" fill="#93C6FF" font-size="24" font-family="Arial, sans-serif">Trait Engine + Rarity Weights + Solana Mint Pipeline</text>
+<rect x="126" y="196" width="948" height="390" rx="16" fill="#0B1734" stroke="#FFC96A" stroke-opacity="0.45"/>
+<rect x="176" y="252" width="220" height="280" rx="14" fill="#14305C"/>
+<rect x="432" y="252" width="220" height="280" rx="14" fill="#1A3F75"/>
+<rect x="688" y="252" width="220" height="280" rx="14" fill="#22508F"/>
+<text x="214" y="408" fill="#D9F4FF" font-size="19" font-family="Arial, sans-serif">Trait Layer A</text>
+<text x="470" y="408" fill="#D9F4FF" font-size="19" font-family="Arial, sans-serif">Trait Layer B</text>
+<text x="726" y="408" fill="#D9F4FF" font-size="19" font-family="Arial, sans-serif">Trait Layer C</text>
+<path d="M397 392H430" stroke="#56E8BC" stroke-width="5"/>
+<path d="M653 392H686" stroke="#56E8BC" stroke-width="5"/>
+<text x="176" y="560" fill="#FFE7BA" font-size="22" font-family="Arial, sans-serif">Python generation scripts -> metadata build -> Solidity/Solana integration</text>
+</svg>
