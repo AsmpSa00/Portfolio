@@ -693,36 +693,23 @@
             <div class="grid gap-8">
                 <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden">
                     <div class="grid lg:grid-cols-12">
-                        <div class="lg:col-span-4 border-b-4 lg:border-b-0 lg:border-r-4 border-black card-img-wrap">
-                            <img src="Assets/images/switchboard demo.png" alt="Switchboard VS Code extension interface" class="project-img">
+                        <div class="lg:col-span-4 border-b-4 lg:border-b-0 lg:border-r-4 border-black card-img-wrap overflow-hidden lg:self-start">
+                            <img src="Assets/images/switchboard demo.png" alt="Switchboard VS Code extension interface" class="w-full h-80 md:h-96 lg:h-[30rem] object-cover object-top">
                         </div>
                         <div class="lg:col-span-8 p-5 md:p-6">
                             <div class="flex flex-wrap items-start justify-between gap-3">
                                 <h3 class="text-3xl font-black glitch-hover">Switchboard</h3>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="status status-active">New Project</span>
-                                    <span class="status status-prod">VS Code Extension</span>
-                                </div>
+                                <span class="status status-active">Status: New</span>
                             </div>
-                            <p class="mt-3 font-mono text-sm"><strong>Hook:</strong> Developers keep bouncing between Codex, Cursor, Claude, and Gemini because each tool has different strengths, memory, and workflow behavior. Switchboard turns them into one coordinated system inside VS Code.</p>
-                            <div class="mt-5 grid md:grid-cols-2 gap-4 font-mono text-sm">
-                                <div class="border-2 border-black p-4 bg-white">
-                                    <p class="font-black uppercase text-xs tracking-[0.18em]">Problem</p>
-                                    <p class="mt-2">Tool switching burns time, context gets repeated, sessions lose memory, and debugging multi-agent work is too opaque to trust.</p>
-                                </div>
-                                <div class="border-2 border-black p-4 bg-white">
-                                    <p class="font-black uppercase text-xs tracking-[0.18em]">Solution</p>
-                                    <p class="mt-2">Connect providers once, assign one Leader, route work to Workers, persist threads, track diffs, and visualize the full execution flow in one clean dev environment.</p>
-                                </div>
-                            </div>
+                            <p class="mt-3 font-mono text-sm"><strong>Functionality:</strong> A VS Code extension for multi-agent coding orchestration that connects tools like Codex, Cursor, Claude, and Gemini into one workflow where a single Leader plans the work and routes execution across Worker agents.</p>
                             <ul class="mt-5 list-disc list-inside font-mono text-sm space-y-2">
-                                <li><strong>Pain points addressed:</strong> tool hopping, weak memory, manual prompt engineering, no orchestration layer, poor debugging visibility, and wasted tokens from repeated context.</li>
-                                <li><strong>Core interaction:</strong> users talk only to the Leader while Switchboard handles planning, delegation, prompt routing, file tracking, and resumable thread history.</li>
-                                <li><strong>Outcome:</strong> less context thrash, cleaner specialization, faster recovery, and better trust in what changed and why.</li>
+                                <li><strong>Workflow model:</strong> users chat only with the Leader while Switchboard creates a plan, breaks work into sub-tasks, and routes the right prompts to the right worker agents.</li>
+                                <li><strong>Visibility:</strong> tracks file changes, workflow trees, and resumable thread history directly inside VS Code so debugging is visible instead of guesswork.</li>
+                                <li><strong>Value:</strong> reduces provider switching, repeated context, manual prompt routing, and token waste across sessions.</li>
                             </ul>
                             <div class="mt-5 flex flex-wrap gap-2">
                                 <a href="switchboard.html" class="cursor-hover inline-flex items-center gap-2 bg-black text-white border-2 border-black px-4 py-2 font-mono text-xs font-bold hover:bg-neoGreen hover:text-black transition-all">
-                                    <i class="ri-file-text-line"></i> LEARN MORE
+                                    <i class="ri-file-text-line"></i> PROJECT PAGE
                                 </a>
                                 <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=0JMkJXbZq0A" class="cursor-hover inline-flex items-center gap-2 bg-neoBlue text-white border-2 border-black px-4 py-2 font-mono text-xs font-bold hover:bg-black transition-all">
                                     <i class="ri-youtube-line"></i> WATCH DEMO
@@ -751,7 +738,7 @@
                                 <h3 class="text-3xl font-black glitch-hover">Campus Quest</h3>
                                 <span class="status status-complete">Hackathon Build</span>
                             </div>
-                            <p class="mt-3 font-mono text-sm"><strong>One-line summary:</strong> Campus Quest turns campus life into a persistent mobile game with QR-triggered challenges, XP, avatar progression, and Solana rewards.</p>
+                            <p class="mt-3 font-mono text-sm"><strong>Functionality:</strong> A mobile x web3 campus platform that turns student engagement into a persistent game loop with QR-triggered quests, avatar progression, and Solana rewards.</p>
                             <ul class="mt-3 list-disc list-inside font-mono text-sm space-y-1">
                                 <li><strong>Student flow:</strong> Discover location-based micro-quests, scan QR codes, submit challenge answers, and earn on-chain rewards plus avatar cosmetics.</li>
                                 <li><strong>Club flow:</strong> Publish and chain challenges across campus without needing a high-budget event model.</li>
@@ -759,7 +746,7 @@
                             </ul>
                             <div class="mt-4 flex flex-wrap gap-2">
                                 <a href="campus-quest.html" class="cursor-hover inline-flex items-center gap-2 bg-black text-white border-2 border-black px-4 py-2 font-mono text-xs font-bold hover:bg-neoGreen hover:text-black transition-all">
-                                    <i class="ri-file-text-line"></i> LEARN MORE
+                                    <i class="ri-file-text-line"></i> PROJECT PAGE
                                 </a>
                                 <a target="_blank" rel="noopener noreferrer" href="https://devpost.com/software/campus-quest" class="cursor-hover inline-flex items-center gap-2 bg-neoBlue text-white border-2 border-black px-4 py-2 font-mono text-xs font-bold hover:bg-black transition-all">
                                     <i class="ri-external-link-line"></i> VIEW DEVPOST
@@ -786,15 +773,13 @@
                                 <h3 class="text-3xl font-black glitch-hover">AI-MER: Autonomous Matchmaking Ecosystem</h3>
                                 <span class="status status-active">Status: Active</span>
                             </div>
-                            <p class="mt-3 font-mono text-sm"><strong>The Problem:</strong> Solving dating fatigue by eliminating manual swiping and ghosting.</p>
-                            <p class="font-mono text-sm"><strong>The Architecture:</strong> Built a digital twin system where AI agents represent users and simulate compatibility before real interaction.</p>
+                            <p class="mt-3 font-mono text-sm"><strong>Functionality:</strong> An autonomous matchmaking system that replaces swiping with AI-driven digital twins that simulate compatibility before real user interaction.</p>
                             <ul class="mt-3 list-disc list-inside font-mono text-sm space-y-1">
                                 <li><strong>Voice-First Onboarding:</strong> Users engage with an interaction engine powered by ElevenLabs and Gemini to capture personality, tone, and values.</li>
                                 <li><strong>Data Persistence:</strong> Transcription and metadata are stored in MongoDB Atlas as the source of truth for agent initialization.</li>
                                 <li><strong>The Agent Lounge:</strong> Gemini instances engage in rapid compatibility dialogue to test alignment before a human match is surfaced.</li>
                                 <li><strong>Telemetry Engine:</strong> A custom scoring system uses EMA smoothing to stabilize compatibility trends during simulation.</li>
                             </ul>
-                            <div class="mt-4 font-mono text-xs border-2 border-black p-3 bg-neoYellow">Demo intentionally left off the site so the repo stays pushable without committing a 1.9GB local export.</div>
                             <div class="mt-4 flex flex-wrap gap-2 font-mono text-xs font-bold">
                                 <span class="border-2 border-black px-2 py-1 bg-neoYellow">Python</span>
                                 <span class="border-2 border-black px-2 py-1 bg-neoYellow">Gemini API</span>
