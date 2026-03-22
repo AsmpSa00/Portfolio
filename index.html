@@ -212,36 +212,6 @@
             background: #111;
         }
 
-        .featured-project {
-            position: relative;
-            border-width: 6px;
-            background:
-                linear-gradient(140deg, #fff 0%, #ecfffa 45%, #eef5ff 100%);
-        }
-
-        .featured-project::before {
-            content: "";
-            position: absolute;
-            inset: 10px;
-            border: 2px dashed #000;
-            pointer-events: none;
-            opacity: 0.22;
-        }
-
-        .featured-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: .4rem;
-            border: 2px solid #000;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: .65rem;
-            font-weight: 800;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-            padding: 4px 8px;
-            background: #F7FF47;
-        }
-
         .hero-role-shell {
             display: inline-flex;
             align-items: center;
@@ -721,32 +691,20 @@
             </div>
 
             <div class="grid gap-8">
-                <article class="reveal text-black border-black shadow-hardlg overflow-hidden featured-project">
+                <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden">
                     <div class="grid lg:grid-cols-12">
-                        <div class="lg:col-span-4 border-b-4 lg:border-b-0 lg:border-r-4 border-black bg-black text-white p-5 md:p-6">
-                            <div class="featured-badge">Featured Project</div>
-                            <div class="mt-5 space-y-3 font-mono text-xs">
-                                <div class="border-2 border-white/20 p-3 bg-white/5">Connect Codex, Cursor, Claude, and Gemini in one place.</div>
-                                <div class="border-2 border-white/20 p-3 bg-neoGreen text-black">Assign one Leader. Keep the rest as Workers.</div>
-                                <div class="border-2 border-white/20 p-3 bg-white/5">Plan, route, diff, and resume threads without rebuilding context.</div>
-                                <div class="border-2 border-white/20 p-3 bg-white/5">Visual workflow tree inside VS Code for real debugging visibility.</div>
-                            </div>
-                            <div class="mt-5 border-2 border-neoGreen p-3 font-mono text-xs text-neoGreen">
-                                /RESULT: One orchestration layer instead of tool-hopping between isolated agents.
-                            </div>
+                        <div class="lg:col-span-4 border-b-4 lg:border-b-0 lg:border-r-4 border-black card-img-wrap">
+                            <img src="Assets/images/switchboard demo.png" alt="Switchboard VS Code extension interface" class="project-img">
                         </div>
-                        <div class="lg:col-span-8 p-5 md:p-7">
+                        <div class="lg:col-span-8 p-5 md:p-6">
                             <div class="flex flex-wrap items-start justify-between gap-3">
-                                <div class="flex flex-wrap items-center gap-2">
-                                    <span class="featured-badge">New Project</span>
+                                <h3 class="text-3xl font-black glitch-hover">Switchboard</h3>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="status status-active">New Project</span>
                                     <span class="status status-prod">VS Code Extension</span>
                                 </div>
-                                <span class="status status-active">Multi-Agent Orchestration</span>
                             </div>
-                            <div class="mt-4">
-                                <h3 class="text-4xl md:text-5xl font-black leading-[0.95]">Switchboard</h3>
-                                <p class="mt-3 font-mono text-sm md:text-base"><strong>Hook:</strong> Developers keep bouncing between Codex, Cursor, Claude, and Gemini because each tool is strong in a different way, but none of them coordinate cleanly together. Switchboard turns that mess into one orchestrated coding system inside VS Code.</p>
-                            </div>
+                            <p class="mt-3 font-mono text-sm"><strong>Hook:</strong> Developers keep bouncing between Codex, Cursor, Claude, and Gemini because each tool has different strengths, memory, and workflow behavior. Switchboard turns them into one coordinated system inside VS Code.</p>
                             <div class="mt-5 grid md:grid-cols-2 gap-4 font-mono text-sm">
                                 <div class="border-2 border-black p-4 bg-white">
                                     <p class="font-black uppercase text-xs tracking-[0.18em]">Problem</p>
@@ -764,7 +722,7 @@
                             </ul>
                             <div class="mt-5 flex flex-wrap gap-2">
                                 <a href="switchboard.html" class="cursor-hover inline-flex items-center gap-2 bg-black text-white border-2 border-black px-4 py-2 font-mono text-xs font-bold hover:bg-neoGreen hover:text-black transition-all">
-                                    <i class="ri-file-text-line"></i> VIEW CASE STUDY
+                                    <i class="ri-file-text-line"></i> LEARN MORE
                                 </a>
                                 <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=0JMkJXbZq0A" class="cursor-hover inline-flex items-center gap-2 bg-neoBlue text-white border-2 border-black px-4 py-2 font-mono text-xs font-bold hover:bg-black transition-all">
                                     <i class="ri-youtube-line"></i> WATCH DEMO
@@ -801,7 +759,7 @@
                             </ul>
                             <div class="mt-4 flex flex-wrap gap-2">
                                 <a href="campus-quest.html" class="cursor-hover inline-flex items-center gap-2 bg-black text-white border-2 border-black px-4 py-2 font-mono text-xs font-bold hover:bg-neoGreen hover:text-black transition-all">
-                                    <i class="ri-file-text-line"></i> VIEW CASE STUDY
+                                    <i class="ri-file-text-line"></i> LEARN MORE
                                 </a>
                                 <a target="_blank" rel="noopener noreferrer" href="https://devpost.com/software/campus-quest" class="cursor-hover inline-flex items-center gap-2 bg-neoBlue text-white border-2 border-black px-4 py-2 font-mono text-xs font-bold hover:bg-black transition-all">
                                     <i class="ri-external-link-line"></i> VIEW DEVPOST
