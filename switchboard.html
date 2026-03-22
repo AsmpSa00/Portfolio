@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Switchboard case study: a VS Code extension for multi-agent coding orchestration, memory, diff tracking, and workflow visibility.">
+    <meta name="keywords" content="Switchboard, VS Code extension, multi-agent orchestration, Codex, Cursor, Claude, Gemini, diff tracking, thread memory">
+    <meta name="author" content="Anhad Chawla">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Switchboard | VS Code Multi-Agent Orchestration">
+    <meta property="og:description" content="One Leader. Multiple Workers. Persistent threads, provider routing, real diff tracking, and visible execution trees inside VS Code.">
+    <meta property="og:image" content="Assets/images/title_icon.png">
+    <meta name="theme-color" content="#111111">
+    <title>Switchboard | Flagship Project | Anhad Chawla</title>
+
+    <link rel="icon" href="Assets/images/title_icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neoBlack: '#111111',
+                        neoWhite: '#FFFDF4',
+                        neoYellow: '#F7FF47',
+                        neoBlue: '#3B82F6',
+                        neoPink: '#FF6CAB',
+                        neoGreen: '#38FF74',
+                        neoOrange: '#FF9F1C',
+                        neoRed: '#FF3A3A'
+                    },
+                    boxShadow: {
+                        hard: '4px 4px 0 #000',
+                        hardlg: '8px 8px 0 #000',
+                        hardxl: '12px 12px 0 #000'
+                    },
+                    fontFamily: {
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FFFDF4;
+            background-image:
+                radial-gradient(#00000022 1px, transparent 1px),
+                linear-gradient(to right, #e6e6e6 1px, transparent 1px),
+                linear-gradient(to bottom, #e6e6e6 1px, transparent 1px);
+            background-size: 34px 34px, 100px 100px, 100px 100px;
+        }
+
+        .case-card {
+            border: 4px solid #000;
+            background: #fff;
+            box-shadow: 8px 8px 0 #000;
+        }
+
+        .hero-shell {
+            border: 5px solid #000;
+            box-shadow: 10px 10px 0 #000;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at top left, rgba(56, 255, 116, 0.3), transparent 28%),
+                radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.28), transparent 30%),
+                linear-gradient(135deg, #ffffff 0%, #f7fff1 42%, #edf4ff 100%);
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            border: 2px solid #000;
+            padding: .35rem .7rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .7rem;
+            font-weight: 800;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            background: #F7FF47;
+        }
+
+        .command-panel {
+            border: 4px solid #000;
+            background: linear-gradient(180deg, #0c0c0c 0%, #171717 100%);
+            color: #fff;
+            box-shadow: 8px 8px 0 #000;
+        }
+
+        .workflow-node {
+            border: 2px solid #000;
+            padding: .95rem;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.72);
+        }
+
+        .workflow-link {
+            height: 1.1rem;
+            border-left: 3px dashed #38FF74;
+            margin-left: 1rem;
+        }
+
+        .feature-tile {
+            border: 3px solid #000;
+            background: #fff;
+            box-shadow: 6px 6px 0 #000;
+            padding: 1.2rem;
+        }
+
+        .video-shell {
+            border: 4px solid #000;
+            background: #000;
+            box-shadow: 8px 8px 0 #000;
+            overflow: hidden;
+        }
+
+        .step-line {
+            position: relative;
+            padding-left: 3.25rem;
+        }
+
+        .step-line::before {
+            content: attr(data-step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2.2rem;
+            height: 2.2rem;
+            border: 2px solid #000;
+            background: #38FF74;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            box-shadow: 4px 4px 0 #000;
+        }
+    </style>
+</head>
+
+<body class="font-display text-neoBlack antialiased selection:bg-neoBlack selection:text-neoYellow">
+    <header class="sticky top-0 z-50 px-4 pt-4">
+        <div class="max-w-7xl mx-auto bg-white border-2 border-black shadow-hard p-3 flex flex-wrap items-center justify-between gap-3">
+            <a href="index.html#projects" class="inline-flex items-center gap-2 border-2 border-black px-3 py-2 font-mono text-xs font-bold hover:bg-neoYellow transition-colors">
+                <i class="ri-arrow-left-line"></i> BACK TO PROJECTS
+            </a>
+            <div class="flex flex-wrap items-center gap-2">
+                <a href="https://www.youtube.com/watch?v=0JMkJXbZq0A" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 border-2 border-black px-3 py-2 font-mono text-xs font-bold bg-neoBlue text-white hover:bg-black transition-colors">
+                    <i class="ri-youtube-line"></i> YOUTUBE
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="px-4 pb-16">
+        <section class="max-w-7xl mx-auto mt-6 hero-shell">
+            <div class="grid lg:grid-cols-12">
+                <div class="lg:col-span-7 p-6 md:p-8 border-b-4 lg:border-b-0 lg:border-r-4 border-black">
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">Flagship</span>
+                        <span class="tag bg-neoBlue text-white">VS Code Extension</span>
+                        <span class="tag bg-neoGreen">Multi-Agent Orchestration</span>
+                    </div>
+                    <h1 class="mt-5 text-4xl md:text-7xl font-black uppercase tracking-tight leading-[0.92]">Switchboard</h1>
+                    <p class="mt-5 max-w-3xl font-mono text-sm md:text-base"><strong>Positioning:</strong> a coordination layer for vibe-coding tools. Connect Codex, Cursor, Claude, and Gemini, elect exactly one Leader, assign the rest as Workers, and run the entire workflow from one chat surface inside VS Code.</p>
+                    <p class="mt-4 max-w-3xl font-mono text-sm md:text-base">Switchboard is built for the real pain of agent-heavy development: hopping between providers, losing memory across sessions, repeating context, manually re-framing prompts, and debugging work you cannot fully see.</p>
+                    <div class="mt-6 flex flex-wrap gap-2">
+                        <a href="#demo" class="inline-flex items-center gap-2 border-2 border-black px-4 py-2 font-mono text-xs font-bold bg-black text-white hover:bg-neoGreen hover:text-black transition-colors">
+                            <i class="ri-play-circle-line"></i> WATCH DEMO
+                        </a>
+                        <a href="#how-it-works" class="inline-flex items-center gap-2 border-2 border-black px-4 py-2 font-mono text-xs font-bold bg-white hover:bg-neoYellow transition-colors">
+                            <i class="ri-node-tree"></i> HOW IT WORKS
+                        </a>
+                    </div>
+                </div>
+                <div class="lg:col-span-5 p-6 md:p-8 bg-black text-white">
+                    <p class="font-mono text-xs uppercase tracking-[0.2em] text-neoGreen">Workflow Preview</p>
+                    <div class="mt-5 space-y-3">
+                        <div class="workflow-node bg-neoGreen text-black">
+                            <p class="font-mono text-xs uppercase tracking-[0.18em]">User Thread</p>
+                            <p class="font-mono text-sm mt-2">One conversation surface. No duplicated prompting across tools.</p>
+                        </div>
+                        <div class="workflow-link"></div>
+                        <div class="workflow-node bg-neoBlue">
+                            <p class="font-mono text-xs uppercase tracking-[0.18em]">Leader</p>
+                            <p class="font-mono text-sm mt-2">Plans work, decomposes scope, routes sub-tasks, merges outcomes.</p>
+                        </div>
+                        <div class="grid sm:grid-cols-3 gap-3">
+                            <div class="workflow-node bg-white text-black">
+                                <p class="font-mono text-xs uppercase tracking-[0.18em]">Worker 1</p>
+                                <p class="font-mono text-xs mt-2">Refactor</p>
+                            </div>
+                            <div class="workflow-node bg-neoPink text-black">
+                                <p class="font-mono text-xs uppercase tracking-[0.18em]">Worker 2</p>
+                                <p class="font-mono text-xs mt-2">Tests</p>
+                            </div>
+                            <div class="workflow-node bg-neoYellow text-black">
+                                <p class="font-mono text-xs uppercase tracking-[0.18em]">Worker 3</p>
+                                <p class="font-mono text-xs mt-2">Docs</p>
+                            </div>
+                        </div>
+                        <div class="grid sm:grid-cols-2 gap-3">
+                            <div class="workflow-node bg-white text-black">
+                                <p class="font-mono text-xs uppercase tracking-[0.18em] text-neoBlue">Diff Tracking</p>
+                                <p class="font-mono text-xs mt-2">See exactly which files changed and where work moved.</p>
+                            </div>
+                            <div class="workflow-node bg-white text-black">
+                                <p class="font-mono text-xs uppercase tracking-[0.18em] text-neoRed">Thread Memory</p>
+                                <p class="font-mono text-xs mt-2">Resume without restating your repo, history, or intent.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="demo" class="max-w-7xl mx-auto mt-8 grid lg:grid-cols-12 gap-6">
+            <article class="lg:col-span-8 case-card p-6 md:p-8">
+                <div>
+                    <p class="tag">Demo</p>
+                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mt-4">Public walkthrough</h2>
+                </div>
+                <p class="mt-4 font-mono text-sm">The portfolio uses the public YouTube walkthrough for Switchboard so the repo stays lightweight and pushable. The local high-resolution export is intentionally not part of the git build.</p>
+                <div class="mt-5 video-shell">
+                    <iframe class="w-full aspect-video" src="https://www.youtube-nocookie.com/embed/0JMkJXbZq0A" title="Switchboard YouTube demo" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </article>
+            <article class="lg:col-span-4 command-panel p-6 md:p-8">
+                <p class="font-mono text-xs uppercase tracking-[0.2em] text-neoGreen">Why This Matters</p>
+                <h2 class="text-3xl font-black uppercase tracking-tight mt-4">Demo strategy</h2>
+                <ul class="mt-4 list-disc list-inside font-mono text-sm text-white/80 space-y-2">
+                    <li>Public viewers get a stable, browser-friendly walkthrough.</li>
+                    <li>The portfolio repo stays compatible with standard GitHub pushes.</li>
+                    <li>The case study still shows the core product model, UX, and orchestration flow in detail.</li>
+                </ul>
+            </article>
+        </section>
+
+        <section class="max-w-7xl mx-auto mt-8 grid lg:grid-cols-2 gap-6">
+            <article class="case-card p-6 md:p-8">
+                <p class="tag">Problem</p>
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mt-4">Coding agents are powerful, but fragmented.</h2>
+                <ul class="mt-5 list-disc list-inside font-mono text-sm md:text-base space-y-2">
+                    <li>Developers bounce across Codex, Cursor, Claude, and Gemini because each one is strong at different tasks.</li>
+                    <li>Memory is inconsistent across sessions, so context gets repeated and tokens get burned restating repo state.</li>
+                    <li>Prompt engineering becomes manual routing work instead of product work.</li>
+                    <li>There is no clean orchestration layer to inspect decisions, file diffs, or task delegation.</li>
+                    <li>Debugging multi-agent runs is weak because you cannot see the full execution path in one place.</li>
+                </ul>
+            </article>
+            <article class="case-card p-6 md:p-8">
+                <p class="tag bg-neoGreen">Solution</p>
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mt-4">One Leader. Multiple Workers. Shared state.</h2>
+                <ul class="mt-5 list-disc list-inside font-mono text-sm md:text-base space-y-2">
+                    <li>Users connect their preferred providers once and assign exactly one Leader.</li>
+                    <li>The Leader owns planning, task decomposition, and worker routing.</li>
+                    <li>Workers receive the right scoped prompts for their specialty instead of full-thread overload.</li>
+                    <li>Switchboard persists thread history, remembers prior work, and exposes file-level diffs and workflow trees.</li>
+                    <li>The full system lives inside VS Code, so coding, inspection, and continuation happen in one environment.</li>
+                </ul>
+            </article>
+        </section>
+
+        <section id="how-it-works" class="max-w-7xl mx-auto mt-8 case-card p-6 md:p-8">
+            <p class="tag">How It Works</p>
+            <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mt-4">Execution flow</h2>
+            <div class="mt-6 grid lg:grid-cols-2 gap-6">
+                <div class="space-y-6">
+                    <div class="step-line" data-step="01">
+                        <h3 class="text-xl font-black">Connect providers</h3>
+                        <p class="mt-2 font-mono text-sm">Bring your existing agent stack into one extension instead of choosing a single locked-in tool.</p>
+                    </div>
+                    <div class="step-line" data-step="02">
+                        <h3 class="text-xl font-black">Assign the Leader</h3>
+                        <p class="mt-2 font-mono text-sm">Exactly one Leader owns the thread, planning logic, and delegation model.</p>
+                    </div>
+                    <div class="step-line" data-step="03">
+                        <h3 class="text-xl font-black">Talk once</h3>
+                        <p class="mt-2 font-mono text-sm">The user chats only with the Leader. No manual fan-out across tools.</p>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div class="step-line" data-step="04">
+                        <h3 class="text-xl font-black">Route sub-tasks</h3>
+                        <p class="mt-2 font-mono text-sm">The Leader breaks scope into targeted prompts and sends each one to the best Worker.</p>
+                    </div>
+                    <div class="step-line" data-step="05">
+                        <h3 class="text-xl font-black">Track diffs + workflow tree</h3>
+                        <p class="mt-2 font-mono text-sm">Every file mutation and routing branch is visible, so debugging is no longer blind.</p>
+                    </div>
+                    <div class="step-line" data-step="06">
+                        <h3 class="text-xl font-black">Resume later</h3>
+                        <p class="mt-2 font-mono text-sm">Threads remain resumable with stored history, preserving intent and eliminating repeated setup cost.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto mt-8">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                <div>
+                    <p class="tag">Feature Grid</p>
+                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mt-4">Core product surfaces</h2>
+                </div>
+                <p class="font-mono text-sm max-w-2xl">The value is not just multiple providers. The value is orchestration, visibility, and continuity wrapped in a clean editor-native workflow.</p>
+            </div>
+            <div class="mt-6 grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                <article class="feature-tile">
+                    <h3 class="text-xl font-black">Leader/Worker Model</h3>
+                    <p class="mt-3 font-mono text-sm">Strict orchestration hierarchy so planning and execution responsibilities stay legible.</p>
+                </article>
+                <article class="feature-tile">
+                    <h3 class="text-xl font-black">Provider Connections</h3>
+                    <p class="mt-3 font-mono text-sm">Bring in the agents you already trust instead of rewriting your workflow around one vendor.</p>
+                </article>
+                <article class="feature-tile">
+                    <h3 class="text-xl font-black">Persistent Memory</h3>
+                    <p class="mt-3 font-mono text-sm">Resume threads with context intact, including previous decisions, file state, and task intent.</p>
+                </article>
+                <article class="feature-tile">
+                    <h3 class="text-xl font-black">Real Diff Tracking</h3>
+                    <p class="mt-3 font-mono text-sm">Inspect exactly what changed and which agent path contributed to the edit.</p>
+                </article>
+                <article class="feature-tile">
+                    <h3 class="text-xl font-black">Workflow Trees</h3>
+                    <p class="mt-3 font-mono text-sm">Visualize branching execution so debugging and trust improve with more agents, not less.</p>
+                </article>
+                <article class="feature-tile">
+                    <h3 class="text-xl font-black">Resumable Threads</h3>
+                    <p class="mt-3 font-mono text-sm">Treat multi-agent sessions as continuing work units instead of disposable chat windows.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto mt-8 grid lg:grid-cols-12 gap-6">
+            <article class="lg:col-span-7 case-card p-6 md:p-8">
+                <p class="tag">Workflow Visualization</p>
+                <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mt-4">Built for auditable execution</h2>
+                <p class="mt-4 font-mono text-sm">Switchboard is not just another chat pane. It is an orchestration surface that shows where a plan started, how it split, which workers touched which files, and how the thread can resume without losing state.</p>
+                <div class="mt-6 grid gap-3">
+                    <div class="workflow-node bg-neoYellow">
+                        <p class="font-mono text-xs uppercase tracking-[0.18em]">Thread Root</p>
+                        <p class="font-mono text-sm mt-2">"Refactor auth flow, preserve tests, summarize diff."</p>
+                    </div>
+                    <div class="workflow-link"></div>
+                    <div class="grid md:grid-cols-3 gap-3">
+                        <div class="workflow-node bg-white">
+                            <p class="font-mono text-xs uppercase tracking-[0.18em] text-neoBlue">Leader Plan</p>
+                            <p class="font-mono text-xs mt-2">Auth split, test preservation, docs update.</p>
+                        </div>
+                        <div class="workflow-node bg-white">
+                            <p class="font-mono text-xs uppercase tracking-[0.18em] text-neoBlue">Worker Route</p>
+                            <p class="font-mono text-xs mt-2">Send code rewrite to strongest editing model.</p>
+                        </div>
+                        <div class="workflow-node bg-white">
+                            <p class="font-mono text-xs uppercase tracking-[0.18em] text-neoBlue">Review Path</p>
+                            <p class="font-mono text-xs mt-2">Ask another worker to inspect regressions.</p>
+                        </div>
+                    </div>
+                    <div class="workflow-link"></div>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="workflow-node bg-neoGreen">
+                            <p class="font-mono text-xs uppercase tracking-[0.18em]">Diff Tree</p>
+                            <p class="font-mono text-xs mt-2">Visible changed files, patch trace, and merge result.</p>
+                        </div>
+                        <div class="workflow-node bg-neoPink">
+                            <p class="font-mono text-xs uppercase tracking-[0.18em]">Resumable State</p>
+                            <p class="font-mono text-xs mt-2">Thread can be reopened later without reloading context from scratch.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="lg:col-span-5 case-card p-6 md:p-8">
+                <p class="tag">Tech Stack</p>
+                <h2 class="text-3xl font-black uppercase tracking-tight mt-4">Core stack</h2>
+                <div class="mt-5 flex flex-wrap gap-2">
+                    <span class="tag">VS Code API</span>
+                    <span class="tag">TypeScript</span>
+                    <span class="tag">Node.js</span>
+                    <span class="tag">Extension Host</span>
+                    <span class="tag">Provider SDKs</span>
+                    <span class="tag">Prompt Routing</span>
+                    <span class="tag">Thread Storage</span>
+                    <span class="tag">Diff Tracking</span>
+                    <span class="tag">Workflow Graphs</span>
+                </div>
+                <div class="mt-8 border-2 border-black p-4 bg-neoYellow">
+                    <p class="font-mono text-xs uppercase tracking-[0.18em]">Design principle</p>
+                    <p class="mt-2 font-mono text-sm">Agent UX should feel like a coordinated system, not a folder of disconnected chat tabs.</p>
+                </div>
+            </article>
+        </section>
+
+        <section class="max-w-7xl mx-auto mt-8 case-card p-6 md:p-8">
+            <p class="tag bg-neoGreen">Outcome</p>
+            <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight mt-4">What Switchboard improves</h2>
+            <div class="mt-6 grid md:grid-cols-2 xl:grid-cols-4 gap-4">
+                <div class="border-2 border-black p-4 bg-white">
+                    <h3 class="font-black text-lg">Lower token waste</h3>
+                    <p class="mt-2 font-mono text-sm">Repeated setup context gets replaced by resumable threads and shared state.</p>
+                </div>
+                <div class="border-2 border-black p-4 bg-white">
+                    <h3 class="font-black text-lg">Cleaner debugging</h3>
+                    <p class="mt-2 font-mono text-sm">Workflow visibility and diff trace make agent behavior inspectable instead of opaque.</p>
+                </div>
+                <div class="border-2 border-black p-4 bg-white">
+                    <h3 class="font-black text-lg">Better specialization</h3>
+                    <p class="mt-2 font-mono text-sm">Each provider can do the work it is best at without the user manually coordinating every handoff.</p>
+                </div>
+                <div class="border-2 border-black p-4 bg-white">
+                    <h3 class="font-black text-lg">Stronger continuity</h3>
+                    <p class="mt-2 font-mono text-sm">Sessions survive longer than a single chat window, which matters for real engineering work.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="px-4 pb-10">
+        <div class="max-w-7xl mx-auto mt-8 border-4 border-black bg-white shadow-hardlg p-5 flex flex-wrap items-center justify-between gap-3">
+            <p class="font-mono text-xs">Switchboard case study by Anhad Chawla.</p>
+            <a href="index.html#projects" class="inline-flex items-center gap-2 border-2 border-black px-3 py-2 font-mono text-xs font-bold hover:bg-neoYellow transition-colors">
+                <i class="ri-arrow-left-line"></i> RETURN TO PORTFOLIO
+            </a>
+        </div>
+    </footer>
+</body>
+
+</html>

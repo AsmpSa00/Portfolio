@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Campus Quest case study: mobile x web3 engineering, product architecture, and DeerHacks 2026 execution details.">
+    <meta name="keywords" content="Campus Quest, React Native, Expo, Solana, Web3, Node.js, MongoDB, hackathon, DeerHacks">
+    <meta name="author" content="Anhad Chawla">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Campus Quest | Mobile x Web3 Case Study">
+    <meta property="og:description" content="Turning UTM into a living innovation game world with React Native, Node.js, MongoDB, and Solana rewards.">
+    <meta property="og:image" content="Assets/images/campusquest.png">
+    <meta name="theme-color" content="#111111">
+    <title>Campus Quest | Flagship Project | Anhad Chawla</title>
+
+    <link rel="icon" href="Assets/images/title_icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neoBlack: '#111111',
+                        neoWhite: '#FFFDF4',
+                        neoYellow: '#F7FF47',
+                        neoBlue: '#3B82F6',
+                        neoPink: '#FF6CAB',
+                        neoGreen: '#38FF74',
+                        neoOrange: '#FF9F1C',
+                        neoRed: '#FF3A3A'
+                    },
+                    boxShadow: {
+                        hard: '4px 4px 0 #000',
+                        hardlg: '8px 8px 0 #000',
+                        hardxl: '12px 12px 0 #000'
+                    },
+                    fontFamily: {
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FFFDF4;
+            background-image:
+                radial-gradient(#00000022 1px, transparent 1px),
+                linear-gradient(to right, #e6e6e6 1px, transparent 1px),
+                linear-gradient(to bottom, #e6e6e6 1px, transparent 1px);
+            background-size: 34px 34px, 100px 100px, 100px 100px;
+        }
+
+        .tag {
+            border: 2px solid #000;
+            padding: 4px 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            font-weight: 700;
+            background: #F7FF47;
+        }
+
+        .section-card {
+            border: 4px solid #000;
+            background: #fff;
+            box-shadow: 8px 8px 0 #000;
+        }
+
+        .linkedin-copy {
+            border: 3px solid #000;
+            background: #111;
+            color: #F7FF47;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .82rem;
+            line-height: 1.65;
+            white-space: pre-wrap;
+        }
+
+        .video-frame {
+            border: 4px solid #000;
+            box-shadow: 8px 8px 0 #000;
+            background: #000;
+        }
+    </style>
+</head>
+
+<body class="font-display text-neoBlack antialiased selection:bg-neoBlack selection:text-neoYellow">
+    <header class="sticky top-0 z-50 px-4 pt-4">
+        <div class="max-w-7xl mx-auto bg-white border-2 border-black shadow-hard p-3 flex items-center justify-between gap-3">
+            <a href="index.html#projects" class="inline-flex items-center gap-2 border-2 border-black px-3 py-2 font-mono text-xs font-bold hover:bg-neoYellow transition-colors">
+                <i class="ri-arrow-left-line"></i> BACK TO PROJECTS
+            </a>
+            <div class="flex flex-wrap items-center gap-2">
+                <a target="_blank" rel="noopener noreferrer" href="https://devpost.com/software/campus-quest" class="inline-flex items-center gap-2 border-2 border-black px-3 py-2 font-mono text-xs font-bold bg-neoYellow hover:bg-neoPink transition-colors">
+                    <i class="ri-external-link-line"></i> DEVPOST
+                </a>
+                <a target="_blank" rel="noopener noreferrer" href="https://github.com/AsmpSa00/campus-quest" class="inline-flex items-center gap-2 border-2 border-black px-3 py-2 font-mono text-xs font-bold bg-neoBlue text-white hover:bg-black transition-colors">
+                    <i class="ri-github-fill"></i> GITHUB
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="px-4 pb-16">
+        <section class="max-w-7xl mx-auto mt-6 section-card overflow-hidden">
+            <div class="grid lg:grid-cols-12">
+                <div class="lg:col-span-5 border-b-4 lg:border-b-0 lg:border-r-4 border-black bg-black">
+                    <img src="Assets/images/campusquest.png" alt="Campus Quest product preview with map progression and gamified challenge flow" class="w-full h-full object-cover">
+                </div>
+                <div class="lg:col-span-7 p-6 md:p-8">
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <span class="tag">Flagship</span>
+                        <span class="tag bg-neoBlue text-white">Mobile x Web3</span>
+                        <span class="tag bg-neoGreen">DeerHacks V (2026)</span>
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tight leading-[0.95]">Campus Quest</h1>
+                    <p class="mt-4 font-mono text-sm md:text-base"><strong>One-line summary:</strong> CampusQuest turns your campus into a game: explore events, complete challenges, earn XP, badges, and Solana rewards, connect with clubs, and innovate campus life while having fun.</p>
+                    <p class="mt-3 font-mono text-sm md:text-base"><strong>Core framing:</strong> Turning UTM into a Living Innovation Game World. Built at DeerHacks 2026 (36-hour hackathon). Focus: Web3 + Gamification + AR + Community Impact.</p>
+                    <div class="mt-4">
+                        <h2 class="text-xl font-black uppercase">Team</h2>
+                        <ul class="mt-2 list-disc list-inside font-mono text-sm space-y-1">
+                            <li>Rizul Sharma</li>
+                            <li>Eva Rosati</li>
+                            <li>Daniel Felipe Mena Andrade</li>
+                            <li>Anhad Chawla</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto mt-8 section-card p-6 md:p-8">
+            <div class="flex flex-wrap items-start justify-between gap-4">
+                <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight">Demo Video</h2>
+                <div class="flex flex-wrap gap-2">
+                    <a href="Assets/images/Campus_Quest_demo.mov" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 border-2 border-black px-3 py-2 font-mono text-xs font-bold bg-neoYellow hover:bg-neoPink transition-colors">
+                        <i class="ri-play-circle-line"></i> OPEN .MOV
+                    </a>
+                    <a href="Assets/images/Campus_Quest_demo.mov" download class="inline-flex items-center gap-2 border-2 border-black px-3 py-2 font-mono text-xs font-bold bg-white hover:bg-neoYellow transition-colors">
+                        <i class="ri-download-2-line"></i> DOWNLOAD VIDEO
+                    </a>
+                </div>
+            </div>
+            <p class="mt-3 font-mono text-sm">Primary source is <code>.mov</code>. If your browser cannot play it reliably, use the direct open/download links above.</p>
+            <p id="videoSupportNote" class="mt-2 font-mono text-xs border-2 border-black p-2 bg-neoYellow">Browser support check loading...</p>
+            <div class="mt-4 video-frame">
+                <video id="campusQuestDemo" class="w-full h-auto max-h-[70vh]" controls preload="metadata" poster="Assets/images/campusquest.png">
+                    <source src="Assets/images/Campus_Quest_demo.mov" type="video/quicktime">
+                    <p>Your browser cannot play embedded video. Use the Open or Download buttons above.</p>
+                </video>
+            </div>
+            <p class="mt-3 font-mono text-xs">If you later export a compressed browser-friendly MP4, place it beside the MOV and wire it as an additional source.</p>
+        </section>
+
+        <section class="max-w-7xl mx-auto mt-8 grid gap-6">
+            <article class="section-card p-6 md:p-8">
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight">Inspiration</h2>
+                <p class="mt-3 font-mono text-sm md:text-base">Campus life at UTM often drives one-time event attendance: students show up once and leave with no persistent engagement loop. We wanted ongoing participation to create identity and reputation across clubs.</p>
+                <p class="mt-3 font-mono text-sm md:text-base"><strong>Problem frame:</strong> static events produce one-off attendance; challenge-based progression produces recurring curiosity, cross-club exploration, and verifiable recognition of effort.</p>
+            </article>
+
+            <article class="section-card p-6 md:p-8">
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight">What It Does</h2>
+                <div class="mt-4 grid md:grid-cols-2 gap-4">
+                    <div class="border-2 border-black p-4 bg-neoWhite">
+                        <h3 class="text-xl font-black uppercase">Student Side</h3>
+                        <ul class="mt-3 list-disc list-inside font-mono text-sm space-y-1">
+                            <li>Open app and navigate a milestone-based campus map.</li>
+                            <li>Discover club micro-quests at real campus locations.</li>
+                            <li>Scan QR codes to unlock challenges.</li>
+                            <li>Submit responses for XP and Campus Coins (Solana).</li>
+                            <li>Unlock and equip avatar cosmetics in wardrobe.</li>
+                            <li>Build a verifiable innovation identity over time.</li>
+                        </ul>
+                    </div>
+                    <div class="border-2 border-black p-4 bg-neoWhite">
+                        <h3 class="text-xl font-black uppercase">Club Side</h3>
+                        <ul class="mt-3 list-disc list-inside font-mono text-sm space-y-1">
+                            <li>Publish custom challenges without high event budget overhead.</li>
+                            <li>Chain challenges across clubs for cross-disciplinary progression.</li>
+                            <li>Track engagement quality and submission performance.</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <article class="section-card p-6 md:p-8">
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight">Innovation Chain</h2>
+                <p class="mt-3 font-mono text-sm md:text-base">Challenge chaining is the differentiator: instead of isolated tasks, students traverse a connected innovation graph across clubs and disciplines.</p>
+                <p class="mt-3 font-mono text-sm md:text-base"><strong>System effect:</strong> discovery, solve, progress, and repeat loops become persistent across campus rather than bounded by one event.</p>
+            </article>
+
+            <article class="section-card p-6 md:p-8">
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight">How We Built It</h2>
+                <div class="mt-4 grid lg:grid-cols-3 gap-4">
+                    <div class="border-2 border-black p-4 bg-neoBlue text-white">
+                        <h3 class="text-xl font-black uppercase">Frontend</h3>
+                        <ul class="mt-3 list-disc list-inside font-mono text-sm space-y-1">
+                            <li>React Native + Expo architecture.</li>
+                            <li>react-native-maps custom styled map.</li>
+                            <li>Animated pulsing quest markers + dashed trail paths.</li>
+                            <li>Milestone progression UI.</li>
+                            <li>Pixel avatar renderer (8x18 code grid, layered cosmetics).</li>
+                            <li>Real-time wardrobe preview.</li>
+                        </ul>
+                    </div>
+                    <div class="border-2 border-black p-4 bg-neoGreen">
+                        <h3 class="text-xl font-black uppercase">Backend</h3>
+                        <ul class="mt-3 list-disc list-inside font-mono text-sm space-y-1">
+                            <li>Node.js + Express REST API.</li>
+                            <li>MongoDB + Mongoose models.</li>
+                            <li>Challenge lookup, QR verification, completion recording, reward distribution.</li>
+                            <li>User profile, completed challenges, XP, Campus Coins, wardrobe, reward history.</li>
+                        </ul>
+                    </div>
+                    <div class="border-2 border-black p-4 bg-neoYellow">
+                        <h3 class="text-xl font-black uppercase">Blockchain</h3>
+                        <ul class="mt-3 list-disc list-inside font-mono text-sm space-y-1">
+                            <li>Solana devnet payouts in Lamports per challenge.</li>
+                            <li>Treasury wallet signing reward transactions.</li>
+                            <li>Reward logs with signatures + Solana Explorer URLs.</li>
+                            <li>RewardProfile tracks total lamports and completion history.</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <article class="section-card p-6 md:p-8">
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight">Challenges</h2>
+                <ul class="mt-3 list-disc list-inside font-mono text-sm md:text-base space-y-2">
+                    <li><strong>Solana wallet initialization:</strong> rent-exempt constraints and account bootstrap handling.</li>
+                    <li><strong>Pixel avatar rendering:</strong> layer ordering, transparency, and fast state updates.</li>
+                    <li><strong>QR scan debouncing:</strong> prevented repeated backend hits from rapid scan frames.</li>
+                    <li><strong>Data model bridge:</strong> merged RewardProfile (on-chain rewards) with UserProfile (app progression).</li>
+                    <li><strong>Auth0 constraints:</strong> scope/time limitations during a 36-hour build window.</li>
+                </ul>
+            </article>
+
+            <article class="section-card p-6 md:p-8">
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight">Accomplishments</h2>
+                <ul class="mt-3 list-disc list-inside font-mono text-sm md:text-base space-y-2">
+                    <li>Functional blockchain reward system shipped in 36 hours.</li>
+                    <li>Fully code-driven pixel avatar engine with no external sprite assets.</li>
+                    <li>Innovation chain model connecting club challenges.</li>
+                    <li>End-to-end flow shipped: map, profile, wardrobe, QR, blockchain rewards.</li>
+                </ul>
+            </article>
+
+            <article class="section-card p-6 md:p-8">
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight">Lessons Learned</h2>
+                <ul class="mt-3 list-disc list-inside font-mono text-sm md:text-base space-y-2">
+                    <li>Solana devnet tooling is practical for rapid prototyping.</li>
+                    <li>Behavioral design quality is as critical as technical architecture.</li>
+                    <li>Constraints can force stronger implementation creativity.</li>
+                    <li>Cross-disciplinary challenge design drives sustained engagement value.</li>
+                </ul>
+            </article>
+
+            <article class="section-card p-6 md:p-8">
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight">What's Next</h2>
+                <ul class="mt-3 list-disc list-inside font-mono text-sm md:text-base space-y-2">
+                    <li>Soulbound achievement NFTs.</li>
+                    <li>Club challenge creation dashboard.</li>
+                    <li>Collaborative multi-student quests.</li>
+                    <li>Stake-to-create mechanism for clubs.</li>
+                    <li>Seasonal challenge system with themed cosmetics.</li>
+                </ul>
+            </article>
+
+            <article class="section-card p-6 md:p-8">
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight">Bigger Vision</h2>
+                <p class="mt-3 font-mono text-sm md:text-base">Campus Quest evolves into a persistent innovation transcript visible to students, campus community, and potentially employers and graduate schools.</p>
+            </article>
+
+            <article class="section-card p-6 md:p-8">
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight">Built With</h2>
+                <div class="mt-4 flex flex-wrap gap-2">
+                    <span class="tag">expo.io</span>
+                    <span class="tag">expogo</span>
+                    <span class="tag">express.js</span>
+                    <span class="tag">figma</span>
+                    <span class="tag">git/github</span>
+                    <span class="tag">javascript</span>
+                    <span class="tag">lamports</span>
+                    <span class="tag">mongodb</span>
+                    <span class="tag">mongoose</span>
+                    <span class="tag">node.js</span>
+                    <span class="tag">python</span>
+                    <span class="tag">react-native</span>
+                    <span class="tag">react-native-maps</span>
+                    <span class="tag">rest-api</span>
+                    <span class="tag">solana</span>
+                    <span class="tag">typescript</span>
+                    <span class="tag">web3.js</span>
+                </div>
+            </article>
+
+            <article class="section-card p-6 md:p-8">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight">Copy for LinkedIn</h2>
+                    <button id="copyLinkedInBtn" type="button" class="inline-flex items-center gap-2 border-2 border-black px-3 py-2 font-mono text-xs font-bold bg-neoYellow hover:bg-neoPink transition-colors">
+                        <i class="ri-file-copy-2-line"></i> COPY POST
+                    </button>
+                </div>
+                <pre id="linkedinCopyText" class="linkedin-copy mt-4 p-4">Campus Quest: Turning Campus Life into a Live Game Map
+
+What if campus events felt less like one-time check-ins and more like a game you can keep leveling up in?
+
+Campus Quest turns UTM into a persistent mobile game world where clubs publish real challenges across campus, students scan QR codes, solve creative tasks, and earn XP, avatar cosmetics, and on-chain Solana rewards.
+Instead of static event culture, it creates an innovation loop: discover, solve, progress, repeat.
+
+Students can:
+- Explore milestone-based map nodes tied to real campus locations
+- Complete cross-club innovation quests
+- Earn Solana-powered Campus Coins and track reward transactions
+- Customize their character through a code-driven wardrobe system
+
+Clubs can:
+- Publish and chain challenges into cross-disciplinary paths
+- Drive engagement without large event budgets
+- Build a more interactive campus culture
+
+We built this at DeerHacks 2026 with an amazing team: Rizul Sharma, Eva Rosati, Daniel Felipe Mena Andrade, and me (Anhad Chawla).
+
+Tech stack:
+React Native, Expo, Expo Go, TypeScript, JavaScript, Node.js, Express.js, REST API, MongoDB, Mongoose, Solana, web3.js, Lamports, React Native Maps, Figma, Git/GitHub, Python.
+
+This project pushed us deep into mobile app architecture, behavioral product design, and real blockchain reward systems.
+If you're building mobile x Web3 products, I'd love to connect and exchange ideas.
+
+#MobileDevelopment #ReactNative #Expo #Solana #Web3 #Blockchain #Nodejs #MongoDB #TypeScript #SoftwareEngineering #UTM #DeerHacks #HackathonProject</pre>
+            </article>
+        </section>
+    </main>
+
+    <footer class="px-4 pb-10">
+        <div class="max-w-7xl mx-auto mt-8 border-4 border-black bg-white shadow-hardlg p-5 flex flex-wrap items-center justify-between gap-3">
+            <p class="font-mono text-xs">Campus Quest case study by Anhad Chawla. Built at DeerHacks V (2026).</p>
+            <a href="index.html#projects" class="inline-flex items-center gap-2 border-2 border-black px-3 py-2 font-mono text-xs font-bold hover:bg-neoYellow transition-colors">
+                <i class="ri-arrow-left-line"></i> RETURN TO PORTFOLIO
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        const copyButton = document.getElementById('copyLinkedInBtn');
+        const linkedinCopyText = document.getElementById('linkedinCopyText');
+        const videoElement = document.getElementById('campusQuestDemo');
+        const videoSupportNote = document.getElementById('videoSupportNote');
+
+        copyButton.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(linkedinCopyText.textContent);
+                copyButton.innerHTML = '<i class="ri-check-line"></i> COPIED';
+                setTimeout(() => {
+                    copyButton.innerHTML = '<i class="ri-file-copy-2-line"></i> COPY POST';
+                }, 1600);
+            } catch (err) {
+                copyButton.innerHTML = '<i class="ri-alert-line"></i> COPY FAILED';
+            }
+        });
+
+        const movSupport = videoElement.canPlayType('video/quicktime');
+        const mp4Support = videoElement.canPlayType('video/mp4');
+
+        if (movSupport) {
+            videoSupportNote.textContent = 'This browser reports .mov support. Primary .mov source should play directly.';
+        } else if (mp4Support) {
+            videoSupportNote.textContent = 'This browser may not reliably play .mov. Use the direct open or download links if playback is inconsistent.';
+        } else {
+            videoSupportNote.textContent = 'Embedded playback support is limited. Use the Open .MOV or Download Video links above.';
+        }
+    </script>
+</body>
+
+</html>
