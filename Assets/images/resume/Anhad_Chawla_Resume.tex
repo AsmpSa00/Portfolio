@@ -1,79 +1,136 @@
+%==============================================================
+%  Anhad Chawla — Technical Resume
+%  Compile with: tectonic Anhad_Chawla_Resume.tex
+%           or: pdflatex Anhad_Chawla_Resume.tex
+%==============================================================
 \documentclass[10pt]{article}
+
 \usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 \usepackage{lmodern}
-\usepackage[margin=0.4in]{geometry}
+\usepackage[margin=0.38in]{geometry}
 \usepackage{enumitem}
-\usepackage[hidelinks]{hyperref}
 \usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+
 \pagestyle{empty}
-\setlist[itemize]{leftmargin=1.4em, topsep=1pt, itemsep=1pt, parsep=0pt}
-\titleformat{\section}{\large\bfseries\scshape}{}{0em}{}[\titlerule]
-\titlespacing{\section}{0pt}{6pt}{3pt}
-\newcommand{\entry}[4]{%
-  \noindent\textbf{#1}\hfill{#2}\\%
-  \textit{#3}\hfill{#4}\par}
+\setlength{\parindent}{0pt}
+\raggedbottom
+
+% ---------- section headings: small caps + full rule ----------
+\titleformat{\section}
+  {\normalsize\scshape}{}{0em}{}[\vspace{-0.6em}\rule{\textwidth}{0.8pt}]
+\titlespacing{\section}{0pt}{5pt}{2pt}
+
+% ---------- tight bullets ----------
+\setlist[itemize]{leftmargin=1.3em, topsep=0.5pt, itemsep=0pt,
+                  parsep=0pt, label=\textbullet}
+
+% ---------- entry helpers ----------
+% \role{Organization}{Dates}{Title}
+\newcommand{\role}[3]{%
+  \vspace{1pt}%
+  \textbf{#1}\hfill{#2}\\%
+  \textit{#3}\vspace{1pt}%
+}
+% \project{Name}{Tech stack}
+\newcommand{\project}[2]{%
+  \vspace{2pt}%
+  \textbf{#1} $|$ \textit{#2}\vspace{1pt}%
+}
+
 \begin{document}
 
+%==============================================================
+%  HEADER
+%==============================================================
 \begin{center}
-{\LARGE\bfseries\scshape Anhad Chawla}\\[2pt]
-437-882-2552 | anhad11107@gmail.com\\
-www.anhadchawla.com | linkedin.com/in/anhad-chawla | github.com/AsmpSa00
+  {\LARGE\scshape\bfseries Anhad Chawla}\\[3pt]
+  437-882-2552 $|$ \href{mailto:anhad11107@gmail.com}{anhad11107@gmail.com}\\[1pt]
+  \href{https://www.anhadchawla.com}{\underline{www.anhadchawla.com}} $|$
+  \href{https://linkedin.com/in/anhad-chawla}{\underline{LinkedIn}} $|$
+  \href{https://github.com/AsmpSa00}{\underline{GitHub}}
 \end{center}
 
+%==============================================================
+%  EDUCATION
+%==============================================================
 \section{Education}
-\noindent\textbf{McMaster University}\hfill Sept 2025 -- April 2029\\
-\textit{Bachelor of Applied Science in Computer Science (Co-op)}\\
-GPA: 3.92/4.0 | Minor: Innovation
+\textbf{McMaster University}\\
+\textit{Bachelor of Applied Science in Computer Science (Co-op)}
+\begin{itemize}
+  \item \textbf{GPA:} 3.92/4.0 $|$ \textbf{Minors:} Innovation, Business $|$
+        \textbf{Coursework:} Algorithms \& Data Structures,
+        Object-Oriented Programming, Database Systems,
+        Operating Systems, Software Security.
+\end{itemize}
 
-\section{Skills}
-\noindent\textbf{AI \& Agents}: LLMs, LangGraph, Multi-Agent Systems, RAG, NLP, Information Extraction, Gemini API, ElevenLabs, n8n\\
-\noindent\textbf{Languages}: Python, TypeScript, JavaScript, C++, SQL\\
-\noindent\textbf{App / Web}: FastAPI, Node.js, Express.js, React.js, Angular, REST APIs\\
-\noindent\textbf{Cloud / Data}: GCP (BigTable, Cloud SQL), AWS, Azure, MongoDB, OpenLayers\\
-\noindent\textbf{DevOps}: Docker, GitLab CI, Git, Playwright\\
+%==============================================================
+%  TECHNICAL SKILLS
+%==============================================================
+\section{Technical Skills}
+\textbf{AI \& Agents}: LangGraph, RAG, Multi-Agent Systems, LLM Deployment (Claude, Gemini, OpenAI), NLP, n8n\\
+\textbf{Languages}: Python, TypeScript, JavaScript, C++, SQL, Solidity, HTML/CSS\\
+\textbf{App / Web}: Node.js, Express.js, FastAPI, React.js, React Native, Next.js, Angular, REST APIs, Tailwind CSS\\
+\textbf{Cloud / Data}: GCP (BigTable, Cloud SQL), AWS, Azure, PostgreSQL, MongoDB, OpenLayers, Power BI, Tableau\\
+\textbf{Developer Tools}: Docker, GitLab CI, Git, Playwright, VS Code API, App Store Connect
 
+%==============================================================
+%  EXPERIENCE
+%==============================================================
 \section{Experience}
-\entry{IGEO Consultants}{May 2026 -- Aug 2026}{AI/ML and DevOps Intern}{Mississauga, ON}
+
+\role{IGEO Consultants}{May 2026 -- Aug 2026}{AI/ML and DevOps Intern}
 \begin{itemize}
-\item Built Node.js and Python data pipelines that ingest satellite imagery reporting from commercial providers, open source feeds and social platforms, turning unstructured text and PDF reports into structured MongoDB records.
-\item Developed information extraction and summarization logic that pulls facility names, locations, quantities and dates out of raw analyst reports and resolves them to precise coordinates via a curated gazetteer with geocoding fallback.
-\item Shipped full stack features across Angular and Node.js, including an interactive OpenLayers map with clickable geospatial pins, side by side imagery comparison and place search accepting facility names or raw coordinates.
-\item Automated recurring collection with scheduled jobs, adding rate limit handling, caching and retry logic so external sources stay inside usage limits.
-\item Supported DevOps with Docker and GitLab CI, diagnosing and fixing a production build failure that would have broken the deployment pipeline.
+  \item Built \textbf{Node.js and Python data pipelines} ingesting satellite imagery reporting from commercial, open-source and social feeds, converting \textbf{unstructured text and PDF reports} into structured \textbf{MongoDB} records.
+  \item Developed \textbf{information extraction} logic resolving facilities, quantities and dates to \textbf{precise coordinates}; shipped the \textbf{Angular/OpenLayers} map and caught a \textbf{production build failure} in \textbf{Docker/GitLab CI} before it broke the pipeline.
 \end{itemize}
 
-\entry{Google Developer Student Clubs (GDSC)}{Sept 2025 -- May 2026}{Open Source AI Developer (InterfaceAI)}{Hamilton, ON}
+\role{Google Developer Student Clubs (GDSC)}{Sept 2025 -- May 2026}{Open Source AI Developer (InterfaceAI)}
 \begin{itemize}
-\item Architected a Step Creator Agent in LangGraph that converts natural language goals into executable browser trajectories, applying declarative planning and agentic reasoning over multi-step tasks.
-\item Engineered a Memory AI Agent with Python and GCP BigTable to persist user context across autonomous browser sessions, enabling stateful LLM workflows and reducing redundant setup across runs.
+  \item Architected a \textbf{Step Creator Agent} in \textbf{LangGraph} converting natural-language goals into executable browser trajectories, shifting navigation to \textbf{declarative AI planning}.
+  \item Engineered a \textbf{Memory AI Agent} with Python and \textbf{GCP BigTable} to persist user context, enabling \textbf{stateful autonomous browser sessions} across runs.
 \end{itemize}
 
-\entry{Needpedia}{May 2023 -- Feb 2024}{Software Developer}{Remote}
+\role{Needpedia}{May 2023 -- Feb 2024}{Software Developer}
 \begin{itemize}
-\item Built full stack features in Python and React.js, shipping 5+ internal tools that cut manual task overhead by 25\%.
-\item Optimized Node.js ingestion pipelines to handle 5,000+ requests/hour, improving reliability across internal data workflows.
+  \item Built full-stack features in \textbf{Python and React.js}, shipping \textbf{5+ internal tools} that cut manual task overhead by \textbf{25\%}.
+  \item Optimized \textbf{Node.js} ingestion pipelines to handle \textbf{5,000+ requests/hour}, improving reliability across internal data workflows.
 \end{itemize}
 
+%==============================================================
+%  PROJECTS
+%==============================================================
 \section{Projects}
-\noindent\textbf{Switchboard (VS Code Extension)} | \textit{TypeScript, VS Code API, Node.js, Multi-Agent Systems}\\
+
+\project{Switchboard (VS Code Extension)}{TypeScript, VS Code API, Node.js, Multi-Agent Systems}
 \begin{itemize}
-\item Built a multi-agent orchestration system that routes tasks across Codex, Cursor, Claude and Gemini through a Leader/Worker architecture, coordinating reasoning across heterogeneous models.
-\item Implemented diff tracking, workflow trees and resumable thread memory so agents can inspect file changes, delegate sub-tasks and continue sessions with persistent context.
+  \item Built a \textbf{VS Code extension} for \textbf{multi-agent coding orchestration}, connecting Codex, Cursor, Claude and Gemini through a single \textbf{Leader/Worker} workflow.
+  \item Implemented \textbf{diff tracking, workflow trees and resumable thread memory} so developers route sub-tasks and resume sessions without restating repo context.
 \end{itemize}
 
-\noindent\textbf{AI-MER (Agentic Matchmaking Platform)} | \textit{Python, Gemini API, ElevenLabs, MongoDB}
+\project{AI-MER (Agentic Matchmaking Platform)}{Python, Gemini API, ElevenLabs, MongoDB}
 \begin{itemize}
-\item Digital Twin LLM agents simulate speed dating conversations with voice first onboarding, scored by an EMA telemetry engine that smooths sentiment volatility.
+  \item Built \textbf{Digital Twin agents} that simulate speed dating conversations, with \textbf{voice-first onboarding} via ElevenLabs to capture personality traits.
+  \item Engineered an \textbf{EMA-based telemetry engine} to smooth sentiment volatility and generate \textbf{real-time compatibility scoring} across agent interactions.
 \end{itemize}
 
+%==============================================================
+%  VENTURES
+%==============================================================
 \section{Ventures}
-\noindent\textbf{Jobbler.ai} | \textit{Founder}\hfill Jul 2026 -- Present
+
+\project{Jobbler.ai}{Python, FastAPI, Next.js, TypeScript, PostgreSQL, Chrome MV3, Playwright, Claude API}
 \begin{itemize}
-\item Building an autonomous job application agent that parses postings, tailors applications and submits them without manual input, running daily in production.
+  \item Shipped a \textbf{Chrome extension (Manifest V3) published on the Chrome Web Store} that runs a \textbf{Claude-driven navigation agent} in the user's own browser, auto-filling and submitting on \textbf{Workday, Greenhouse, Lever and Ashby} with \textbf{Gmail API} receipt verification.
+  \item Own the full production stack: migrated \textbf{SQLite to PostgreSQL} for concurrent multi-user access, deployed a \textbf{Dockerized FastAPI backend on Railway} with a \textbf{Next.js frontend on Vercel}, \textbf{Google OAuth} and \textbf{live Stripe subscriptions}.
 \end{itemize}
-\noindent\textbf{SkinC} | \textit{Co-Founder}\hfill 2026 -- Present
+
+\project{SkinC (Apple App Store)}{React Native, TypeScript, Node.js, MongoDB, AWS}
 \begin{itemize}
-\item Launched an AI skin analysis app on the Apple App Store, building the full stack across mobile, backend and cloud including auth, subscriptions and AI generated reports.
+  \item Built and launched an \textbf{AI skin analysis app} with \textbf{camera-based scan onboarding}, personalized routines and a subscription experience.
+  \item Engineered the stack across \textbf{mobile, backend, cloud and App Store release}, including auth and subscriptions.
 \end{itemize}
 
 \end{document}
