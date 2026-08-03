@@ -253,12 +253,7 @@
             padding: .4rem .6rem;
         }
 
-        .hero-term-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            display: inline-block;
-        }
+        .hero-term-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 
         .hero-term-title {
             margin-left: .4rem;
@@ -317,15 +312,9 @@
         }
 
         /* ---- animated stat counters ---- */
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: .75rem;
-        }
+        .hero-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
 
-        @media (max-width: 640px) {
-            .hero-stats { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 640px) { .hero-stats { grid-template-columns: 1fr; } }
 
         .hero-stat {
             border: 2px solid #000;
@@ -442,6 +431,14 @@
                 display: none;
             }
         }
+
+        /* Track Record tabs */
+        .record-tab { background: #fff; }
+        .record-tab.active { background: #000; color: #F7FF47; transform: translate(2px, 2px); box-shadow: none; }
+
+        /* Synth pad hit flash */
+        .synth-pad { transition: transform .08s ease, box-shadow .08s ease; }
+        .synth-pad.synth-hit { transform: translate(4px, 4px) scale(.96); box-shadow: none; }
     </style>
 </head>
 
@@ -461,9 +458,9 @@
                     <div class="hidden lg:flex gap-2">
                         <a class="cursor-hover font-mono text-xs font-bold px-3 py-1 hover:bg-black hover:text-white" href="#about">/ABOUT</a>
                         <a class="cursor-hover font-mono text-xs font-bold px-3 py-1 hover:bg-black hover:text-white" href="#skills">/SKILLS</a>
-                        <a class="cursor-hover font-mono text-xs font-bold px-3 py-1 hover:bg-black hover:text-white" href="#experience">/LOGS</a>
+                        <a class="cursor-hover font-mono text-xs font-bold px-3 py-1 hover:bg-black hover:text-white" href="#record">/RECORD</a>
                         <a class="cursor-hover font-mono text-xs font-bold px-3 py-1 hover:bg-black hover:text-white" href="#projects">/PROJECTS</a>
-                        <a class="cursor-hover font-mono text-xs font-bold px-3 py-1 hover:bg-black hover:text-white" href="#certs">/CERTS</a>
+                        <a class="cursor-hover font-mono text-xs font-bold px-3 py-1 hover:bg-black hover:text-white" href="#playground">/PLAY</a>
                         <a class="cursor-hover font-mono text-xs font-bold px-3 py-1 bg-neoYellow border border-black hover:bg-neoPink" href="#contact">/CONTACT</a>
                     </div>
                 </div>
@@ -504,14 +501,14 @@
                         <span class="hero-role-cursor" aria-hidden="true"></span>
                     </div>
 
-                    <p class="mt-5 max-w-3xl bg-neoYellow border-2 border-black p-4 shadow-hard font-mono text-sm md:text-base rotate-[1deg]">
-                        <span class="font-black">CS @ McMaster.</span> I build AI agents and data systems that decide and
-                        execute, not just respond. An app on the App Store, satellite intel pipelines in production, and
-                        automations that keep working while I sleep.
+                    <p class="mt-5 max-w-2xl bg-neoYellow border-2 border-black p-4 shadow-hard font-mono text-sm md:text-base rotate-[1deg]">
+                        CS @ McMaster. I build AI agents that ship real outcomes —
+                        an app on the App Store, systems applying to jobs and taking
+                        restaurant orders while I sleep.
                     </p>
 
-                    <!-- Interactive terminal strip: chips type into the prompt, then jump to the section. -->
-                    <div class="hero-term mt-5 max-w-3xl" aria-label="Site navigation terminal">
+                    <!-- Navigation as a shell: chips type their command, then jump to the section. -->
+                    <div class="hero-term mt-5 max-w-2xl" aria-label="Site navigation terminal">
                         <div class="hero-term-bar">
                             <span class="hero-term-dot" style="background:#ff5f57"></span>
                             <span class="hero-term-dot" style="background:#febc2e"></span>
@@ -523,15 +520,15 @@
                             <span id="heroCmdText" aria-live="polite"></span><span class="hero-term-caret" aria-hidden="true"></span>
                         </div>
                         <div class="hero-term-chips">
-                            <button type="button" class="hero-chip cursor-hover" data-cmd="open ./experience" data-target="#experience">./experience</button>
+                            <button type="button" class="hero-chip cursor-hover" data-cmd="open ./record" data-target="#record">./record</button>
                             <button type="button" class="hero-chip cursor-hover" data-cmd="open ./projects" data-target="#projects">./projects</button>
                             <button type="button" class="hero-chip cursor-hover" data-cmd="open ./skills" data-target="#skills">./skills</button>
-                            <button type="button" class="hero-chip cursor-hover" data-cmd="open ./writing" data-target="#writing">./writing</button>
+                            <button type="button" class="hero-chip cursor-hover" data-cmd="run ./playground" data-target="#playground">./playground</button>
                             <button type="button" class="hero-chip cursor-hover" data-cmd="contact --now" data-target="#contact">./contact</button>
                         </div>
                     </div>
 
-                    <div class="hero-stats mt-5 max-w-3xl">
+                    <div class="hero-stats mt-5 max-w-2xl">
                         <div class="hero-stat">
                             <span class="hero-stat-num" data-count="1">0</span>
                             <span class="hero-stat-label">app live on the App Store</span>
@@ -546,11 +543,6 @@
                         </div>
                     </div>
 
-                    <p class="mt-5 max-w-3xl border-l-4 border-neoRed font-mono text-sm bg-white border-2 border-black p-4 shadow-hard">
-                        <strong>"Do not be an endpoint."</strong> Software should not just pass data through. It should hold
-                        context, manage state, and execute.
-                    </p>
-
                     <div class="mt-7 flex flex-wrap gap-4">
                         <a href="#projects"
                             class="cursor-hover bg-black text-white border-2 border-black px-6 py-3 font-bold shadow-hard hover:bg-neoGreen hover:text-black hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all">
@@ -564,27 +556,18 @@
                 </article>
 
                 <aside class="lg:col-span-4 reveal">
-                    <div class="bg-neoWhite border-4 border-black shadow-hardlg p-5 h-full">
+                    <div class="bg-neoWhite border-4 border-black shadow-hardlg p-5 h-full flex flex-col justify-center">
                         <h2 class="font-black text-2xl uppercase mb-4">Operating Focus</h2>
                         <div class="space-y-3 font-mono text-xs">
                             <div class="border-2 border-black p-3 bg-neoBlue text-white">
-                                Agent design + decision orchestration
+                                Agents that decide, not just respond
                             </div>
                             <div class="border-2 border-black p-3 bg-neoGreen">
-                                LLMs + automation as executable systems
-                            </div>
-                            <div class="border-2 border-black p-3 bg-neoOrange">
-                                Context memory + stateful workflows
-                            </div>
-                            <div class="border-2 border-black p-3 bg-neoPink">
-                                Imperative clicks to declarative goals
-                            </div>
-                            <div class="border-2 border-black p-3 bg-neoYellow">
-                                Career target, Solutions Architect
+                                Idea → production, end to end
                             </div>
                         </div>
                         <div class="mt-4 border-2 border-black p-3 bg-black text-neoYellow font-mono text-xs">
-                            STACK: Python, Node.js, n8n, LangGraph, GCP, Twilio, FastAPI
+                            STACK: Python, Node.js, LangGraph, FastAPI, GCP
                         </div>
                     </div>
                 </aside>
@@ -632,14 +615,14 @@
                 <div class="console-body" id="terminalOutput" aria-live="polite" aria-label="Animated build console"></div>
             </div>
             <aside class="lg:col-span-4 bg-white border-4 border-black shadow-hardlg p-5">
-                <p class="project-kicker">Quick Read</p>
-                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mt-4">Terminal Snapshot</h2>
-                <p class="mt-4 font-mono text-sm">A quick profile readout: what I study, what I build, and the kind of systems I want to keep shipping.</p>
+                <p class="project-kicker">Live Now</p>
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mt-4">Currently Shipping</h2>
+                <p class="mt-4 font-mono text-sm">Not concepts — systems running in production right now.</p>
                 <div class="mt-5 space-y-3 font-mono text-xs">
-                    <div class="border-2 border-black p-3 bg-neoYellow">Computer Science @ McMaster University</div>
-                    <div class="border-2 border-black p-3 bg-neoBlue text-white">Building AI, automation, voice, and full-stack systems</div>
-                    <div class="border-2 border-black p-3 bg-neoPink">Interested in product-minded engineering and real deployment</div>
-                    <div class="border-2 border-black p-3 bg-neoGreen">Career direction: Solutions Architecture</div>
+                    <div class="border-2 border-black p-3 bg-neoPink">SkinC — AI skincare app, live on the App Store</div>
+                    <div class="border-2 border-black p-3 bg-neoGreen">Jobco — autonomous job-apply agent, applying daily</div>
+                    <div class="border-2 border-black p-3 bg-neoBlue text-white">Voice agent taking real restaurant orders 24/7</div>
+                    <div class="border-2 border-black p-3 bg-neoYellow">Jarvis — a personal AI chief of staff running 5 ventures</div>
                 </div>
             </aside>
         </div>
@@ -760,9 +743,20 @@
         </div>
     </section>
 
-    <section id="experience" class="py-20 px-4">
+    <section id="record" class="py-20 px-4 border-b-4 border-black">
         <div class="max-w-7xl mx-auto reveal">
-            <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-10">Professional <span class="text-neoRed">Experience</span></h2>
+            <p class="font-mono text-xs font-bold bg-black text-neoYellow inline-block px-3 py-1 border-2 border-black -rotate-1">ONE SECTION. EVERYTHING.</p>
+            <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mt-3 mb-8">Track Record</h2>
+            <div class="flex flex-wrap gap-3 mb-10" role="tablist" aria-label="Track record categories">
+                <button class="record-tab cursor-hover border-2 border-black px-4 py-2 font-mono text-xs md:text-sm font-bold shadow-hard transition-all active" data-tab="experience">EXPERIENCE</button>
+                <button class="record-tab cursor-hover border-2 border-black px-4 py-2 font-mono text-xs md:text-sm font-bold shadow-hard transition-all" data-tab="education">EDUCATION</button>
+                <button class="record-tab cursor-hover border-2 border-black px-4 py-2 font-mono text-xs md:text-sm font-bold shadow-hard transition-all" data-tab="certs">CERTIFICATIONS</button>
+                <button class="record-tab cursor-hover border-2 border-black px-4 py-2 font-mono text-xs md:text-sm font-bold shadow-hard transition-all" data-tab="creative">CREATIVE WORK</button>
+                <button class="record-tab cursor-hover border-2 border-black px-4 py-2 font-mono text-xs md:text-sm font-bold shadow-hard transition-all" data-tab="writing">WRITING</button>
+            </div>
+            <div class="record-panel" data-panel="experience">
+        <div class="max-w-7xl mx-auto reveal">
+            
 
             <div class="relative border-l-4 border-black ml-3 md:ml-6 space-y-8">
                 <article class="relative pl-7 md:pl-14">
@@ -814,11 +808,10 @@
                 </article>
             </div>
         </div>
-    </section>
-
-    <section id="education" class="py-20 bg-neoYellow border-y-4 border-black px-4">
+    </div>
+            <div class="record-panel hidden" data-panel="education">
         <div class="max-w-7xl mx-auto reveal">
-            <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-8">Education & Academic Excellence</h2>
+            
             <div class="grid md:grid-cols-2 gap-5">
                 <article class="bg-white border-4 border-black p-5 shadow-hard">
                     <h3 class="text-2xl font-black mb-2">McMaster University</h3>
@@ -832,226 +825,10 @@
                 </article>
             </div>
         </div>
-    </section>
-
-    <section id="projects" class="py-20 px-4 bg-neoBlack text-white border-y-4 border-black">
-        <div class="max-w-7xl mx-auto">
-            <div class="mb-10 reveal">
-                <h2 class="text-5xl md:text-8xl font-black uppercase tracking-tighter">Major Technical <span class="text-neoGreen">Projects</span></h2>
-                <p class="mt-4 max-w-3xl font-mono text-sm text-white/80">Projects are laid out as full technical summaries so the core problem, architecture, stack, and links are visible without jumping through extra UI.</p>
-            </div>
-
-            <div class="grid gap-8">
-                <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden">
-                    <div class="grid lg:grid-cols-12">
-                        <div class="lg:col-span-4 border-b-4 lg:border-b-0 lg:border-r-4 border-black card-img-wrap overflow-hidden lg:self-start">
-                            <img src="Assets/images/switchboard demo.png" alt="Switchboard VS Code extension interface" class="w-full h-80 md:h-96 lg:h-[30rem] object-cover object-top">
-                        </div>
-                        <div class="lg:col-span-8 p-5 md:p-6">
-                            <div class="flex flex-wrap items-start justify-between gap-3">
-                                <h3 class="text-3xl font-black glitch-hover">Switchboard</h3>
-                                <span class="status status-active">Status: New</span>
-                            </div>
-                            <p class="mt-3 font-mono text-sm"><strong>Functionality:</strong> A VS Code extension for multi-agent coding orchestration that connects tools like Codex, Cursor, Claude, and Gemini into one workflow where a single Leader plans the work and routes execution across Worker agents.</p>
-                            <ul class="mt-5 list-disc list-inside font-mono text-sm space-y-2">
-                                <li><strong>Workflow model:</strong> users chat only with the Leader while Switchboard creates a plan, breaks work into sub-tasks, and routes the right prompts to the right worker agents.</li>
-                                <li><strong>Visibility:</strong> tracks file changes, workflow trees, and resumable thread history directly inside VS Code so debugging is visible instead of guesswork.</li>
-                                <li><strong>Value:</strong> reduces provider switching, repeated context, manual prompt routing, and token waste across sessions.</li>
-                            </ul>
-                            <div class="mt-5 flex flex-wrap gap-2">
-                                <a href="switchboard.html" class="cursor-hover inline-flex items-center gap-2 bg-black text-white border-2 border-black px-4 py-2 font-mono text-xs font-bold hover:bg-neoGreen hover:text-black transition-all">
-                                    <i class="ri-file-text-line"></i> PROJECT PAGE
-                                </a>
-                                <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=0JMkJXbZq0A" class="cursor-hover inline-flex items-center gap-2 bg-neoBlue text-white border-2 border-black px-4 py-2 font-mono text-xs font-bold hover:bg-black transition-all">
-                                    <i class="ri-youtube-line"></i> WATCH DEMO
-                                </a>
-                            </div>
-                            <div class="mt-5 flex flex-wrap gap-2 font-mono text-xs font-bold">
-                                <span class="border-2 border-black px-2 py-1 bg-neoGreen">VS Code API</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoGreen">TypeScript</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoGreen">Node.js</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoGreen">Provider Adapters</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoGreen">Thread Memory</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoGreen">Diff Tracking</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoGreen">Workflow Trees</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden">
-                    <div class="grid lg:grid-cols-12">
-                        <div class="lg:col-span-4 border-b-4 lg:border-b-0 lg:border-r-4 border-black card-img-wrap">
-                            <img src="Assets/images/campusquest.png" alt="Campus Quest mobile app interface" class="project-img">
-                        </div>
-                        <div class="lg:col-span-8 p-5 md:p-6">
-                            <div class="flex flex-wrap items-start justify-between gap-3">
-                                <h3 class="text-3xl font-black glitch-hover">Campus Quest</h3>
-                                <span class="status status-complete">Hackathon Build</span>
-                            </div>
-                            <p class="mt-3 font-mono text-sm"><strong>Functionality:</strong> A mobile x web3 campus platform that turns student engagement into a persistent game loop with QR-triggered quests, avatar progression, and Solana rewards.</p>
-                            <ul class="mt-3 list-disc list-inside font-mono text-sm space-y-1">
-                                <li><strong>Student flow:</strong> Discover location-based micro-quests, scan QR codes, submit challenge answers, and earn on-chain rewards plus avatar cosmetics.</li>
-                                <li><strong>Club flow:</strong> Publish and chain challenges across campus without needing a high-budget event model.</li>
-                                <li><strong>Stack:</strong> React Native + Expo frontend, Node.js + Express backend, MongoDB persistence, and Solana devnet reward distribution.</li>
-                            </ul>
-                            <div class="mt-4 flex flex-wrap gap-2">
-                                <a href="campus-quest.html" class="cursor-hover inline-flex items-center gap-2 bg-black text-white border-2 border-black px-4 py-2 font-mono text-xs font-bold hover:bg-neoGreen hover:text-black transition-all">
-                                    <i class="ri-file-text-line"></i> PROJECT PAGE
-                                </a>
-                                <a target="_blank" rel="noopener noreferrer" href="https://devpost.com/software/campus-quest" class="cursor-hover inline-flex items-center gap-2 bg-neoBlue text-white border-2 border-black px-4 py-2 font-mono text-xs font-bold hover:bg-black transition-all">
-                                    <i class="ri-external-link-line"></i> VIEW DEVPOST
-                                </a>
-                            </div>
-                            <div class="mt-4 flex flex-wrap gap-2 font-mono text-xs font-bold">
-                                <span class="border-2 border-black px-2 py-1 bg-neoYellow">React Native</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoYellow">Expo</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoYellow">Node.js</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoYellow">MongoDB</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoYellow">Solana</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden">
-                    <div class="grid lg:grid-cols-12">
-                        <div class="lg:col-span-4 border-b-4 lg:border-b-0 lg:border-r-4 border-black card-img-wrap">
-                            <img src="Assets/images/projects/AI-MER.png" alt="AI-MER autonomous matchmaking ecosystem" class="project-img">
-                        </div>
-                        <div class="lg:col-span-8 p-5 md:p-6">
-                            <div class="flex flex-wrap items-start justify-between gap-3">
-                                <h3 class="text-3xl font-black glitch-hover">AI-MER: Autonomous Matchmaking Ecosystem</h3>
-                                <span class="status status-active">Status: Active</span>
-                            </div>
-                            <p class="mt-3 font-mono text-sm"><strong>Functionality:</strong> An autonomous matchmaking system that replaces swiping with AI-driven digital twins that simulate compatibility before real user interaction.</p>
-                            <ul class="mt-3 list-disc list-inside font-mono text-sm space-y-1">
-                                <li><strong>Voice-First Onboarding:</strong> Users engage with an interaction engine powered by ElevenLabs and Gemini to capture personality, tone, and values.</li>
-                                <li><strong>Data Persistence:</strong> Transcription and metadata are stored in MongoDB Atlas as the source of truth for agent initialization.</li>
-                                <li><strong>The Agent Lounge:</strong> Gemini instances engage in rapid compatibility dialogue to test alignment before a human match is surfaced.</li>
-                                <li><strong>Telemetry Engine:</strong> A custom scoring system uses EMA smoothing to stabilize compatibility trends during simulation.</li>
-                            </ul>
-                            <div class="mt-4 flex flex-wrap gap-2 font-mono text-xs font-bold">
-                                <span class="border-2 border-black px-2 py-1 bg-neoYellow">Python</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoYellow">Gemini API</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoYellow">ElevenLabs</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoYellow">MongoDB Atlas</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoYellow">Node.js</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden">
-                    <div class="grid lg:grid-cols-12">
-                        <div class="lg:col-span-4 border-b-4 lg:border-b-0 lg:border-r-4 border-black card-img-wrap">
-                            <img src="Assets/images/projects/ai_voice.png" alt="Production AI voice agent dashboard" class="project-img object-center">
-                        </div>
-                        <div class="lg:col-span-8 p-5 md:p-6">
-                            <div class="flex flex-wrap items-start justify-between gap-3">
-                                <h3 class="text-3xl font-black glitch-hover">Production AI Voice Agent for Restaurants</h3>
-                                <span class="status status-prod">Status: In Production</span>
-                            </div>
-                            <p class="mt-3 font-mono text-sm"><strong>Functionality:</strong> An end-to-end autonomous agent that handles live phone orders, summarizes them, and sends real-time confirmations via SMS and WhatsApp.</p>
-                            <ul class="mt-3 list-disc list-inside font-mono text-sm space-y-1">
-                                <li><strong>Infrastructure:</strong> Configured Twilio SIP trunking with stable termination and origination routing.</li>
-                                <li><strong>Agent Logic:</strong> Built a multi-state agent in Retell AI trained on structured restaurant menus and clarification logic.</li>
-                                <li><strong>Workflow Automation:</strong> Orchestrated an n8n pipeline that summarizes calls, validates orders, and dispatches confirmations.</li>
-                            </ul>
-                            <div class="mt-4 flex flex-wrap gap-2 font-mono text-xs font-bold">
-                                <span class="border-2 border-black px-2 py-1 bg-neoBlue text-white">Python</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoBlue text-white">Retell AI</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoBlue text-white">n8n</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoBlue text-white">Twilio</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoBlue text-white">OpenAI GPT-4</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden">
-                    <div class="grid lg:grid-cols-12">
-                        <div class="lg:col-span-4 border-b-4 lg:border-b-0 lg:border-r-4 border-black card-img-wrap">
-                            <img src="Assets/images/projects/geo_track.png" alt="Geospatial imaging and satellite tracking software" class="project-img">
-                        </div>
-                        <div class="lg:col-span-8 p-5 md:p-6">
-                            <div class="flex flex-wrap items-start justify-between gap-3">
-                                <h3 class="text-3xl font-black glitch-hover">Geospatial Imaging & Satellite Tracking Software</h3>
-                                <span class="status status-complete">Status: Completed</span>
-                            </div>
-                            <p class="mt-3 font-mono text-sm"><strong>Functionality:</strong> A high-throughput web application for real-time satellite positioning and environmental data retrieval.</p>
-                            <ul class="mt-3 list-disc list-inside font-mono text-sm space-y-1">
-                                <li><strong>Backend:</strong> Developed with Node.js and Express, handling complex API routes for live telemetry and positional data.</li>
-                                <li><strong>Frontend:</strong> Built a custom satellite map interface that supports AOI selection, synchronized weather retrieval, and orbital path tracking.</li>
-                            </ul>
-                            <div class="mt-4 flex flex-wrap gap-2 font-mono text-xs font-bold">
-                                <span class="border-2 border-black px-2 py-1 bg-neoGreen">Node.js</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoGreen">Express</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoGreen">JavaScript</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoGreen">Weather APIs</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoGreen">Satellite Telemetry APIs</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden">
-                    <div class="grid lg:grid-cols-12">
-                        <div class="lg:col-span-4 border-b-4 lg:border-b-0 lg:border-r-4 border-black card-img-wrap">
-                            <img src="Assets/images/projects/ai_chat.png" alt="AI-powered restaurant chatbot system" class="project-img">
-                        </div>
-                        <div class="lg:col-span-8 p-5 md:p-6">
-                            <div class="flex flex-wrap items-start justify-between gap-3">
-                                <h3 class="text-3xl font-black glitch-hover">AI-Powered Restaurant Chatbot System</h3>
-                                <span class="status status-complete">Status: Completed</span>
-                            </div>
-                            <p class="mt-3 font-mono text-sm"><strong>Functionality:</strong> An NLP-driven chatbot that handles complex food preferences and dietary restrictions to deliver personalized recommendations.</p>
-                            <ul class="mt-3 list-disc list-inside font-mono text-sm space-y-1">
-                                <li><strong>NLP Engine:</strong> Built custom models using TensorFlow and spaCy for high-accuracy intent recognition.</li>
-                                <li><strong>Architecture:</strong> Developed a Node.js backend for API management and used MongoDB for conversation logging and preference tracking.</li>
-                            </ul>
-                            <div class="mt-4 flex flex-wrap gap-2 font-mono text-xs font-bold">
-                                <span class="border-2 border-black px-2 py-1 bg-neoPink">React.js</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoPink">Node.js</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoPink">TensorFlow</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoPink">spaCy</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoPink">MongoDB</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoPink">REST APIs</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden">
-                    <div class="grid lg:grid-cols-12">
-                        <div class="lg:col-span-4 border-b-4 lg:border-b-0 lg:border-r-4 border-black card-img-wrap">
-                            <img src="Assets/images/projects/furious_formula.gif" alt="Furious Formula NFT automation" class="project-img">
-                        </div>
-                        <div class="lg:col-span-8 p-5 md:p-6">
-                            <div class="flex flex-wrap items-start justify-between gap-3">
-                                <h3 class="text-3xl font-black glitch-hover">Furious Formula NFT Automation</h3>
-                                <span class="status status-complete">Status: Completed</span>
-                            </div>
-                            <ul class="mt-3 list-disc list-inside font-mono text-sm space-y-1">
-                                <li><strong>Automation:</strong> Authored Python scripts for algorithmic generation of large digital asset collections with rarity logic.</li>
-                                <li><strong>Blockchain Integration:</strong> Built the minting pipeline and asset integration flow for secure distribution.</li>
-                            </ul>
-                            <div class="mt-4 flex flex-wrap gap-2 font-mono text-xs font-bold">
-                                <span class="border-2 border-black px-2 py-1 bg-neoOrange">Python</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoOrange">Solidity</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoOrange">Solana CLI</span>
-                                <span class="border-2 border-black px-2 py-1 bg-neoOrange">Digital Asset Management</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <section id="certs" class="py-20 px-4">
+    </div>
+            <div class="record-panel hidden" data-panel="certs">
         <div class="max-w-7xl mx-auto reveal">
-            <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-8">Licenses & Certifications</h2>
+            
             <div class="grid md:grid-cols-2 gap-5">
                 <article class="bg-white border-4 border-black p-5 shadow-hard">
                     <div class="flex items-start gap-4">
@@ -1117,31 +894,11 @@
                 </article>
             </div>
         </div>
-    </section>
-
-    <section id="creative" class="py-20 px-4 bg-neoBlue border-y-4 border-black">
+    </div>
+            <div class="record-panel hidden" data-panel="creative">
         <div class="max-w-7xl mx-auto reveal">
-            <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter text-white mb-8">Additional Projects & Creative Work</h2>
+            
             <div class="grid md:grid-cols-2 gap-5">
-                <article class="bg-white border-4 border-black p-5 shadow-hard overflow-hidden">
-                    <div class="h-44 border-2 border-black bg-black mb-4 overflow-hidden">
-                        <img src="Assets/images/projects/build_pc.png" alt="Custom PC Architecture and Assembly" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="text-2xl font-black">Custom PC Architecture & Assembly</h3>
-                    <p class="font-mono text-sm mt-2"><strong>The Build:</strong> Budgeted, sourced, and assembled high-performance PC builds optimized for ML workloads and development.</p>
-                    <p class="font-mono text-sm mt-2"><strong>Technical Focus:</strong> Deep-dived into hardware component selection, thermal management, and system configuration to ensure maximum throughput for local model testing and processing.</p>
-                </article>
-
-                <article class="bg-white border-4 border-black p-5 shadow-hard overflow-hidden">
-                    <div class="h-44 border-2 border-black bg-black mb-4 overflow-hidden">
-                        <img src="Assets/images/projects/web_dev.png" alt="Web development suite projects" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="text-2xl font-black">Web Development Suite: IGEO Consultants & Personal Brand</h3>
-                    <p class="font-mono text-sm mt-2"><strong>Outcome:</strong> Planned, designed, and launched a series of high-performance websites, including igeoconsultants.com and igeoconstructions.com.</p>
-                    <p class="font-mono text-sm mt-2"><strong>Technical Focus:</strong> Focused on clean UI/UX, fast loading speeds, and SEO optimization. These sites serve as the professional digital footprint for a multi-million dollar consultancy.</p>
-                    <p class="font-mono text-sm mt-2"><strong>Stack:</strong> HTML5, CSS3, JavaScript, Responsive Design frameworks.</p>
-                </article>
-
                 <article class="bg-white border-4 border-black p-5 shadow-hard overflow-hidden">
                     <div class="h-44 border-2 border-black bg-black mb-4 overflow-hidden">
                         <img src="Assets/images/projects/vid_edit.png" alt="Content creation and video engineering" class="w-full h-full object-cover">
@@ -1161,11 +918,10 @@
                 </article>
             </div>
         </div>
-    </section>
-
-    <section id="writing" class="py-20 px-4">
+    </div>
+            <div class="record-panel hidden" data-panel="writing">
         <div class="max-w-7xl mx-auto reveal">
-            <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-8">Published Articles</h2>
+            
             <p class="font-mono text-sm mb-6">Technical writing, product philosophy, and long-form breakdowns.</p>
             <div class="grid md:grid-cols-3 gap-5">
                 <article class="bg-white border-4 border-black p-5 shadow-hard">
@@ -1191,6 +947,241 @@
                         <i class="ri-external-link-line"></i> Read on Medium
                     </a>
                 </article>
+            </div>
+        </div>
+    </div>
+        </div>
+    </section>
+
+    
+
+    <section id="projects" class="py-20 px-4 bg-neoBlack text-white border-y-4 border-black">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-10 reveal">
+                <h2 class="text-5xl md:text-8xl font-black uppercase tracking-tighter">Major Technical <span class="text-neoGreen">Projects</span></h2>
+                <p class="mt-4 max-w-3xl font-mono text-sm text-white/80">Shipped &gt; talked about. The highlights — each one is real, deployed, and used.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden flex flex-col">
+                    <div class="h-56 border-b-4 border-black bg-neoPink overflow-hidden relative">
+                        <img src="Assets/images/projects/skinc.png" alt="SkinC app — AI face scan screens" class="w-full h-full object-cover object-top">
+                        <span class="absolute top-2 right-2 bg-black text-neoYellow border-2 border-black px-2 py-1 font-mono text-[10px] font-bold rotate-3">APP STORE</span>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="flex items-start justify-between gap-2">
+                            <h3 class="text-2xl font-black glitch-hover">SkinC — AI Skincare App</h3>
+                            <span class="status status-prod">Live on App Store</span>
+                        </div>
+                        <p class="mt-2 font-mono text-sm flex-1">Built and shipped solo: AI face scans that turn your camera into a skin analyst — personalized routines, progress tracking, and a full automated social-marketing pipeline behind it.</p>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <a target="_blank" rel="noopener noreferrer" href="https://apps.apple.com/ca/app/skinc/id6761237699" class="cursor-hover inline-flex items-center gap-2 bg-black text-white border-2 border-black px-4 py-2 font-mono text-xs font-bold hover:bg-neoPink hover:text-black transition-all">
+                                <i class="ri-apple-fill"></i> APP STORE
+                            </a>
+                        </div>
+                        <div class="mt-3 flex flex-wrap gap-1.5 font-mono text-[11px] font-bold">
+                            <span class="border-2 border-black px-2 py-1 bg-neoPink">SwiftUI</span>
+                            <span class="border-2 border-black px-2 py-1 bg-neoPink">AI Vision</span>
+                            <span class="border-2 border-black px-2 py-1 bg-neoPink">iOS</span>
+                            <span class="border-2 border-black px-2 py-1 bg-neoPink">Marketing Automation</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden flex flex-col">
+                    <div class="h-56 border-b-4 border-black bg-neoGreen overflow-hidden relative">
+                        <img src="Assets/images/projects/jobco.png" alt="Jobco platform — AI applies to jobs while you sleep" class="w-full h-full object-cover object-top">
+                        <span class="absolute top-2 right-2 bg-black text-neoGreen border-2 border-black px-2 py-1 font-mono text-[10px] font-bold -rotate-3">AUTONOMOUS</span>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="flex items-start justify-between gap-2">
+                            <h3 class="text-2xl font-black glitch-hover">Jobco — Autonomous Job-Apply Platform</h3>
+                            <span class="status status-active">Status: Active</span>
+                        </div>
+                        <p class="mt-2 font-mono text-sm flex-1">An AI browser agent that applies to jobs like a human: scrapes a 36k-posting corpus, matches to your profile, fills real ATS forms (Workday, Greenhouse…), submits, and verifies via Gmail receipts — tracked on a live dashboard.</p>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <a target="_blank" rel="noopener noreferrer" href="https://jobco-seven.vercel.app" class="cursor-hover inline-flex items-center gap-2 bg-black text-white border-2 border-black px-4 py-2 font-mono text-xs font-bold hover:bg-neoGreen hover:text-black transition-all">
+                                <i class="ri-rocket-line"></i> LIVE PLATFORM
+                            </a>
+                        </div>
+                        <div class="mt-3 flex flex-wrap gap-1.5 font-mono text-[11px] font-bold">
+                            <span class="border-2 border-black px-2 py-1 bg-neoGreen">Playwright</span>
+                            <span class="border-2 border-black px-2 py-1 bg-neoGreen">Claude Agents</span>
+                            <span class="border-2 border-black px-2 py-1 bg-neoGreen">FastAPI</span>
+                            <span class="border-2 border-black px-2 py-1 bg-neoGreen">Next.js</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden flex flex-col">
+                    <div class="h-44 border-b-4 border-black overflow-hidden bg-black">
+                        <img src="Assets/images/switchboard demo.png" alt="Switchboard VS Code extension interface" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="flex items-start justify-between gap-2">
+                            <h3 class="text-2xl font-black glitch-hover">Switchboard</h3>
+                            <span class="status status-active">Status: New</span>
+                        </div>
+                        <p class="mt-2 font-mono text-sm flex-1">A VS Code extension for multi-agent coding: one Leader plans the work and routes sub-tasks to Codex, Cursor, Claude, and Gemini workers — with file-diff tracking and resumable threads built in.</p>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <a href="switchboard.html" class="cursor-hover inline-flex items-center gap-2 bg-black text-white border-2 border-black px-4 py-2 font-mono text-xs font-bold hover:bg-neoGreen hover:text-black transition-all">
+                                <i class="ri-file-text-line"></i> PROJECT PAGE
+                            </a>
+                            <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=0JMkJXbZq0A" class="cursor-hover inline-flex items-center gap-2 bg-neoBlue text-white border-2 border-black px-4 py-2 font-mono text-xs font-bold hover:bg-black transition-all">
+                                <i class="ri-youtube-line"></i> WATCH DEMO
+                            </a>
+                        </div>
+                        <div class="mt-3 flex flex-wrap gap-1.5 font-mono text-[11px] font-bold">
+                            <span class="border-2 border-black px-2 py-1 bg-neoGreen">VS Code API</span>
+                            <span class="border-2 border-black px-2 py-1 bg-neoGreen">TypeScript</span>
+                            <span class="border-2 border-black px-2 py-1 bg-neoGreen">Provider Adapters</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden flex flex-col">
+                    <div class="h-44 border-b-4 border-black overflow-hidden bg-black">
+                        <img src="Assets/images/campusquest.png" alt="Campus Quest mobile app interface" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="flex items-start justify-between gap-2">
+                            <h3 class="text-2xl font-black glitch-hover">Campus Quest</h3>
+                            <span class="status status-complete">Hackathon Build</span>
+                        </div>
+                        <p class="mt-2 font-mono text-sm flex-1">Mobile × web3 campus platform: QR-triggered quests, avatar progression, and on-chain Solana rewards that turn student engagement into a game loop.</p>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <a href="campus-quest.html" class="cursor-hover inline-flex items-center gap-2 bg-black text-white border-2 border-black px-4 py-2 font-mono text-xs font-bold hover:bg-neoGreen hover:text-black transition-all">
+                                <i class="ri-file-text-line"></i> PROJECT PAGE
+                            </a>
+                            <a target="_blank" rel="noopener noreferrer" href="https://devpost.com/software/campus-quest" class="cursor-hover inline-flex items-center gap-2 bg-neoBlue text-white border-2 border-black px-4 py-2 font-mono text-xs font-bold hover:bg-black transition-all">
+                                <i class="ri-external-link-line"></i> DEVPOST
+                            </a>
+                        </div>
+                        <div class="mt-3 flex flex-wrap gap-1.5 font-mono text-[11px] font-bold">
+                            <span class="border-2 border-black px-2 py-1 bg-neoYellow">React Native</span>
+                            <span class="border-2 border-black px-2 py-1 bg-neoYellow">Node.js</span>
+                            <span class="border-2 border-black px-2 py-1 bg-neoYellow">Solana</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden flex flex-col">
+                    <div class="h-44 border-b-4 border-black overflow-hidden bg-black">
+                        <img src="Assets/images/projects/AI-MER.png" alt="AI-MER autonomous matchmaking ecosystem" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="flex items-start justify-between gap-2">
+                            <h3 class="text-2xl font-black glitch-hover">AI-MER — Matchmaking Ecosystem</h3>
+                            <span class="status status-active">Status: Active</span>
+                        </div>
+                        <p class="mt-2 font-mono text-sm flex-1">Dating without swiping: voice-first onboarding builds an AI digital twin of each user, and twins simulate compatibility conversations in an "Agent Lounge" before a human match is ever surfaced.</p>
+                        <div class="mt-3 flex flex-wrap gap-1.5 font-mono text-[11px] font-bold">
+                            <span class="border-2 border-black px-2 py-1 bg-neoYellow">Gemini</span>
+                            <span class="border-2 border-black px-2 py-1 bg-neoYellow">ElevenLabs</span>
+                            <span class="border-2 border-black px-2 py-1 bg-neoYellow">MongoDB Atlas</span>
+                            <span class="border-2 border-black px-2 py-1 bg-neoYellow">Python</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden flex flex-col">
+                    <div class="h-44 border-b-4 border-black overflow-hidden bg-black">
+                        <img src="Assets/images/projects/ai_voice.png" alt="Production AI voice agent dashboard" class="w-full h-full object-cover object-center">
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="flex items-start justify-between gap-2">
+                            <h3 class="text-2xl font-black glitch-hover">AI Voice Agent for Restaurants</h3>
+                            <span class="status status-prod">In Production</span>
+                        </div>
+                        <p class="mt-2 font-mono text-sm flex-1">Answers real phone orders end-to-end: multi-state Retell agent on Twilio SIP takes the call, an n8n pipeline validates the order and fires SMS/WhatsApp confirmations — running live in a real restaurant.</p>
+                        <div class="mt-3 flex flex-wrap gap-1.5 font-mono text-[11px] font-bold">
+                            <span class="border-2 border-black px-2 py-1 bg-neoBlue text-white">Retell AI</span>
+                            <span class="border-2 border-black px-2 py-1 bg-neoBlue text-white">Twilio</span>
+                            <span class="border-2 border-black px-2 py-1 bg-neoBlue text-white">n8n</span>
+                            <span class="border-2 border-black px-2 py-1 bg-neoBlue text-white">Python</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden flex flex-col">
+                    <div class="h-44 border-b-4 border-black overflow-hidden bg-black">
+                        <img src="Assets/images/projects/geo_track.png" alt="Geospatial imaging and satellite tracking software" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="flex items-start justify-between gap-2">
+                            <h3 class="text-2xl font-black glitch-hover">Geospatial Satellite Tracking</h3>
+                            <span class="status status-complete">Completed</span>
+                        </div>
+                        <p class="mt-2 font-mono text-sm flex-1">Real-time satellite positioning + environmental data: custom map interface with AOI selection, synchronized weather retrieval, and orbital path tracking on a Node.js/Express telemetry backend.</p>
+                        <div class="mt-3 flex flex-wrap gap-1.5 font-mono text-[11px] font-bold">
+                            <span class="border-2 border-black px-2 py-1 bg-neoGreen">Node.js</span>
+                            <span class="border-2 border-black px-2 py-1 bg-neoGreen">Satellite Telemetry</span>
+                            <span class="border-2 border-black px-2 py-1 bg-neoGreen">Weather APIs</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="reveal bg-white text-black border-4 border-black shadow-hardlg overflow-hidden flex flex-col">
+                    <div class="h-44 border-b-4 border-black overflow-hidden bg-black">
+                        <img src="Assets/images/projects/ai_chat.png" alt="AI-powered restaurant chatbot system" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="flex items-start justify-between gap-2">
+                            <h3 class="text-2xl font-black glitch-hover">Restaurant AI Chatbot</h3>
+                            <span class="status status-complete">Completed</span>
+                        </div>
+                        <p class="mt-2 font-mono text-sm flex-1">NLP chatbot that handles dietary restrictions and food preferences with TensorFlow + spaCy intent models — cut a real restaurant's manual admin work by ~25%.</p>
+                        <div class="mt-3 flex flex-wrap gap-1.5 font-mono text-[11px] font-bold">
+                            <span class="border-2 border-black px-2 py-1 bg-neoPink">TensorFlow</span>
+                            <span class="border-2 border-black px-2 py-1 bg-neoPink">spaCy</span>
+                            <span class="border-2 border-black px-2 py-1 bg-neoPink">Node.js</span>
+                            <span class="border-2 border-black px-2 py-1 bg-neoPink">MongoDB</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    
+
+    
+
+    
+
+    <section id="playground" class="py-20 px-4 border-b-4 border-black relative overflow-hidden">
+        <div class="absolute -top-6 left-10 text-[10vw] font-black opacity-5 select-none pointer-events-none">PLAY</div>
+        <div class="max-w-7xl mx-auto reveal relative z-10">
+            <p class="font-mono text-xs font-bold bg-black text-neoGreen inline-block px-3 py-1 border-2 border-black rotate-1">VISITORS CAN TOUCH THIS</p>
+            <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mt-3">The Synth</h2>
+            <p class="mt-3 font-mono text-sm max-w-2xl">Every system I build has a feedback loop. Here's yours — play the pads
+                (or your keyboard, <span class="font-black">A S D F G H J K</span>), stack a loop, make something.</p>
+
+            <div class="mt-8 grid lg:grid-cols-12 gap-6 items-stretch">
+                <div class="lg:col-span-8 bg-white border-4 border-black shadow-hardlg p-5">
+                    <div id="synthPads" class="grid grid-cols-4 md:grid-cols-8 gap-3">
+                        <button class="synth-pad cursor-hover border-4 border-black shadow-hard bg-neoYellow aspect-square font-black text-lg" data-note="0" aria-label="Pad C">A</button>
+                        <button class="synth-pad cursor-hover border-4 border-black shadow-hard bg-neoPink aspect-square font-black text-lg" data-note="1" aria-label="Pad D">S</button>
+                        <button class="synth-pad cursor-hover border-4 border-black shadow-hard bg-neoGreen aspect-square font-black text-lg" data-note="2" aria-label="Pad E">D</button>
+                        <button class="synth-pad cursor-hover border-4 border-black shadow-hard bg-neoBlue text-white aspect-square font-black text-lg" data-note="3" aria-label="Pad G">F</button>
+                        <button class="synth-pad cursor-hover border-4 border-black shadow-hard bg-neoOrange aspect-square font-black text-lg" data-note="4" aria-label="Pad A">G</button>
+                        <button class="synth-pad cursor-hover border-4 border-black shadow-hard bg-neoPurple text-white aspect-square font-black text-lg" data-note="5" aria-label="Pad C high">H</button>
+                        <button class="synth-pad cursor-hover border-4 border-black shadow-hard bg-neoRed text-white aspect-square font-black text-lg" data-note="6" aria-label="Pad D high">J</button>
+                        <button class="synth-pad cursor-hover border-4 border-black shadow-hard bg-white aspect-square font-black text-lg" data-note="7" aria-label="Pad E high">K</button>
+                    </div>
+                    <div class="mt-4 flex flex-wrap items-center gap-3 font-mono text-xs font-bold">
+                        <button id="synthLoop" class="cursor-hover border-2 border-black px-4 py-2 bg-neoYellow shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all">START 8-STEP LOOP</button>
+                        <button id="synthClear" class="cursor-hover border-2 border-black px-4 py-2 bg-white shadow-hard hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all">CLEAR</button>
+                        <span id="synthHint" class="text-gray-500">loop off — pads play live, hits get stacked into the loop</span>
+                    </div>
+                    <div id="synthSteps" class="mt-4 grid grid-cols-8 gap-2"></div>
+                </div>
+                <aside class="lg:col-span-4 bg-neoBlack text-white border-4 border-black shadow-hardlg p-5 font-mono text-xs space-y-3">
+                    <p class="text-neoGreen font-bold tracking-[0.2em]">// WHY A SYNTH?</p>
+                    <p>Because a portfolio should do something. Same reason my agents don't just chat — they ship.</p>
+                    <p class="text-gray-400">Built with the raw Web Audio API. No libraries, no samples — every sound is synthesized in your browser right now.</p>
+                    <p class="text-neoYellow">Bonus: click anywhere for confetti. Shift+H to hire me.</p>
+                </aside>
             </div>
         </div>
     </section>
@@ -1267,8 +1258,7 @@
         });
 
         /* Hero terminal: hovering or focusing a chip types its command into the
-           prompt, clicking runs it and scrolls to the section. Falls back to a
-           plain anchor jump if anything here fails. */
+           prompt, clicking runs it and scrolls to the section. */
         (() => {
             const cmdText = document.getElementById('heroCmdText');
             const chips = document.querySelectorAll('.hero-chip');
@@ -1299,61 +1289,93 @@
                     typeCommand(command);
                     const target = document.querySelector(chip.dataset.target);
                     if (target) {
-                        target.scrollIntoView({
-                            behavior: reduceMotion ? 'auto' : 'smooth',
-                            block: 'start'
-                        });
+                        target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
                     }
                 });
             });
 
-            // Return to the idle command when the pointer leaves the strip.
             const strip = document.querySelector('.hero-term-chips');
-            if (strip) {
-                strip.addEventListener('mouseleave', () => typeCommand(idleCommand));
-            }
+            if (strip) strip.addEventListener('mouseleave', () => typeCommand(idleCommand));
         })();
 
-        /* Stat counters: count up once, the first time they scroll into view. */
+        /* Stat counters: count up once when first visible.
+           IntersectionObserver is the primary trigger, but a scroll/resize check
+           backs it up so the numbers can never be left sitting at zero if the
+           observer does not fire (it did not, reliably, in one preview runtime). */
         (() => {
-            const stats = document.querySelectorAll('.hero-stat-num');
+            const stats = [...document.querySelectorAll('.hero-stat-num')];
             if (!stats.length) return;
 
+            const finalValue = (el) =>
+                Number(el.dataset.count).toFixed(Number(el.dataset.decimals || 0));
+
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                stats.forEach((el) => {
-                    const decimals = Number(el.dataset.decimals || 0);
-                    el.textContent = Number(el.dataset.count).toFixed(decimals);
-                });
+                stats.forEach((el) => { el.textContent = finalValue(el); });
                 return;
             }
 
+            const done = new WeakSet();
+
             const runCount = (el) => {
+                if (done.has(el)) return;
+                done.add(el);
                 const target = Number(el.dataset.count);
                 const decimals = Number(el.dataset.decimals || 0);
-                const duration = 900;
                 const start = performance.now();
-
+                let animated = false;
                 const step = (now) => {
-                    const progress = Math.min(1, (now - start) / duration);
-                    // Ease out so the number settles rather than stopping dead.
+                    animated = true;
+                    const progress = Math.min(1, (now - start) / 900);
                     const eased = 1 - Math.pow(1 - progress, 3);
                     el.textContent = (target * eased).toFixed(decimals);
                     if (progress < 1) requestAnimationFrame(step);
                     else el.textContent = target.toFixed(decimals);
                 };
-
                 requestAnimationFrame(step);
+
+                // rAF is suspended in background tabs and in some embedded
+                // viewers, which would leave the number frozen at zero. If the
+                // animation never started, just show the real value.
+                setTimeout(() => {
+                    if (!animated) el.textContent = finalValue(el);
+                }, 1200);
             };
 
-            const statObserver = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (!entry.isIntersecting) return;
-                    runCount(entry.target);
-                    statObserver.unobserve(entry.target);
-                });
-            }, { threshold: 0.4 });
+            // Some embedded/headless viewers report innerHeight as 0, which would
+            // make every visibility test false and leave the numbers at zero.
+            // If the viewport cannot be measured, just count.
+            const viewportHeight = () =>
+                window.innerHeight || document.documentElement.clientHeight || 0;
 
-            stats.forEach((el) => statObserver.observe(el));
+            const isVisible = (el) => {
+                const height = viewportHeight();
+                if (height <= 0) return true;
+                const r = el.getBoundingClientRect();
+                return r.top < height * 0.9 && r.bottom > 0;
+            };
+
+            const sweep = () => {
+                stats.forEach((el) => { if (isVisible(el)) runCount(el); });
+                if (stats.every((el) => done.has(el))) {
+                    window.removeEventListener('scroll', sweep);
+                    window.removeEventListener('resize', sweep);
+                }
+            };
+
+            if ('IntersectionObserver' in window) {
+                const statObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (!entry.isIntersecting) return;
+                        runCount(entry.target);
+                        statObserver.unobserve(entry.target);
+                    });
+                }, { threshold: 0.25 });
+                stats.forEach((el) => statObserver.observe(el));
+            }
+
+            window.addEventListener('scroll', sweep, { passive: true });
+            window.addEventListener('resize', sweep);
+            sweep();
         })();
 
         const heroRoleText = document.getElementById('heroRoleText');
@@ -1456,6 +1478,153 @@
 
             tickTerminal();
         }
+
+        // ── Play mode: neo-confetti on click ──────────────────────────────────
+        // Every click bursts hard-shadowed squares from the cursor. Cheap, fun,
+        // and on-brand (inspired by the playfulness of hackthenorth.com).
+        const CONFETTI_COLORS = ['#F7FF47', '#FF6CAB', '#38FF74', '#3B82F6', '#FF9F1C', '#965CFF'];
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('a, button, input, textarea, select')) return;
+            for (let i = 0; i < 10; i++) {
+                const p = document.createElement('div');
+                const size = 6 + Math.random() * 10;
+                p.style.cssText = `position:fixed;left:${e.clientX}px;top:${e.clientY}px;width:${size}px;height:${size}px;` +
+                    `background:${CONFETTI_COLORS[i % CONFETTI_COLORS.length]};border:2px solid #000;z-index:9998;pointer-events:none;`;
+                document.body.appendChild(p);
+                const ang = Math.random() * Math.PI * 2, v = 60 + Math.random() * 120;
+                p.animate([
+                    { transform: 'translate(-50%,-50%) rotate(0deg)', opacity: 1 },
+                    { transform: `translate(${Math.cos(ang) * v - 50}px, ${Math.sin(ang) * v + 80 - 50}px) rotate(${180 + Math.random() * 360}deg)`, opacity: 0 }
+                ], { duration: 700 + Math.random() * 400, easing: 'cubic-bezier(.2,.8,.3,1)' }).onfinish = () => p.remove();
+            }
+        });
+
+        // ── Track Record tabs ─────────────────────────────────────────────────
+        const recordTabs = document.querySelectorAll('.record-tab');
+        const recordPanels = document.querySelectorAll('.record-panel');
+        recordTabs.forEach((tab) => tab.addEventListener('click', () => {
+            recordTabs.forEach((t) => { t.classList.remove('active'); t.style.background = ''; t.style.color = ''; });
+            tab.classList.add('active');
+            recordPanels.forEach((p) => p.classList.toggle('hidden', p.dataset.panel !== tab.dataset.tab));
+            // panels were lazy-revealed sections once; make sure reveals inside show
+            recordPanels.forEach((p) => p.querySelectorAll('.reveal').forEach((r) => r.classList.add('active')));
+        }));
+        recordTabs.forEach((t) => t.classList.add('bg-white'));
+        document.querySelector('.record-tab.active')?.click?.();
+
+        // ── Skills → the projects that used them (hover) ─────────────────────
+        const SKILL_PROJECTS = {
+            'Python': 'Jobco · Jarvis · Voice Agent', 'JavaScript': 'Jobco · Switchboard · Campus Quest',
+            'TypeScript': 'Jobco dashboard · Switchboard', 'C++': 'Coursework + systems practice',
+            'SQL': 'Jobco (36k-job corpus) · Jarvis', 'SwiftUI': 'SkinC (App Store)',
+            'LangGraph': 'AI-MER · Jarvis', 'RAG': 'Jarvis memory + AI-MER',
+            'Prompt Engineering': 'Jobco navigator · SkinC pipeline', 'LLM Deployment': 'Jobco · Jarvis · Voice Agent',
+            'NLP': 'Voice Agent · Restaurant Chatbot', 'Computer Vision': 'SkinC face scans',
+            'Agentic Workflows': 'Jobco · Jarvis · AI-MER', 'React': 'Jobco dashboard · Campus Quest',
+            'Node.js': 'Voice Agent · Switchboard', 'FastAPI': 'Jobco · Jarvis · iGeo',
+            'MongoDB': 'AI-MER · Campus Quest', 'n8n': 'Voice Agent · Restaurant automation',
+            'Playwright': 'Jobco (real ATS applies)', 'Docker': 'Deployment pipelines',
+            'GCP': 'Voice Agent · SkinC backend', 'Microsoft Azure': 'Certified + coursework',
+            'Git/GitHub': 'Everything on this page', 'CI/CD': 'Jobco · portfolio deploys',
+            'Figma': 'SkinC + this site design', 'Twilio': 'Voice Agent (real calls)',
+            'InfluxDB': 'Geospatial satellite tracking',
+        };
+        const skillProjectEl = document.createElement('p');
+        skillProjectEl.className = 'font-mono text-xs mt-3 text-neoGreen';
+        skillInfo?.after(skillProjectEl);
+        skillChips.forEach((chip) => {
+            const update = () => {
+                const used = SKILL_PROJECTS[chip.dataset.skill];
+                skillProjectEl.textContent = used ? `BUILT WITH IT → ${used}` : '';
+            };
+            chip.addEventListener('mouseenter', update);
+            chip.addEventListener('focus', update);
+            chip.addEventListener('click', update);
+        });
+
+        // ── Project card tilt (hackthenorth-style depth) ──────────────────────
+        document.querySelectorAll('#projects article').forEach((card) => {
+            card.addEventListener('mousemove', (e) => {
+                const r = card.getBoundingClientRect();
+                const rx = ((e.clientY - r.top) / r.height - 0.5) * -4;
+                const ry = ((e.clientX - r.left) / r.width - 0.5) * 4;
+                card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
+            });
+            card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+            card.style.transition = 'transform .15s ease-out';
+        });
+
+        // ── THE SYNTH — raw Web Audio, no samples ─────────────────────────────
+        (() => {
+            const pads = document.querySelectorAll('.synth-pad');
+            if (!pads.length) return;
+            const NOTES = [261.63, 293.66, 329.63, 392.0, 440.0, 523.25, 587.33, 659.25]; // C major pentatonic-ish
+            const KEYS = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k'];
+            let ctx = null;
+            const audio = () => (ctx ||= new (window.AudioContext || window.webkitAudioContext)());
+
+            const play = (i, accent = false) => {
+                const ac = audio();
+                const t = ac.currentTime;
+                const osc = ac.createOscillator(), gain = ac.createGain();
+                osc.type = 'square';
+                osc.frequency.value = NOTES[i];
+                const sub = ac.createOscillator(), subGain = ac.createGain();
+                sub.type = 'triangle'; sub.frequency.value = NOTES[i] / 2; subGain.gain.value = 0.25;
+                gain.gain.setValueAtTime(accent ? 0.22 : 0.16, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+                osc.connect(gain); sub.connect(subGain); subGain.connect(gain); gain.connect(ac.destination);
+                osc.start(t); sub.start(t); osc.stop(t + 0.4); sub.stop(t + 0.4);
+                const pad = pads[i];
+                pad.classList.add('synth-hit');
+                setTimeout(() => pad.classList.remove('synth-hit'), 140);
+            };
+
+            // 8-step loop the visitor builds by playing while it runs
+            const steps = Array.from({ length: 8 }, () => new Set());
+            let looping = false, step = 0, timer = null;
+            const stepCells = [];
+            const stepsEl = document.getElementById('synthSteps');
+            for (let i = 0; i < 8; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'h-3 border-2 border-black bg-white transition-all';
+                stepsEl.appendChild(cell); stepCells.push(cell);
+            }
+            const loopBtn = document.getElementById('synthLoop');
+            const hint = document.getElementById('synthHint');
+            const tick = () => {
+                stepCells.forEach((c, i) => c.style.background = i === step ? '#000' : (steps[i].size ? '#F7FF47' : '#fff'));
+                steps[step].forEach((n) => play(n, true));
+                step = (step + 1) % 8;
+            };
+            loopBtn.addEventListener('click', () => {
+                looping = !looping;
+                if (looping) { audio(); timer = setInterval(tick, 220); loopBtn.textContent = 'STOP LOOP'; hint.textContent = 'loop ON — play pads to stack notes into the current step'; }
+                else { clearInterval(timer); loopBtn.textContent = 'START 8-STEP LOOP'; hint.textContent = 'loop off — pads play live, hits get stacked into the loop'; stepCells.forEach((c) => c.style.background = ''); }
+            });
+            document.getElementById('synthClear').addEventListener('click', () => {
+                steps.forEach((s) => s.clear()); stepCells.forEach((c) => c.style.background = '');
+            });
+
+            const hit = (i) => { play(i); if (looping) steps[(step + 7) % 8].add(i); };
+            pads.forEach((pad) => pad.addEventListener('pointerdown', () => hit(+pad.dataset.note)));
+            document.addEventListener('keydown', (e) => {
+                if (e.metaKey || e.ctrlKey || e.altKey || e.repeat) return;
+                if (e.target.matches('input, textarea, select')) return;
+                const i = KEYS.indexOf(e.key.toLowerCase());
+                if (i >= 0) hit(i);
+            });
+        })();
+
+        // ── Keyboard easter eggs ──────────────────────────────────────────────
+        // H = hire me (jump to contact), G = projects. Shown nowhere; found by the curious.
+        document.addEventListener('keydown', (e) => {
+            if (e.metaKey || e.ctrlKey || e.altKey) return;
+            if (e.target.matches('input, textarea, select')) return;
+            // Shift-required so they never collide with the synth's A–K keys.
+            if (e.shiftKey && e.key === 'H') document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+            if (e.shiftKey && e.key === 'P') document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+        });
     </script>
 </body>
 
