@@ -236,117 +236,6 @@
             animation: blink 1s steps(1, end) infinite;
         }
 
-        /* ---- hero terminal strip: navigation that behaves like a shell ---- */
-        .hero-term {
-            border: 3px solid #000;
-            background: #0a0a0a;
-            box-shadow: 6px 6px 0 #000;
-            overflow: hidden;
-        }
-
-        .hero-term-bar {
-            display: flex;
-            align-items: center;
-            gap: .4rem;
-            background: #1c1c1c;
-            border-bottom: 2px solid #000;
-            padding: .4rem .6rem;
-        }
-
-        .hero-term-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-
-        .hero-term-title {
-            margin-left: .4rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: .65rem;
-            color: #8a8a8a;
-            letter-spacing: .06em;
-        }
-
-        .hero-term-line {
-            display: flex;
-            align-items: center;
-            gap: .5rem;
-            padding: .75rem .85rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: .85rem;
-            color: #38FF74;
-            min-height: 2.6rem;
-        }
-
-        .hero-term-prompt { color: #FF4D6D; font-weight: 700; }
-
-        .hero-term-caret {
-            width: 9px;
-            height: 1.05rem;
-            background: #38FF74;
-            animation: blink 1s steps(1, end) infinite;
-        }
-
-        .hero-term-chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: .4rem;
-            padding: 0 .85rem .8rem;
-        }
-
-        .hero-chip {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: .72rem;
-            font-weight: 700;
-            color: #e6e6e6;
-            background: #1c1c1c;
-            border: 2px solid #3a3a3a;
-            padding: .3rem .6rem;
-            cursor: pointer;
-            transition: all .15s ease;
-        }
-
-        .hero-chip:hover,
-        .hero-chip:focus-visible {
-            background: #38FF74;
-            border-color: #38FF74;
-            color: #000;
-            transform: translate(-1px, -1px);
-            outline: none;
-        }
-
-        /* ---- animated stat counters ---- */
-        .hero-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
-
-        @media (max-width: 640px) { .hero-stats { grid-template-columns: 1fr; } }
-
-        .hero-stat {
-            border: 2px solid #000;
-            background: #fff;
-            box-shadow: 4px 4px 0 #000;
-            padding: .7rem .8rem;
-        }
-
-        .hero-stat-num {
-            display: block;
-            font-size: 2rem;
-            font-weight: 900;
-            line-height: 1;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .hero-stat-label {
-            display: block;
-            margin-top: .2rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: .68rem;
-            text-transform: uppercase;
-            letter-spacing: .04em;
-            color: #444;
-        }
-
-        /* Respect users who ask the OS to reduce motion. */
-        @media (prefers-reduced-motion: reduce) {
-            .hero-term-caret,
-            .hero-role-cursor { animation: none; }
-        }
-
         .console-shell {
             border: 4px solid #000;
             background: #070707;
@@ -502,46 +391,11 @@
                     </div>
 
                     <p class="mt-5 max-w-2xl bg-neoYellow border-2 border-black p-4 shadow-hard font-mono text-sm md:text-base rotate-[1deg]">
-                        CS @ McMaster. I build AI agents that ship real outcomes —
-                        an app on the App Store, systems applying to jobs and taking
-                        restaurant orders while I sleep.
+                        CS @ McMaster. I build AI agents that do the boring parts.
+                        one shipped to the App Store, one applies to jobs while I sleep,
+                        one takes restaurant orders at 2am. mostly works. sometimes breaks.
+                        always faster than doing it by hand.
                     </p>
-
-                    <!-- Navigation as a shell: chips type their command, then jump to the section. -->
-                    <div class="hero-term mt-5 max-w-2xl" aria-label="Site navigation terminal">
-                        <div class="hero-term-bar">
-                            <span class="hero-term-dot" style="background:#ff5f57"></span>
-                            <span class="hero-term-dot" style="background:#febc2e"></span>
-                            <span class="hero-term-dot" style="background:#28c840"></span>
-                            <span class="hero-term-title">anhad@portfolio</span>
-                        </div>
-                        <div class="hero-term-line">
-                            <span class="hero-term-prompt">$</span>
-                            <span id="heroCmdText" aria-live="polite"></span><span class="hero-term-caret" aria-hidden="true"></span>
-                        </div>
-                        <div class="hero-term-chips">
-                            <button type="button" class="hero-chip cursor-hover" data-cmd="open ./record" data-target="#record">./record</button>
-                            <button type="button" class="hero-chip cursor-hover" data-cmd="open ./projects" data-target="#projects">./projects</button>
-                            <button type="button" class="hero-chip cursor-hover" data-cmd="open ./skills" data-target="#skills">./skills</button>
-                            <button type="button" class="hero-chip cursor-hover" data-cmd="run ./playground" data-target="#playground">./playground</button>
-                            <button type="button" class="hero-chip cursor-hover" data-cmd="contact --now" data-target="#contact">./contact</button>
-                        </div>
-                    </div>
-
-                    <div class="hero-stats mt-5 max-w-2xl">
-                        <div class="hero-stat">
-                            <span class="hero-stat-num" data-count="1">0</span>
-                            <span class="hero-stat-label">app live on the App Store</span>
-                        </div>
-                        <div class="hero-stat">
-                            <span class="hero-stat-num" data-count="7">0</span>
-                            <span class="hero-stat-label">systems built and shipped</span>
-                        </div>
-                        <div class="hero-stat">
-                            <span class="hero-stat-num" data-count="3.92" data-decimals="2">0</span>
-                            <span class="hero-stat-label">GPA, McMaster CS</span>
-                        </div>
-                    </div>
 
                     <div class="mt-7 flex flex-wrap gap-4">
                         <a href="#projects"
@@ -615,14 +469,24 @@
                 <div class="console-body" id="terminalOutput" aria-live="polite" aria-label="Animated build console"></div>
             </div>
             <aside class="lg:col-span-4 bg-white border-4 border-black shadow-hardlg p-5">
-                <p class="project-kicker">Live Now</p>
-                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mt-4">Currently Shipping</h2>
-                <p class="mt-4 font-mono text-sm">Not concepts — systems running in production right now.</p>
+                <p class="project-kicker">Founded &amp; Leading</p>
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mt-4">My Ventures</h2>
+                <p class="mt-4 font-mono text-sm">Companies I started and still run, not side experiments.</p>
                 <div class="mt-5 space-y-3 font-mono text-xs">
-                    <div class="border-2 border-black p-3 bg-neoPink">SkinC — AI skincare app, live on the App Store</div>
-                    <div class="border-2 border-black p-3 bg-neoGreen">Jobco — autonomous job-apply agent, applying daily</div>
-                    <div class="border-2 border-black p-3 bg-neoBlue text-white">Voice agent taking real restaurant orders 24/7</div>
-                    <div class="border-2 border-black p-3 bg-neoYellow">Jarvis — a personal AI chief of staff running 5 ventures</div>
+                    <a href="https://jobco-seven.vercel.app" target="_blank" rel="noopener noreferrer"
+                        class="cursor-hover block border-2 border-black p-3 bg-neoGreen hover:translate-x-1 hover:translate-y-1 transition-all">
+                        <strong>Jobbler.ai</strong> · Founder
+                        <span class="block mt-1 opacity-80">Autonomous job apply agent, running daily</span>
+                    </a>
+                    <a href="https://apps.apple.com/ca/app/skinc/id6761237699" target="_blank" rel="noopener noreferrer"
+                        class="cursor-hover block border-2 border-black p-3 bg-neoPink hover:translate-x-1 hover:translate-y-1 transition-all">
+                        <strong>SkinC</strong> · Co-Founder
+                        <span class="block mt-1 opacity-80">AI skincare app, live on the App Store</span>
+                    </a>
+                    <div class="border-2 border-black p-3 bg-neoBlue text-white">
+                        <strong>Voice Ordering Agent</strong>
+                        <span class="block mt-1 opacity-80">Takes real restaurant orders, 24/7</span>
+                    </div>
                 </div>
             </aside>
         </div>
@@ -760,11 +624,26 @@
 
             <div class="relative border-l-4 border-black ml-3 md:ml-6 space-y-8">
                 <article class="relative pl-7 md:pl-14">
+                    <div class="absolute -left-[14px] top-3 w-6 h-6 bg-neoGreen border-4 border-black"></div>
+                    <div class="bg-white border-4 border-black p-5 shadow-hard hover:shadow-hardxl transition-all">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 border-b-2 border-dashed border-gray-300 pb-3 mb-3">
+                            <h3 class="text-2xl md:text-3xl font-black">IGEO Consultants | AI/ML and DevOps Intern</h3>
+                            <span class="font-mono font-bold text-xs bg-black text-white px-2 py-1">May 2026 - Aug 2026 | Mississauga, ON</span>
+                        </div>
+                        <ul class="list-disc list-inside font-mono text-sm space-y-1">
+                            <li><strong>Data Pipelines:</strong> Built Node.js and Python pipelines that pull satellite imagery reporting from commercial providers, open source feeds and social platforms into structured MongoDB records.</li>
+                            <li><strong>Information Extraction:</strong> Wrote extraction and summarization logic that finds facility names, locations, quantities and dates in raw analyst reports, then resolves them to precise coordinates.</li>
+                            <li><strong>Full Stack:</strong> Shipped Angular and Node.js features including an interactive OpenLayers map with clickable geospatial pins and side by side imagery comparison.</li>
+                            <li><strong>DevOps:</strong> Worked with Docker and GitLab CI, caught and fixed production build failures before deployment, and prepared branches and merge requests for team review.</li>
+                        </ul>
+                    </div>
+                </article>
+                <article class="relative pl-7 md:pl-14">
                     <div class="absolute -left-[14px] top-3 w-6 h-6 bg-neoYellow border-4 border-black"></div>
                     <div class="bg-white border-4 border-black p-5 shadow-hard hover:shadow-hardxl transition-all">
                         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 border-b-2 border-dashed border-gray-300 pb-3 mb-3">
                             <h3 class="text-2xl md:text-3xl font-black">Google Developer Student Clubs (GDSC) McMaster | Open Source AI Developer</h3>
-                            <span class="font-mono font-bold text-xs bg-black text-white px-2 py-1">Sept 2025 - Present | Hamilton, ON</span>
+                            <span class="font-mono font-bold text-xs bg-black text-white px-2 py-1">Sept 2025 - May 2026 | Hamilton, ON</span>
                         </div>
                         <ul class="list-disc list-inside font-mono text-sm space-y-1">
                             <li><strong>Core Project:</strong> Building a next-generation agent that revolutionizes web browsing by shifting interaction from manual steps to final goals.</li>
@@ -774,7 +653,6 @@
                         </ul>
                     </div>
                 </article>
-
                 <article class="relative pl-7 md:pl-14">
                     <div class="absolute -left-[14px] top-3 w-6 h-6 bg-neoBlue border-4 border-black"></div>
                     <div class="bg-white border-4 border-black p-5 shadow-hard hover:shadow-hardxl transition-all">
@@ -786,23 +664,6 @@
                             <li>Built dynamic full-stack applications using a Python backend and React.js frontend.</li>
                             <li>Implemented server-side scripting with Node.js for efficient data processing and application logic.</li>
                             <li>Integrated AI-driven features that automated internal team workflows and reduced manual overhead.</li>
-                        </ul>
-                    </div>
-                </article>
-
-                <article class="relative pl-7 md:pl-14">
-                    <div class="absolute -left-[14px] top-3 w-6 h-6 bg-neoGreen border-4 border-black"></div>
-                    <div class="bg-white border-4 border-black p-5 shadow-hard hover:shadow-hardxl transition-all">
-                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 border-b-2 border-dashed border-gray-300 pb-3 mb-3">
-                            <h3 class="text-2xl md:text-3xl font-black">IGEO Consultants | AI/ML &amp; DevOps Intern</h3>
-                            <span class="font-mono font-bold text-xs bg-black text-white px-2 py-1">May 2026 - Aug 2026 | Mississauga, ON</span>
-                        </div>
-                        <ul class="list-disc list-inside font-mono text-sm space-y-1">
-                            <li><strong>Data Pipelines:</strong> Built ingestion in Node.js and Python that turns satellite imagery reporting, raw text, and PDF reports into structured MongoDB records.</li>
-                            <li><strong>Information Extraction:</strong> Pulled facility names, coordinates, quantities, and dates out of analyst reports, resolving each to a precise location via a curated gazetteer with geocoding fallback.</li>
-                            <li><strong>Full Stack:</strong> Shipped Angular and Node features including an OpenLayers map with clickable geospatial pins, side by side imagery comparison, and coordinate search.</li>
-                            <li><strong>Automation:</strong> Scheduled recurring collection with rate limit handling, caching, and retry logic so external sources stay inside usage limits.</li>
-                            <li><strong>DevOps:</strong> Docker and GitLab CI, catching a production build failure before deploy and managing environment config across dev and prod.</li>
                         </ul>
                     </div>
                 </article>
@@ -1256,127 +1117,6 @@
             const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
             progressBar.style.width = pct + '%';
         });
-
-        /* Hero terminal: hovering or focusing a chip types its command into the
-           prompt, clicking runs it and scrolls to the section. */
-        (() => {
-            const cmdText = document.getElementById('heroCmdText');
-            const chips = document.querySelectorAll('.hero-chip');
-            if (!cmdText || !chips.length) return;
-
-            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            let typeTimer = null;
-
-            const typeCommand = (command) => {
-                clearInterval(typeTimer);
-                if (reduceMotion) { cmdText.textContent = command; return; }
-                let i = 0;
-                cmdText.textContent = '';
-                typeTimer = setInterval(() => {
-                    cmdText.textContent = command.slice(0, i += 1);
-                    if (i >= command.length) clearInterval(typeTimer);
-                }, 28);
-            };
-
-            const idleCommand = 'whoami';
-            typeCommand(idleCommand);
-
-            chips.forEach((chip) => {
-                const command = chip.dataset.cmd;
-                chip.addEventListener('mouseenter', () => typeCommand(command));
-                chip.addEventListener('focus', () => typeCommand(command));
-                chip.addEventListener('click', () => {
-                    typeCommand(command);
-                    const target = document.querySelector(chip.dataset.target);
-                    if (target) {
-                        target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
-                    }
-                });
-            });
-
-            const strip = document.querySelector('.hero-term-chips');
-            if (strip) strip.addEventListener('mouseleave', () => typeCommand(idleCommand));
-        })();
-
-        /* Stat counters: count up once when first visible.
-           IntersectionObserver is the primary trigger, but a scroll/resize check
-           backs it up so the numbers can never be left sitting at zero if the
-           observer does not fire (it did not, reliably, in one preview runtime). */
-        (() => {
-            const stats = [...document.querySelectorAll('.hero-stat-num')];
-            if (!stats.length) return;
-
-            const finalValue = (el) =>
-                Number(el.dataset.count).toFixed(Number(el.dataset.decimals || 0));
-
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                stats.forEach((el) => { el.textContent = finalValue(el); });
-                return;
-            }
-
-            const done = new WeakSet();
-
-            const runCount = (el) => {
-                if (done.has(el)) return;
-                done.add(el);
-                const target = Number(el.dataset.count);
-                const decimals = Number(el.dataset.decimals || 0);
-                const start = performance.now();
-                let animated = false;
-                const step = (now) => {
-                    animated = true;
-                    const progress = Math.min(1, (now - start) / 900);
-                    const eased = 1 - Math.pow(1 - progress, 3);
-                    el.textContent = (target * eased).toFixed(decimals);
-                    if (progress < 1) requestAnimationFrame(step);
-                    else el.textContent = target.toFixed(decimals);
-                };
-                requestAnimationFrame(step);
-
-                // rAF is suspended in background tabs and in some embedded
-                // viewers, which would leave the number frozen at zero. If the
-                // animation never started, just show the real value.
-                setTimeout(() => {
-                    if (!animated) el.textContent = finalValue(el);
-                }, 1200);
-            };
-
-            // Some embedded/headless viewers report innerHeight as 0, which would
-            // make every visibility test false and leave the numbers at zero.
-            // If the viewport cannot be measured, just count.
-            const viewportHeight = () =>
-                window.innerHeight || document.documentElement.clientHeight || 0;
-
-            const isVisible = (el) => {
-                const height = viewportHeight();
-                if (height <= 0) return true;
-                const r = el.getBoundingClientRect();
-                return r.top < height * 0.9 && r.bottom > 0;
-            };
-
-            const sweep = () => {
-                stats.forEach((el) => { if (isVisible(el)) runCount(el); });
-                if (stats.every((el) => done.has(el))) {
-                    window.removeEventListener('scroll', sweep);
-                    window.removeEventListener('resize', sweep);
-                }
-            };
-
-            if ('IntersectionObserver' in window) {
-                const statObserver = new IntersectionObserver((entries) => {
-                    entries.forEach((entry) => {
-                        if (!entry.isIntersecting) return;
-                        runCount(entry.target);
-                        statObserver.unobserve(entry.target);
-                    });
-                }, { threshold: 0.25 });
-                stats.forEach((el) => statObserver.observe(el));
-            }
-
-            window.addEventListener('scroll', sweep, { passive: true });
-            window.addEventListener('resize', sweep);
-            sweep();
-        })();
 
         const heroRoleText = document.getElementById('heroRoleText');
         if (heroRoleText) {
