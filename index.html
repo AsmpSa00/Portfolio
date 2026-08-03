@@ -236,6 +236,128 @@
             animation: blink 1s steps(1, end) infinite;
         }
 
+        /* ---- hero terminal strip: navigation that behaves like a shell ---- */
+        .hero-term {
+            border: 3px solid #000;
+            background: #0a0a0a;
+            box-shadow: 6px 6px 0 #000;
+            overflow: hidden;
+        }
+
+        .hero-term-bar {
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+            background: #1c1c1c;
+            border-bottom: 2px solid #000;
+            padding: .4rem .6rem;
+        }
+
+        .hero-term-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .hero-term-title {
+            margin-left: .4rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .65rem;
+            color: #8a8a8a;
+            letter-spacing: .06em;
+        }
+
+        .hero-term-line {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .75rem .85rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .85rem;
+            color: #38FF74;
+            min-height: 2.6rem;
+        }
+
+        .hero-term-prompt { color: #FF4D6D; font-weight: 700; }
+
+        .hero-term-caret {
+            width: 9px;
+            height: 1.05rem;
+            background: #38FF74;
+            animation: blink 1s steps(1, end) infinite;
+        }
+
+        .hero-term-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .4rem;
+            padding: 0 .85rem .8rem;
+        }
+
+        .hero-chip {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            font-weight: 700;
+            color: #e6e6e6;
+            background: #1c1c1c;
+            border: 2px solid #3a3a3a;
+            padding: .3rem .6rem;
+            cursor: pointer;
+            transition: all .15s ease;
+        }
+
+        .hero-chip:hover,
+        .hero-chip:focus-visible {
+            background: #38FF74;
+            border-color: #38FF74;
+            color: #000;
+            transform: translate(-1px, -1px);
+            outline: none;
+        }
+
+        /* ---- animated stat counters ---- */
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: .75rem;
+        }
+
+        @media (max-width: 640px) {
+            .hero-stats { grid-template-columns: 1fr; }
+        }
+
+        .hero-stat {
+            border: 2px solid #000;
+            background: #fff;
+            box-shadow: 4px 4px 0 #000;
+            padding: .7rem .8rem;
+        }
+
+        .hero-stat-num {
+            display: block;
+            font-size: 2rem;
+            font-weight: 900;
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .hero-stat-label {
+            display: block;
+            margin-top: .2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .68rem;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            color: #444;
+        }
+
+        /* Respect users who ask the OS to reduce motion. */
+        @media (prefers-reduced-motion: reduce) {
+            .hero-term-caret,
+            .hero-role-cursor { animation: none; }
+        }
+
         .console-shell {
             border: 4px solid #000;
             background: #070707;
@@ -382,25 +504,52 @@
                         <span class="hero-role-cursor" aria-hidden="true"></span>
                     </div>
 
-                    <p class="mt-5 max-w-4xl bg-neoYellow border-2 border-black p-4 shadow-hard font-mono text-sm md:text-base rotate-[1deg]">
-                        <span class="font-black">AI Engineer | Automation Architect | Full-Stack Developer</span><br>
-                        A developer and Computer Science student at McMaster University passionate about building
-                        real-world AI solutions. Currently specializing in Python, Node.js, and n8n to connect Large
-                        Language Models (LLMs) with automation logic. Focused on agent design, decision flows, and
-                        shifting web interaction from imperative clicking to declarative goals. I am actively building
-                        toward becoming a Solutions Architect who designs systems end to end, from requirements to
-                        resilient production behavior.
+                    <p class="mt-5 max-w-3xl bg-neoYellow border-2 border-black p-4 shadow-hard font-mono text-sm md:text-base rotate-[1deg]">
+                        <span class="font-black">CS @ McMaster.</span> I build AI agents and data systems that decide and
+                        execute, not just respond. An app on the App Store, satellite intel pipelines in production, and
+                        automations that keep working while I sleep.
                     </p>
 
-                    <div class="mt-5 space-y-3 max-w-4xl">
-                        <p class="border-l-4 border-neoRed pl-4 font-mono text-sm md:text-base bg-white border-2 border-black p-4 shadow-hard">
-                            "Do not be an endpoint," software should not just pass data, it should make decisions. I build
-                            systems that understand context, manage state, and execute complex tasks autonomously.
-                        </p>
-                        <p class="border-l-4 border-neoBlue pl-4 font-mono text-sm md:text-base bg-white border-2 border-black p-4 shadow-hard">
-                            "The difference between us and AI is our power to imagine, and theirs to create."
-                        </p>
+                    <!-- Interactive terminal strip: chips type into the prompt, then jump to the section. -->
+                    <div class="hero-term mt-5 max-w-3xl" aria-label="Site navigation terminal">
+                        <div class="hero-term-bar">
+                            <span class="hero-term-dot" style="background:#ff5f57"></span>
+                            <span class="hero-term-dot" style="background:#febc2e"></span>
+                            <span class="hero-term-dot" style="background:#28c840"></span>
+                            <span class="hero-term-title">anhad@portfolio</span>
+                        </div>
+                        <div class="hero-term-line">
+                            <span class="hero-term-prompt">$</span>
+                            <span id="heroCmdText" aria-live="polite"></span><span class="hero-term-caret" aria-hidden="true"></span>
+                        </div>
+                        <div class="hero-term-chips">
+                            <button type="button" class="hero-chip cursor-hover" data-cmd="open ./experience" data-target="#experience">./experience</button>
+                            <button type="button" class="hero-chip cursor-hover" data-cmd="open ./projects" data-target="#projects">./projects</button>
+                            <button type="button" class="hero-chip cursor-hover" data-cmd="open ./skills" data-target="#skills">./skills</button>
+                            <button type="button" class="hero-chip cursor-hover" data-cmd="open ./writing" data-target="#writing">./writing</button>
+                            <button type="button" class="hero-chip cursor-hover" data-cmd="contact --now" data-target="#contact">./contact</button>
+                        </div>
                     </div>
+
+                    <div class="hero-stats mt-5 max-w-3xl">
+                        <div class="hero-stat">
+                            <span class="hero-stat-num" data-count="1">0</span>
+                            <span class="hero-stat-label">app live on the App Store</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="hero-stat-num" data-count="7">0</span>
+                            <span class="hero-stat-label">systems built and shipped</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="hero-stat-num" data-count="3.92" data-decimals="2">0</span>
+                            <span class="hero-stat-label">GPA, McMaster CS</span>
+                        </div>
+                    </div>
+
+                    <p class="mt-5 max-w-3xl border-l-4 border-neoRed font-mono text-sm bg-white border-2 border-black p-4 shadow-hard">
+                        <strong>"Do not be an endpoint."</strong> Software should not just pass data through. It should hold
+                        context, manage state, and execute.
+                    </p>
 
                     <div class="mt-7 flex flex-wrap gap-4">
                         <a href="#projects"
@@ -651,13 +800,15 @@
                     <div class="absolute -left-[14px] top-3 w-6 h-6 bg-neoGreen border-4 border-black"></div>
                     <div class="bg-white border-4 border-black p-5 shadow-hard hover:shadow-hardxl transition-all">
                         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 border-b-2 border-dashed border-gray-300 pb-3 mb-3">
-                            <h3 class="text-2xl md:text-3xl font-black">IGEO Consultants | Data Analyst & UI/UX Designer</h3>
-                            <span class="font-mono font-bold text-xs bg-black text-white px-2 py-1">Sep 2022 - May 2023 | Mississauga, ON</span>
+                            <h3 class="text-2xl md:text-3xl font-black">IGEO Consultants | AI/ML &amp; DevOps Intern</h3>
+                            <span class="font-mono font-bold text-xs bg-black text-white px-2 py-1">May 2026 - Aug 2026 | Mississauga, ON</span>
                         </div>
                         <ul class="list-disc list-inside font-mono text-sm space-y-1">
-                            <li><strong>Data Engineering:</strong> Used Python, Pandas, and NumPy for complex dataset analysis and statistical modelling.</li>
-                            <li><strong>Visualization:</strong> Built Power BI and Tableau dashboards for stakeholder decision-making.</li>
-                            <li><strong>UX/UI:</strong> Applied analytical findings to improve interface quality and user engagement.</li>
+                            <li><strong>Data Pipelines:</strong> Built ingestion in Node.js and Python that turns satellite imagery reporting, raw text, and PDF reports into structured MongoDB records.</li>
+                            <li><strong>Information Extraction:</strong> Pulled facility names, coordinates, quantities, and dates out of analyst reports, resolving each to a precise location via a curated gazetteer with geocoding fallback.</li>
+                            <li><strong>Full Stack:</strong> Shipped Angular and Node features including an OpenLayers map with clickable geospatial pins, side by side imagery comparison, and coordinate search.</li>
+                            <li><strong>Automation:</strong> Scheduled recurring collection with rate limit handling, caching, and retry logic so external sources stay inside usage limits.</li>
+                            <li><strong>DevOps:</strong> Docker and GitLab CI, catching a production build failure before deploy and managing environment config across dev and prod.</li>
                         </ul>
                     </div>
                 </article>
@@ -1114,6 +1265,96 @@
             const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
             progressBar.style.width = pct + '%';
         });
+
+        /* Hero terminal: hovering or focusing a chip types its command into the
+           prompt, clicking runs it and scrolls to the section. Falls back to a
+           plain anchor jump if anything here fails. */
+        (() => {
+            const cmdText = document.getElementById('heroCmdText');
+            const chips = document.querySelectorAll('.hero-chip');
+            if (!cmdText || !chips.length) return;
+
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            let typeTimer = null;
+
+            const typeCommand = (command) => {
+                clearInterval(typeTimer);
+                if (reduceMotion) { cmdText.textContent = command; return; }
+                let i = 0;
+                cmdText.textContent = '';
+                typeTimer = setInterval(() => {
+                    cmdText.textContent = command.slice(0, i += 1);
+                    if (i >= command.length) clearInterval(typeTimer);
+                }, 28);
+            };
+
+            const idleCommand = 'whoami';
+            typeCommand(idleCommand);
+
+            chips.forEach((chip) => {
+                const command = chip.dataset.cmd;
+                chip.addEventListener('mouseenter', () => typeCommand(command));
+                chip.addEventListener('focus', () => typeCommand(command));
+                chip.addEventListener('click', () => {
+                    typeCommand(command);
+                    const target = document.querySelector(chip.dataset.target);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: reduceMotion ? 'auto' : 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Return to the idle command when the pointer leaves the strip.
+            const strip = document.querySelector('.hero-term-chips');
+            if (strip) {
+                strip.addEventListener('mouseleave', () => typeCommand(idleCommand));
+            }
+        })();
+
+        /* Stat counters: count up once, the first time they scroll into view. */
+        (() => {
+            const stats = document.querySelectorAll('.hero-stat-num');
+            if (!stats.length) return;
+
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                stats.forEach((el) => {
+                    const decimals = Number(el.dataset.decimals || 0);
+                    el.textContent = Number(el.dataset.count).toFixed(decimals);
+                });
+                return;
+            }
+
+            const runCount = (el) => {
+                const target = Number(el.dataset.count);
+                const decimals = Number(el.dataset.decimals || 0);
+                const duration = 900;
+                const start = performance.now();
+
+                const step = (now) => {
+                    const progress = Math.min(1, (now - start) / duration);
+                    // Ease out so the number settles rather than stopping dead.
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    el.textContent = (target * eased).toFixed(decimals);
+                    if (progress < 1) requestAnimationFrame(step);
+                    else el.textContent = target.toFixed(decimals);
+                };
+
+                requestAnimationFrame(step);
+            };
+
+            const statObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    runCount(entry.target);
+                    statObserver.unobserve(entry.target);
+                });
+            }, { threshold: 0.4 });
+
+            stats.forEach((el) => statObserver.observe(el));
+        })();
 
         const heroRoleText = document.getElementById('heroRoleText');
         if (heroRoleText) {
